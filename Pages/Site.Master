@@ -1,15 +1,20 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="CubeReportingModule.Pages.Site1" %>
-
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <link type="text/css" rel="stylesheet" href="../Resources/Style.css" />
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <div class="NavBar">
+        <form id="Nav">
+            <asp:Button runat="server" Text="Log Out" />
+        </form>
+    </div>
+    <form id="PageForm" runat="server">
     <div class="CenterBox">
         <asp:ContentPlaceHolder ID="MainPane" runat="server">
         </asp:ContentPlaceHolder>
