@@ -1,0 +1,5 @@
+c:\Users\Thomas\Documents\Visual Studio 2012\Projects\CubeReportingModule\CubeReportingModule\bin\CubeReportingModule.dll
+c:\Users\Thomas\Documents\Visual Studio 2012\Projects\CubeReportingModule\CubeReportingModule\bin\CubeReportingModule.pdb
+c:\Users\Thomas\Documents\Visual Studio 2012\Projects\CubeReportingModule\CubeReportingModule\obj\Debug\CubeReportingModule.csprojResolveAssemblyReference.cache
+c:\Users\Thomas\Documents\Visual Studio 2012\Projects\CubeReportingModule\CubeReportingModule\obj\Debug\CubeReportingModule.dll
+c:\Users\Thomas\Documents\Visual Studio 2012\Projects\CubeReportingModule\CubeReportingModule\obj\Debug\CubeReportingModule.pdb
