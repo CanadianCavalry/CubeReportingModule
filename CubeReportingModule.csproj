@@ -60,6 +60,7 @@
     <Content Include="Global.asax" />
     <Content Include="Pages\Default.aspx" />
     <Content Include="Pages\Menu.aspx" />
+    <Content Include="Resources\Style.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

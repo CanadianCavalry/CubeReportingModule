@@ -1,16 +1,65 @@
 ﻿/*Master Page*/
-.NavBar {
-
+body {
+    background-color: lightblue;
 }
-.CenterBox {
 
+.HeadBanner {
+    width: auto;
+    height: 100px;
+    margin: 0px;
+    background-color: grey;
+    font-size:32px;
+}
+
+.NavBar {
+    width: auto;
+    height: 30px;
+    border: 2px solid black;
+    border-radius:3px;
+    background-color: lightgray;
+}
+.NavBar .NavButton {
+    float: right;
+    width: auto;
+    height:inherit;
+    margin-right: 10px;
+    }
+.CenterBox {
+    border:3px solid black;
+    border-radius: 2px;
+    min-height: 400px;
+    height: auto;
+    width: inherit;
+    margin-top: 5px;
 }
 .BottomBox {
-
+    border:3px solid black;
+    border-radius: 2px;
+    min-height: 200px;
+    height: auto;
+    width: inherit;
+    margin-top: 5px;
 }
 
 /*Log-In Page*/
 
 /*Main Menu*/
 
+#LeftPane {
+    width:50%;
+    float: left;
+    text-align:center;
+}
+
+#RightPane {
+    width:50%;
+    float: right;
+    text-align: center;
+}
+
+.MenuButton {
+    height: 3.5em;
+    width: 30em;
+    font-size:18px;
+}
 /*Report Option Page*/

@@ -8,3 +8,8 @@ I:\Users\Darkreaper\git\CubeReportingModule\bin\CubeReportingModule.pdb
 I:\Users\Darkreaper\git\CubeReportingModule\obj\Debug\CubeReportingModule.csprojResolveAssemblyReference.cache
 I:\Users\Darkreaper\git\CubeReportingModule\obj\Debug\CubeReportingModule.dll
 I:\Users\Darkreaper\git\CubeReportingModule\obj\Debug\CubeReportingModule.pdb
+C:\Users\CanadianCavalry\Documents\GitHub\CubeReportingModule\bin\CubeReportingModule.dll
+C:\Users\CanadianCavalry\Documents\GitHub\CubeReportingModule\bin\CubeReportingModule.pdb
+C:\Users\CanadianCavalry\Documents\GitHub\CubeReportingModule\obj\Debug\CubeReportingModule.csprojResolveAssemblyReference.cache
+C:\Users\CanadianCavalry\Documents\GitHub\CubeReportingModule\obj\Debug\CubeReportingModule.dll
+C:\Users\CanadianCavalry\Documents\GitHub\CubeReportingModule\obj\Debug\CubeReportingModule.pdb
