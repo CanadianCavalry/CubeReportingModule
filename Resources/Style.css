@@ -43,6 +43,32 @@ body {
 
 /*Log-In Page*/
 
+.loginContainer {
+    padding: 10px;
+    text-align: center;
+} 
+
+.loginContainer label { 
+    display: inline-block;
+    width: 120px;
+    margin: 5px;
+}
+ 
+.loginContainer input { 
+    width: 150px;
+    margin: 5px;
+}
+
+.loginContainer button {
+    margin-top: 10px;
+} 
+
+.error {
+    color: red;
+    text-align: center;
+    margin: 10px;
+}
+
 /*Main Menu*/
 
 .LeftPane {
@@ -73,3 +99,28 @@ body {
 }
 
 /*Report Option Page*/
+
+
+.selectOptions {
+    padding: 10px;
+    text-align: center;
+} 
+
+.selectOptions label {
+    display: inline-block;
+    width: 120px;
+    margin: 5px;
+} 
+
+.selectOptions input {
+    width: 150px;
+    margin: 5px;
+}
+
+.selectOptions button {
+    margin-top: 10px;
+}
+
+.selectionOptions Calendar {
+    text-align:center;
+}
