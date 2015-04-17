@@ -13,8 +13,18 @@
     <div id="RightPane">
         <asp:Button runat="server" ID="report1" class="MenuButton" Text="Get All Customer Transactions" onclick="report1_Click" />
         <br />
+        <asp:Button runat="server" ID="report2" class="MenuButton" Text="Get All Empty Spaces" onclick="report1_Click" />
+        <br />
+        <asp:Button runat="server" ID="report3" class="MenuButton" Text="Get All Irregularities" onclick="report1_Click" />
+        <br />
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="BottomPane" runat="server">
     <p style="text-align:center; font-size: 24px;">Admin Control Panel</p>
+    <div id="LeftPane">
+        <asp:Button runat="server" id="Accounts" class="AdminButton" Text="Manage Accounts"/>
+    </div>
+    <div id="RightPane">
+         <asp:Button runat="server" id="Templates" class="AdminButton" Text="Manage Report Templates"/>
+    </div>
 </asp:Content>

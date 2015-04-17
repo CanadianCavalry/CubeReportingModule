@@ -60,6 +60,16 @@ body {
 .MenuButton {
     height: 3.5em;
     width: 30em;
+    min-width: 15em;
     font-size:18px;
+    margin-top: 5px;
 }
+
+.AdminButton {
+    height: 3.5em;
+    width: 30em;
+    min-width: 15em;
+    font-size: 18px;
+}
+
 /*Report Option Page*/
