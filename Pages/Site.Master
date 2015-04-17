@@ -15,14 +15,14 @@
         </form>
     </div>
     <form id="PageForm" runat="server">
-    <div class="CenterBox">
-        <asp:ContentPlaceHolder ID="MainPane" runat="server">
-        </asp:ContentPlaceHolder>
-    </div>
-    <div class="BottomBox">
-        <asp:ContentPlaceHolder ID="BottomPane" runat="server">
-        </asp:ContentPlaceHolder>
-    </div>
+        <div class="CenterBox">
+            <asp:ContentPlaceHolder ID="MainPane" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div class="BottomBox">
+            <asp:ContentPlaceHolder ID="BottomPane" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
     </form>
 </body>
 </html>
