@@ -45,13 +45,13 @@ body {
 
 /*Main Menu*/
 
-#LeftPane {
+.LeftPane {
     width:50%;
     float: left;
     text-align:center;
 }
 
-#RightPane {
+.RightPane {
     width:50%;
     float: right;
     text-align: center;
