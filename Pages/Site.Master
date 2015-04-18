@@ -13,8 +13,8 @@
     <form id="PageForm" runat="server">
         <div class="NavBar">
             Currently logged in as USER
-            <asp:Button runat="server" class="NavButton" Text="Log Out" ID="LogOut" />
             <asp:Button runat="server" class="NavButton" Text="Back" ID="Back" />
+            <asp:Button runat="server" class="NavButton" Text="Log Out" ID="LogOut" />
         </div>
         <div class="CenterBox">
             <asp:ContentPlaceHolder ID="MainPane" runat="server">

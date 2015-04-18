@@ -24,6 +24,9 @@
     <div class="LeftPane">
         <asp:Button runat="server" id="Accounts" class="AdminButton" Text="Manage Accounts"/>
     </div>
+    <div class="CenterPane">
+        <asp:Button runat="server" ID="Logs" class="AdminButton" Text="View Access Logs" />
+    </div>
     <div class="RightPane">
          <asp:Button runat="server" id="Templates" class="AdminButton" Text="Manage Report Templates"/>
     </div>

@@ -11,6 +11,6 @@
         <br />
         <asp:Button runat="server" id="Login" text="Login" OnClick="Login_Click"/>
         <br />
-        <asp:HyperLink runat="server" Text="Forget your password?" />
+        <asp:HyperLink runat="server" Text="Forgot your password?" />
     </div>
 </asp:Content>

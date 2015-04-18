@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Pages\Admin.aspx" />
     <Content Include="Pages\Default.aspx" />
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\Menu.aspx" />
@@ -68,6 +69,13 @@
   <ItemGroup>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin.aspx.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin.aspx.designer.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -102,6 +110,17 @@
       <DependentUpon>Menu.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\AccessLog.cs" />
+    <Compile Include="Resources\AdminUser.cs" />
+    <Compile Include="Resources\BasicUser.cs" />
+    <Compile Include="Resources\Box.cs" />
+    <Compile Include="Resources\Client.cs" />
+    <Compile Include="Resources\File.cs" />
+    <Compile Include="Resources\FileItem.cs" />
+    <Compile Include="Resources\Report.cs" />
+    <Compile Include="Resources\ScheduledEvent.cs" />
+    <Compile Include="Resources\SecurityQuestion.cs" />
+    <Compile Include="Resources\Warehouse.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\Site.Master" />
