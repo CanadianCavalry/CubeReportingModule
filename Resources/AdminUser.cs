@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace CubeReportingModule.Resources
+{
+    public class AdminUser : BasicUser
+    {
+        public void resetUserPassword(BasicUser user)
+        {
+            user.resetPassword();
+        }
+
+        public void addNewUser(string username, string email, uint userType)
+        {
+        }
+
+        public List<AccessLog> getAccessLogs()
+        {
+            List<AccessLog> allAccessLogs = new List<AccessLog>;
+
+            return allAccessLogs;
+        }
+    }
+}
