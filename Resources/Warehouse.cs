@@ -37,5 +37,11 @@ namespace CubeReportingModule.Resources
             Box toFind = allBoxes.Find(toCheck => toCheck.boxId == boxId);
             return toFind;
         }
+
+        public void removeBox(uint boxId)
+        {
+            Box toRemove = allBoxes.Find(toCheck => toCheck.boxId == boxId);
+            allBoxes.Remove(toRemove);
+        }
     }
 }
