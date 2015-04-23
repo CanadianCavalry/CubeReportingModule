@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CubeReportingModule.Cache;
+using CubeReportingModule.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,7 +14,7 @@ namespace CubeReportingModule
 
         protected void Application_Start(object sender, EventArgs e)
         {
-
+            WarehouseCache.createWarehouseCache();
         }
 
         protected void Session_Start(object sender, EventArgs e)
