@@ -7,12 +7,14 @@ namespace CubeReportingModule.Resources
 {
     public class ScheduledEvent
     {
+        public readonly uint eventId { get; set; }
         public Report attachedReport { get; set; }
         public DateTime timeInterval { get; set; }
         public List<string> allRecipients { get; set; }
 
-        public ScheduledEvent(Report inReport, DateTime inInterval, List<string> inRecipients)
+        public ScheduledEvent(uint inId, Report inReport, DateTime inInterval, List<string> inRecipients)
         {
+            eventId = inId;
             attachedReport = inReport;
             timeInterval = inInterval;
             allRecipients = inRecipients;

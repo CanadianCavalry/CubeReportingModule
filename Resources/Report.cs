@@ -7,14 +7,16 @@ namespace CubeReportingModule.Resources
 {
     public class Report
     {
+        public readonly uint reportId { get; set; }
         public string name { get; set; }
         public BasicUser creator { get; set; }
         public List<string> allColumns { get; set; }
         public List<string> sortingCriteria { get; set; }
         public string eliminationCriterium { get; set; }
 
-        public Report(string inName, BasicUser inCreator, List<string> inColumns, List<string> inSortCriteria, string inElimCriterium)
+        public Report(uint inID, string inName, BasicUser inCreator, List<string> inColumns, List<string> inSortCriteria, string inElimCriterium)
         {
+            reportId = inID;
             name = inName;
             creator = inCreator;
             allColumns = inColumns;
