@@ -1,0 +1,39 @@
+﻿body, #content, #container {
+    width: 100%;
+    margin: 0;
+    float: none;
+    background: #fff url(none);
+}
+
+/*Hide navigation, ads, and anything else you don't want printed*/
+#topnav, #navbar, #nav, #sidebar, .ad, .noprint {
+    display: none; 
+}
+
+/*Set a new default font*/
+body {
+    font: 1em Georgia, "Times New Roman", Times, serif;
+    color: #000; 
+}
+
+/*Style your headings*/
+h1,h2,h3,h4,h5,h6 {
+    font-family: Helvetica, Arial, sans-serif;
+    color: #000;
+}
+h1 { font-size: 250%; }
+h2 { font-size: 175%; }
+h3 { font-size: 135%; }
+h4 { font-size: 100%; font-variant: small-caps; }
+h5 { font-size: 100%; }
+h6 { font-size: 90%; font-style: italic; }
+
+/*Display the links associated with hyperlinks*/
+a:link, a:visited {
+    color: #00c;
+    font-weight: bold;
+    text-decoration: underline; }
+
+#content a:link:after, #content a:visited:after {
+    content: " (" attr(href) ") ";
+}
