@@ -3,31 +3,31 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
     <div class="LeftPane">
-        <asp:Button runat="server" id="Adhoc" class="MenuButton" Text="Create Report"/>
+        <asp:Button runat="server" id="Adhoc" CssClass="MenuButton" Text="Create Report"/>
         <br />
-        <asp:Button runat="server" id="Events" class="MenuButton" Text="Modify Scheduled Reports"/>
+        <asp:Button runat="server" id="Events" CssClass="MenuButton" Text="Modify Scheduled Reports"/>
         <br />
-        <asp:Button runat="server" id="Help" class="MenuButton" Text="Help"/>
+        <asp:Button runat="server" id="Help" CssClass="MenuButton" Text="Help"/>
         <br />
     </div>
     <div class="RightPane">
-        <asp:Button runat="server" ID="report1" class="MenuButton" name="report" value="1" Text="Get All Customer Transactions" onclick="report1_Click" />
+        <asp:Button runat="server" ID="report1" CssClass="MenuButton" CommandName="report" CommandArgument="1" Text="Get All Customer Transactions" onclick="reportButton_Click" />
         <br />
-        <asp:Button runat="server" ID="report2" class="MenuButton" name="report" value="2" Text="Get All Empty Spaces" onclick="report1_Click" />
+        <asp:Button runat="server" ID="report2" CssClass="MenuButton" CommandName="report" CommandArgument="2" Text="Get All Empty Spaces" onclick="reportButton_Click" />
         <br />
-        <asp:Button runat="server" ID="report3" class="MenuButton" name="report" value="3" Text="Get All Irregularities" onclick="report1_Click" />
+        <asp:Button runat="server" ID="report3" CssClass="MenuButton" CommandName="report" CommandArgument="3" Text="Get All Irregularities" onclick="reportButton_Click" />
         <br />
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="BottomPane" runat="server">
     <p style="text-align:center; font-size: 24px;">Admin Control Panel</p>
     <div class="LeftPane">
-        <asp:Button runat="server" id="Accounts" class="AdminButton" Text="Manage Accounts"/>
+        <asp:Button runat="server" id="Accounts" CssClass="AdminButton" Text="Manage Accounts"/>
     </div>
     <div class="CenterPane">
-        <asp:Button runat="server" ID="Logs" class="AdminButton" Text="View Access Logs" />
+        <asp:Button runat="server" ID="Logs" CssClass="AdminButton" Text="View Access Logs" />
     </div>
     <div class="RightPane">
-         <asp:Button runat="server" id="Templates" class="AdminButton" Text="Manage Report Templates"/>
+         <asp:Button runat="server" id="Templates" CssClass="AdminButton" Text="Manage Report Templates"/>
     </div>
 </asp:Content>

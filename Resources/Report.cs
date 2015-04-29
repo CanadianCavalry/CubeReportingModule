@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.IO;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Drawing.Printing;
 
 namespace CubeReportingModule.Resources
 {
     public class Report
     {
-        public readonly uint reportId { get; set; }
+        private readonly uint reportId;
         public string name { get; set; }
-        public BasicUser creator { get; set; }
+        private readonly BasicUser creator;
         public List<string> allColumns { get; set; }
         public List<string> sortingCriteria { get; set; }
         public string eliminationCriterium { get; set; }
@@ -24,6 +28,16 @@ namespace CubeReportingModule.Resources
             eliminationCriterium = inElimCriterium;
         }
 
+        public uint ReportId
+        {
+            get { return reportId; }
+        }
+
+        public BasicUser Creator
+        {
+            get { return creator; }
+        }
+
         public void refreshData()
         {
         }
@@ -34,6 +48,8 @@ namespace CubeReportingModule.Resources
 
         public void printReport()
         {
+            PrintDocument report = new PrintDocument();
+            report.Print();
         }
     }
 }

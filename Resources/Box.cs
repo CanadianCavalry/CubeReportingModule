@@ -7,9 +7,9 @@ namespace CubeReportingModule.Resources
 {
     public class Box
     {
-        public readonly uint boxId { get; set; }
+        private readonly uint boxId;
         public string location { get; set; }
-        public readonly Client owner { get; set; }
+        private readonly Client owner;
         public List<File> allFiles { get; set; }
 
         public Box(uint inBoxId, string inLocation, Client inOwner)
@@ -19,6 +19,16 @@ namespace CubeReportingModule.Resources
             owner = inOwner;
         }
 
+        public uint BoxId
+        {
+            get { return boxId; }
+        }
+
+        public Client Ownder
+        {
+            get { return owner; }
+        }
+
         public void addFile(File toAdd)
         {
             allFiles.Add(toAdd);
@@ -26,7 +36,7 @@ namespace CubeReportingModule.Resources
 
         public File getFile(uint fileId)
         {
-            File toFind = allFiles.Find(toCheck => toCheck.fileId == fileId);
+            File toFind = allFiles.Find(toCheck => toCheck.FileId == fileId);
             return toFind;
         }
     }

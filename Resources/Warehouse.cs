@@ -7,7 +7,7 @@ namespace CubeReportingModule.Resources
 {
     public class Warehouse
     {
-        public readonly uint warehouseId { get; set; }
+        private readonly uint warehouseId;
         public string name { get; set; }
         public string location { get; set; }
         public List<Box> allBoxes { get; set; }
@@ -17,6 +17,11 @@ namespace CubeReportingModule.Resources
             warehouseId = inId;
             name = inName;
             location = inLocation;
+        }
+
+        public uint WarehouseId
+        {
+            get { return warehouseId; }
         }
 
         public void refreshAllBoxes()
@@ -34,13 +39,13 @@ namespace CubeReportingModule.Resources
 
         public Box getBox(uint boxId)
         {
-            Box toFind = allBoxes.Find(toCheck => toCheck.boxId == boxId);
+            Box toFind = allBoxes.Find(toCheck => toCheck.BoxId == boxId);
             return toFind;
         }
 
         public void removeBox(uint boxId)
         {
-            Box toRemove = allBoxes.Find(toCheck => toCheck.boxId == boxId);
+            Box toRemove = allBoxes.Find(toCheck => toCheck.BoxId == boxId);
             allBoxes.Remove(toRemove);
         }
     }

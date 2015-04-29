@@ -7,13 +7,18 @@ namespace CubeReportingModule.Resources
 {
     public class FileItem
     {
-        public readonly string name { get; set; }
+        private readonly string name;
         public string description { get; set; }
 
         public FileItem(string inName, string inDescription)
         {
             name = inName;
             description = inDescription;
+        }
+
+        public string Name
+        {
+            get { return name; }
         }
     }
 }

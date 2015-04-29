@@ -7,6 +7,11 @@ namespace CubeReportingModule.Resources
 {
     public class Client : BasicUser
     {
+        public Client(string inUsername, string inEmail)
+            : base(inUsername, inEmail)
+        {
+            isClient = true;
+        }
         public void generateClientReport()
         {
         }

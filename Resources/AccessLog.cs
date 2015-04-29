@@ -7,15 +7,30 @@ namespace CubeReportingModule.Resources
 {
     public class AccessLog
     {
-        public readonly string description { get; set; }
-        public readonly DateTime date { get; set; }
-        public readonly BasicUser user { get; set; }
+        private readonly string description;
+        private readonly DateTime date;
+        private readonly BasicUser user;
 
         public AccessLog(string inDescription, DateTime inDate, BasicUser inUser)
         {
             description = inDescription;
             date = inDate;
             user = inUser;
+        }
+
+        public string Description 
+        {
+            get { return description; }
+        }
+
+        public DateTime Date
+        {
+            get { return date; }
+        }
+
+        public BasicUser User
+        {
+            get { return user; }
         }
     }
 }

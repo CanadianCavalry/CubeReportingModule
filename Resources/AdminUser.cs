@@ -7,6 +7,11 @@ namespace CubeReportingModule.Resources
 {
     public class AdminUser : BasicUser
     {
+        public AdminUser(string inUsername, string inEmail)
+            : base(inUsername, inEmail)
+        {
+            isAdmin = true;
+        }
         public void resetUserPassword(BasicUser user)
         {
             user.resetPassword();
@@ -18,7 +23,7 @@ namespace CubeReportingModule.Resources
 
         public List<AccessLog> getAccessLogs()
         {
-            List<AccessLog> allAccessLogs = new List<AccessLog>;
+            List<AccessLog> allAccessLogs = new List<AccessLog>();
 
             return allAccessLogs;
         }

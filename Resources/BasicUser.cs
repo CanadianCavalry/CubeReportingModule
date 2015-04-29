@@ -7,24 +7,39 @@ namespace CubeReportingModule.Resources
 {
     public class BasicUser
     {
-        public readonly string username { get; set; }
+        protected readonly string username;
         public string password { get; set; }
         public List<SecurityQuestion> allSecurityQuestions { get; set; }
         public string email { get; set; }
-        public readonly bool isAdmin { get; set; }
-        public readonly bool isClient { get; set; }
+        protected bool isAdmin;
+        protected bool isClient;
         public bool firstLogin { get; set; }
         public bool isSuspended { get; set; }
         public DateTime suspendedUntil { get; set; }
 
-        public BasicUser(string inUsername, string inEmail, bool setAdmin, bool setClient)
+        public BasicUser(string inUsername, string inEmail)
         {
             username = inUsername;
             email = inEmail;
-            isAdmin = setAdmin;
-            isClient = setClient;
+            isAdmin = false;
+            isClient = false;
             firstLogin = true;
             isSuspended = false;
+        }
+
+        public string Username
+        {
+            get { return username; }
+        }
+
+        public bool IsAdmin
+        {
+            get { return isAdmin; }
+        }
+
+        public bool IsClient
+        {
+            get { return isClient; }
         }
 
         public void login(string providedUsername, string providedPassword)

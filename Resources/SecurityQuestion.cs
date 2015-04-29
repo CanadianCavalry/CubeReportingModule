@@ -7,13 +7,18 @@ namespace CubeReportingModule.Resources
 {
     public class SecurityQuestion
     {
-        public readonly string question { get; set; }
-        public readonly string answer { get; set; }
+        private readonly string question;
+        private readonly string answer;
 
         public SecurityQuestion(string inQuestion, string inAnswer)
         {
             question = inQuestion;
             answer = inAnswer;
+        }
+
+        public string Question
+        {
+            get { return question; }
         }
 
         public bool verifyAnswer(string providedAnswer)
