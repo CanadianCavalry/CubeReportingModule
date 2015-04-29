@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace CubeReportingModule.Resources
+namespace CubeReportingModule.Models
 {
     public class Client : BasicUser
     {

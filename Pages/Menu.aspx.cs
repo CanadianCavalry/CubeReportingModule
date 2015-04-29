@@ -5,27 +5,39 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Linq;
-using CubeReportingModule.Resources;
+using CubeReportingModule.Models;
 
 namespace CubeReportingModule.Pages
 {
     public partial class Menu : System.Web.UI.Page
     {
+        private AppContext db = new AppContext();
+
         protected void Application_Start(object sender, EventArgs e)
         {
-            AppContext db = new AppContext();
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
         }
 
-        protected void reportButton_Click(object sender, CommandEventArgs e)
+        public void reportButton_Click()
         {
-            var pageName = e.CommandName;
-            var pageNumber = e.CommandArgument;
-            Server.Transfer("ReportOptions.aspx", false);
+            HttpContext.Current.RewritePath("ReportOptions.aspx");
+            //Server.Transfer("ReportOptions.aspx", false);
+        }
+
+        //public void reportButton_Click(object sender, CommandEventArgs e)
+        //{
+        //    var pageName = e.CommandName;
+        //    var pageNumber = e.CommandArgument;
+        //    Server.Transfer("ReportOptions.aspx", false);
+        //}
+
+        public IEnumerable<Report> GetReports()
+        {
+            IEnumerable<Report> reports = db.Reports;
+            return reports;
         }
     }
 }

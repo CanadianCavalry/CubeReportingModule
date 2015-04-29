@@ -12,7 +12,7 @@
             <label for="password">Password:</label>
              <input type="password" name="password" />
         </div>
-        <asp:Button runat="server" type="submit" Text="Login" OnClick="Login_Click" />
+        <asp:Button runat="server" Text="Login" OnClick="Login_Click" />
         <br />
         <asp:HyperLink ID="HyperLink1" runat="server" Text="Forgot your password?" />
         <button type="submit">Log In</button>

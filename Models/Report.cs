@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Printing;
 
-namespace CubeReportingModule.Resources
+namespace CubeReportingModule.Models
 {
     public class Report
     {

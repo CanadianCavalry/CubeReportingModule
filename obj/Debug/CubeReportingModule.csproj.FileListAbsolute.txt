@@ -8,3 +8,11 @@ C:\Users\CanadianCavalry\Documents\GitHub\CubeReportingModule\bin\CubeReportingM
 C:\Users\CanadianCavalry\Documents\GitHub\CubeReportingModule\obj\Debug\CubeReportingModule.csprojResolveAssemblyReference.cache
 C:\Users\CanadianCavalry\Documents\GitHub\CubeReportingModule\obj\Debug\CubeReportingModule.dll
 C:\Users\CanadianCavalry\Documents\GitHub\CubeReportingModule\obj\Debug\CubeReportingModule.pdb
+I:\Users\Darkreaper\git\CubeReportingModule\bin\CubeReportingModule.dll
+I:\Users\Darkreaper\git\CubeReportingModule\bin\CubeReportingModule.pdb
+I:\Users\Darkreaper\git\CubeReportingModule\bin\EntityFramework.dll
+I:\Users\Darkreaper\git\CubeReportingModule\bin\EntityFramework.SqlServer.dll
+I:\Users\Darkreaper\git\CubeReportingModule\bin\EntityFramework.xml
+I:\Users\Darkreaper\git\CubeReportingModule\bin\EntityFramework.SqlServer.xml
+I:\Users\Darkreaper\git\CubeReportingModule\obj\Debug\CubeReportingModule.dll
+I:\Users\Darkreaper\git\CubeReportingModule\obj\Debug\CubeReportingModule.pdb

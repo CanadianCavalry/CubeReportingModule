@@ -1,5 +1,5 @@
 ﻿using CubeReportingModule.Cache;
-using CubeReportingModule.Resources;
+using CubeReportingModule.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

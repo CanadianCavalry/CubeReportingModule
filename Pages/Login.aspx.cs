@@ -30,7 +30,8 @@ namespace CubeReportingModule.Pages
 
         protected void Login_Click(object sender, EventArgs e)
         {
-            Server.Transfer("Menu.aspx", false);
+            HttpContext.Current.RewritePath("Menu.aspx");
+            //Server.Transfer("Menu.aspx", false);
         }
     }
 }

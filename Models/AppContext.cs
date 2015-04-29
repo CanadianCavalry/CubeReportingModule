@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 
-namespace CubeReportingModule.Resources
+namespace CubeReportingModule.Models
 {
     public class AppContext : DbContext
     {

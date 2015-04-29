@@ -123,18 +123,18 @@
       <DependentUpon>Menu.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\AccessLog.cs" />
-    <Compile Include="Resources\AdminUser.cs" />
-    <Compile Include="Resources\BasicUser.cs" />
-    <Compile Include="Resources\Box.cs" />
-    <Compile Include="Resources\Client.cs" />
-    <Compile Include="Resources\File.cs" />
-    <Compile Include="Resources\FileItem.cs" />
-    <Compile Include="Resources\AppContext.cs" />
-    <Compile Include="Resources\Report.cs" />
-    <Compile Include="Resources\ScheduledEvent.cs" />
-    <Compile Include="Resources\SecurityQuestion.cs" />
-    <Compile Include="Resources\Warehouse.cs" />
+    <Compile Include="Models\AccessLog.cs" />
+    <Compile Include="Models\AdminUser.cs" />
+    <Compile Include="Models\BasicUser.cs" />
+    <Compile Include="Models\Box.cs" />
+    <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\File.cs" />
+    <Compile Include="Models\FileItem.cs" />
+    <Compile Include="Models\AppContext.cs" />
+    <Compile Include="Models\Report.cs" />
+    <Compile Include="Models\ScheduledEvent.cs" />
+    <Compile Include="Models\SecurityQuestion.cs" />
+    <Compile Include="Models\Warehouse.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\Site.Master" />

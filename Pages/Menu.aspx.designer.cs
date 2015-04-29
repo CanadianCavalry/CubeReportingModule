@@ -40,31 +40,13 @@ namespace CubeReportingModule.Pages {
         protected global::System.Web.UI.WebControls.Button Help;
         
         /// <summary>
-        /// report1 control.
+        /// ReportButtonsRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button report1;
-        
-        /// <summary>
-        /// report2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button report2;
-        
-        /// <summary>
-        /// report3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button report3;
+        protected global::System.Web.UI.WebControls.Repeater ReportButtonsRepeater;
         
         /// <summary>
         /// Accounts control.
