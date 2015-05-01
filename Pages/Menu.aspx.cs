@@ -6,13 +6,12 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Linq;
 using CubeReportingModule.Models;
+using CubeReportingModule.Cache;
 
 namespace CubeReportingModule.Pages
 {
     public partial class Menu : System.Web.UI.Page
     {
-        private AppContext db = new AppContext();
-
         protected void Application_Start(object sender, EventArgs e)
         {
         }
@@ -36,6 +35,7 @@ namespace CubeReportingModule.Pages
 
         public IEnumerable<Report> GetReports()
         {
+            AppContext db = (AppContext) HttpContext.Current.Application["appContext"];
             IEnumerable<Report> reports = db.Reports;
             return reports;
         }

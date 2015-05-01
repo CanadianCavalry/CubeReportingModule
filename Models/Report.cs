@@ -15,10 +15,10 @@ namespace CubeReportingModule.Models
         public string name { get; set; }
         private readonly BasicUser creator;
         public List<string> allColumns { get; set; }
-        public List<string> sortingCriteria { get; set; }
+        public List<ReportOption> sortingCriteria { get; set; }
         public string eliminationCriterium { get; set; }
 
-        public Report(uint inID, string inName, BasicUser inCreator, List<string> inColumns, List<string> inSortCriteria, string inElimCriterium)
+        public Report(uint inID, string inName, BasicUser inCreator, List<string> inColumns, List<ReportOption> inSortCriteria, string inElimCriterium)
         {
             reportId = inID;
             name = inName;

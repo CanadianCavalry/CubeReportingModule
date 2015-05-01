@@ -16,3 +16,4 @@ I:\Users\Darkreaper\git\CubeReportingModule\bin\EntityFramework.xml
 I:\Users\Darkreaper\git\CubeReportingModule\bin\EntityFramework.SqlServer.xml
 I:\Users\Darkreaper\git\CubeReportingModule\obj\Debug\CubeReportingModule.dll
 I:\Users\Darkreaper\git\CubeReportingModule\obj\Debug\CubeReportingModule.pdb
+I:\Users\Darkreaper\git\CubeReportingModule\obj\Debug\CubeReportingModule.csprojResolveAssemblyReference.cache
