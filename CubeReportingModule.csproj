@@ -74,6 +74,7 @@
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\Menu.aspx" />
     <Content Include="Pages\ReportOptions.aspx" />
+    <Content Include="Resources\CubeBanner.png" />
     <Content Include="Resources\Print.css" />
     <Content Include="Resources\Style.css" />
     <Content Include="Web.config" />

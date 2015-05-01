@@ -9,12 +9,14 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <div class="HeadBanner">CUBE Reporting Server</div>
+    <div class="HeadBanner">
+        <asp:Image runat="server" ImageUrl="~/Resources/CubeBanner.png" AlternateText="CUBE Reporting Server" Height="100px" />
+    </div>
     <form id="PageForm" runat="server">
         <div class="NavBar">
             Currently logged in as USER
-            <asp:Button runat="server" class="NavButton" Text="Back" ID="Back" />
-            <asp:Button runat="server" class="NavButton" Text="Log Out" ID="LogOut" />
+            <asp:Button runat="server" ID="Back" cssclass="NavButton" Text="Back" />
+            <asp:Button runat="server" ID="LogOut" cssclass="NavButton" Text="Log Out" />
         </div>
         <div class="CenterBox">
             <asp:ContentPlaceHolder ID="MainPane" runat="server">
