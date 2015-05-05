@@ -12,7 +12,7 @@
         <br />
     </div>
     <div class="RightPane">
-        <asp:Repeater ID="ReportButtonsRepeater" ItemType="CubeReportingModule.Resources.Report"
+        <asp:Repeater ID="ReportButtonsRepeater" ItemType="CubeReportingModule.Models.Report"
             SelectMethod="GetReports" runat="server">
             <ItemTemplate>
                 <button name="report" class="MenuButton" type="submit" value="<%# Item.ReportId %>" onclick="reportButton_Click"><%# Item.name %></button>
