@@ -12,6 +12,7 @@ namespace CubeReportingModule.Models
         public DbSet<SecurityQuestion> SecurityQuestions { get; set; }
         public DbSet<AccessLog> AccessLogs { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<ReportOption> ReportOptions { get; set; }
         public DbSet<ScheduledEvent> ScheduledEvents { get; set; }
     }
 }

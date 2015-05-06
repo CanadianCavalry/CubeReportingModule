@@ -25,7 +25,7 @@ namespace CubeReportingModule.Pages
 
         public IEnumerable<ReportOption> allOptions()
         {
-            return reportPage.sortingCriteria;
+            return reportPage.allOptions;
         }
     }
 }

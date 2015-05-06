@@ -7,9 +7,13 @@ namespace CubeReportingModule.Models
 {
     public class ReportOption
     {
+        public uint ReportId { get; set; }
+        public uint ReportOptionId { get; set; }
         public string type { get; set; }
+        public string alias { get; set; }
         public string label { get; set; }
-        public string description { get; set; }
+        public string name { get; set; }
+        public List<string> listOptions { get; set; }
         public string minValue { get; set; }
         public string maxValue { get; set; }
 
@@ -23,20 +27,26 @@ namespace CubeReportingModule.Models
                     markup += @"DropDownList runat=""server"">";
                     markup += "/n";
 
-                    int min = Convert.ToInt32(minValue);
-                    int max = Convert.ToInt32(maxValue);
-                    for (int i = min; i <= max; i++)
+                    foreach(string listOption in listOptions)
                     {
-                        markup += @"<asp:ListItem Enabled=""true"" Selected=""True"" Text=" + "\"" + description + i + "\"" + @" Value=" + "\"" + description + i + "\"" + @" />";
+                        markup += @"<asp:ListItem Enabled=""true"" Selected=""True"" Text=" + "\"" + listOption + "\"" + @" Value=" + "\"" + listOption + "\"" + @" />";
                         markup += "/n";
                     }
                     markup += @"</asp:DropDownList>";
                     break;
 
                 case "date":
-                    markup += @"Calendar ID=" + "\"" + description + "\"" + @" runat=""server"">" + "\n" + @"<TodayDayStyle />";
+                    markup += @"Calendar ID=" + "\"" + name + "\"" + @" runat=""server"">" + "\n" + @"<TodayDayStyle />";
                     markup += "/n";
-                    markup += "</asp:Calendar>";
+                    markup += @"</asp:Calendar>";
+                    break;
+
+                case "range":
+                    break;
+
+                case "checkbox":
+                    markup += @"CheckBox";
+                    markup += @"</asp:CheckBox>";
                     break;
             }
 
