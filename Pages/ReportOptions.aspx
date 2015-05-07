@@ -4,7 +4,6 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
     <div class="selectOptions">
-        <h1>Get All Customer Transactions</h1>
         <h1><% ReportName(); %></h1>
         <asp:Repeater ID="ReportOptionsRepeater" ItemType="CubeReportingModule.Resources.ReportOption"
             SelectMethod="allOptions" runat="server">
