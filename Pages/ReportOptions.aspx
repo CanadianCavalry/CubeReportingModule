@@ -25,13 +25,13 @@
             <asp:ListItem Enabled="true" Selected="false" Text="Customer5" Value="customer5" />
         </asp:DropDownList>
     </div>
-    <div>
+    <div align="center">
         <label for="dates">From Date:</label>
         <asp:Calendar ID="Calendar" runat="server">
             <TodayDayStyle />
         </asp:Calendar>
     </div>
-    <div>
+    <div align="center">
         <label for="dates">To Date:</label>
         <asp:Calendar ID="Calendar1" runat="server">
             <TodayDayStyle />
