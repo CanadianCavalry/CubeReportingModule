@@ -16,6 +16,12 @@ namespace CubeReportingModule.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (IsPostBack)
+            {
+                string reportId = Request.Form["report"];
+                Session["ReportId"] = reportId;
+                Response.Redirect("ReportOptions.aspx");
+            }
         }
 
         public IEnumerable<Report> GetReports()

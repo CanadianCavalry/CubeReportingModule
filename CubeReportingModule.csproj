@@ -71,6 +71,8 @@
     <Content Include="Pages\Default.aspx" />
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\Menu.aspx" />
+    <Content Include="Pages\ReportDisplayHTML.aspx" />
+    <Content Include="Pages\ReportDisplayPDF.aspx" />
     <Content Include="Pages\ReportOptions.aspx" />
     <Content Include="Resources\CubeBanner.png" />
     <Content Include="Resources\Print.css" />
@@ -94,6 +96,18 @@
     <Compile Include="Pages\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\ReportDisplayHTML.aspx.cs">
+      <DependentUpon>ReportDisplayHTML.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ReportDisplayHTML.aspx.designer.cs">
+      <DependentUpon>ReportDisplayHTML.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ReportDisplayPDF.aspx.cs">
+      <DependentUpon>ReportDisplayPDF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ReportDisplayPDF.aspx.designer.cs">
+      <DependentUpon>ReportDisplayPDF.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\ReportOptions.aspx.cs">
       <DependentUpon>ReportOptions.aspx</DependentUpon>
