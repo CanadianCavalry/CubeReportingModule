@@ -31,6 +31,7 @@ namespace CubeReportingModule.Models
                     markup += @"</asp:SqlDataSource>";
                     markup += @"<asp:ListBox id=""ClientListBox"" runat=""server"" DataTextField=""Company_Name"" DataSourceID=""CompanyNameSelect"" Height=""200"">";
                     markup += @"</asp:ListBox>";
+                    break;
                 case "list":
                     markup += @"DropDownList runat=""server"">";
                     markup += @"<br>";
