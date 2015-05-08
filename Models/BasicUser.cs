@@ -2,45 +2,49 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace CubeReportingModule.Models
 {
+    [Table("GRMUsers")]
     public class BasicUser
     {
-        protected readonly string username;
-        public string password { get; set; }
+        [Key]
+        public string Username { get; set; }
+        public string Password { get; set; }
         public List<SecurityQuestion> allSecurityQuestions { get; set; }
-        public string email { get; set; }
-        protected bool isAdmin;
-        protected bool isClient;
-        public bool firstLogin { get; set; }
-        public bool isSuspended { get; set; }
-        public DateTime suspendedUntil { get; set; }
+        public string Email { get; set; }
+        protected bool AdminFlag { get; set; }
+        protected bool ClientFlag { get; set; }
+        public bool FirstLoginFlag { get; set; }
+        public bool SuspendedFlag { get; set; }
+        public DateTime SuspendedUntil { get; set; }
 
-        public BasicUser(string inUsername, string inEmail)
-        {
-            username = inUsername;
-            email = inEmail;
-            isAdmin = false;
-            isClient = false;
-            firstLogin = true;
-            isSuspended = false;
-        }
+        //public BasicUser(string inUsername, string inEmail)
+        //{
+        //    username = inUsername;
+        //    email = inEmail;
+        //    isAdmin = false;
+        //    isClient = false;
+        //    firstLogin = true;
+        //    isSuspended = false;
+        //}
 
-        public string Username
-        {
-            get { return username; }
-        }
+        //public string Username
+        //{
+        //    get { return username; }
+        //}
 
-        public bool IsAdmin
-        {
-            get { return isAdmin; }
-        }
+        //public bool IsAdmin
+        //{
+        //    get { return isAdmin; }
+        //}
 
-        public bool IsClient
-        {
-            get { return isClient; }
-        }
+        //public bool IsClient
+        //{
+        //    get { return isClient; }
+        //}
 
         public void login(string providedUsername, string providedPassword)
         {
@@ -80,13 +84,13 @@ namespace CubeReportingModule.Models
 
         public void suspendAccount(DateTime suspendUntil)
         {
-            isSuspended = true;
-            suspendedUntil = suspendUntil;
+            SuspendedFlag = true;
+            SuspendedUntil = suspendUntil;
         }
 
         public void unsuspendAccount()
         {
-            isSuspended = false;
+            SuspendedFlag = false;
         }
     }
 }

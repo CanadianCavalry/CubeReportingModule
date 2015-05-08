@@ -2,28 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace CubeReportingModule.Models
 {
+    [Table("SecurityQuestions")]
     public class SecurityQuestion
     {
-        private readonly string question;
-        private readonly string answer;
+        [Key]
+        public string Question { get; set; }
+        public string Answer { get; set; }
 
-        public SecurityQuestion(string inQuestion, string inAnswer)
-        {
-            question = inQuestion;
-            answer = inAnswer;
-        }
+        //public SecurityQuestion(string inQuestion, string inAnswer)
+        //{
+        //    question = inQuestion;
+        //    answer = inAnswer;
+        //}
 
-        public string Question
-        {
-            get { return question; }
-        }
+        //public string Question
+        //{
+        //    get { return question; }
+        //}
 
         public bool verifyAnswer(string providedAnswer)
         {
-            bool verified = answer == providedAnswer;
+            bool verified = Answer == providedAnswer;
             return verified;
         }
     }

@@ -7,11 +7,12 @@ namespace CubeReportingModule.Models
 {
     public class AdminUser : BasicUser
     {
-        public AdminUser(string inUsername, string inEmail)
-            : base(inUsername, inEmail)
-        {
-            isAdmin = true;
-        }
+        //public AdminUser(string inUsername, string inEmail)
+        //    : base(inUsername, inEmail)
+        //{
+        //    isAdmin = true;
+        //}
+
         public void resetUserPassword(BasicUser user)
         {
             user.resetPassword();

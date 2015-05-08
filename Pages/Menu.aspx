@@ -15,7 +15,7 @@
         <asp:Repeater ID="ReportButtonsRepeater" ItemType="CubeReportingModule.Models.Report"
             SelectMethod="GetReports" runat="server">
             <ItemTemplate>
-                <button name="report" class="MenuButton" type="submit" value="<%# Item.ReportId %>" onclick="reportButton_Click"><%# Item.name %></button>
+                <button name="report" class="MenuButton" type="submit" value="<%# Item.ReportId %>" onclick="reportButton_Click"><%# Item.Name %></button>
 <%--                <asp:Button runat="server" CssClass="MenuButton" CommandName="report" CommandArgument="<%# Item.ReportId %>" Text="<%# Item.name %>" OnClick="reportButton_Click" />--%>
                 <br />
             </ItemTemplate>

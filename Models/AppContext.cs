@@ -8,7 +8,7 @@ namespace CubeReportingModule.Models
 {
     public class AppContext : DbContext
     {
-        public DbSet<BasicUser> Users { get; set; }
+        public DbSet<BasicUser> GRMUsers { get; set; }
         public DbSet<SecurityQuestion> SecurityQuestions { get; set; }
         public DbSet<AccessLog> AccessLogs { get; set; }
         public DbSet<Report> Reports { get; set; }

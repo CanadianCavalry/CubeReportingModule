@@ -20,12 +20,12 @@ namespace CubeReportingModule.Pages
 
         public string ReportName()
         {
-            return reportPage.name;
+            return reportPage.Name;
         }
 
-        public IEnumerable<ReportOption> allOptions()
-        {
-            return reportPage.allOptions;
-        }
+        //public IEnumerable<ReportOption> allOptions()
+        //{
+        //    return reportPage.allOptions;
+        //}
     }
 }
