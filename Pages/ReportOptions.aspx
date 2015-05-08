@@ -14,19 +14,7 @@
                 </div>
             </ItemTemplate>
         </asp:Repeater>
-<<<<<<< HEAD
 
-=======
-        <asp:SqlDataSource 
-            ID="CompanyNameSelect" runat="server" 
-            DataSourceMode="DataReader" 
-            SelectCommand="SELECT Company_Name FROM Org_Company WHERE Company_Name IS NOT NULL AND Company_Name != '' ORDER BY Company_Name ASC" 
-            ConnectionString="Data Source=204.174.60.182;Initial Catalog=GainTest;Persist Security Info=True;User ID=Michelle;Password=SRGTChronos3">
-        </asp:SqlDataSource>
-        <asp:ListBox
-            id="ClientListBox" runat="server" DataTextField="Company_Name" DataSourceID="CompanyNameSelect" Height="200px">
-        </asp:ListBox>
->>>>>>> e56c79049961d237a2b7d1751df954c74ded70aa
 
         <button type="submit">Generate Report</button>
         <button type="reset">Reset</button>
