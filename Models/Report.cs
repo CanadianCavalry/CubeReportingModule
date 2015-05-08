@@ -6,7 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Printing;
-using CubeReportingModule.Cache.WarehouseCache;
+using CubeReportingModule.Cache;
 
 namespace CubeReportingModule.Models
 {
