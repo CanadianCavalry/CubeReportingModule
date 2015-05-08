@@ -14,7 +14,7 @@ namespace CubeReportingModule.Models
     {
         public int ReportId { get; set; }
         public string Name { get; set; }
-        public BasicUser Creator { get; set; }
+        //public BasicUser Creator { get; set; }
         public string Query { get; set; }
         public string Tables { get; set; }
         public string EliminationCriterium { get; set; }
