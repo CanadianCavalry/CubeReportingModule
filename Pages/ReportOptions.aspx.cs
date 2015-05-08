@@ -11,20 +11,21 @@ namespace CubeReportingModule.Pages
     public partial class ReportOptions : System.Web.UI.Page
     {
         private Repository repo = new Repository();
-        public string reportName;
-        private List<ReportOption> allReportOptions;
+        public int reportId { get; set; }
+        public string reportName { get; set; }
 
-        protected void Page_Load(object sender, CommandEventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            int reportId = (int) Session["ReportId"];
-            reportName = repo.Reports.Where(option => option.ReportId == reportId).FirstOrDefault().Name;
-            allReportOptions = new List<ReportOption>(repo.ReportOptions.Where(option => option.ReportId == reportId));
+            reportId = Convert.ToInt32((string) Session["ReportId"]);
+
+            IEnumerable<Report> allReports = repo.Reports;
+            Report pageReport = allReports.Where(option => option.ReportId == reportId).FirstOrDefault();
+            reportName = pageReport.Name;
         }
 
-        public IEnumerable<ReportOption> allOptions()
+        public IEnumerable<ReportOption> GetReportOptions()
         {
-            IEnumerable<ReportOption> allOptions = allReportOptions;
-            return allOptions;
+            return repo.ReportOptions.Where(option => option.ReportId == reportId);
         }
     }
 }
