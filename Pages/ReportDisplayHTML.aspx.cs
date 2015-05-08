@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace CubeReportingModule.Pages
 {
-    public partial class ReportHTMLDisplay : System.Web.UI.Page
+    public partial class ReportDisplayHTML : System.Web.UI.Page
     {
         public string queryString;
         public string connectionString;
@@ -15,7 +15,7 @@ namespace CubeReportingModule.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             connectionString = "Data Source=204.174.60.182;Initial Catalog=GainTest;Persist Security Info=True;User ID=Thomas;Password=Coral3dAir";
-            queryString = (string) Session["queryString"];
+            queryString = (string)Session["queryString"];
         }
     }
 }
