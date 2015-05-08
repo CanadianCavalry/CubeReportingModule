@@ -25,7 +25,8 @@ namespace CubeReportingModule.Pages
 
         public IEnumerable<ReportOption> GetReportOptions()
         {
-            return repo.ReportOptions.Where(option => option.ReportId == reportId);
+            IEnumerable<ReportOption> allReportOptions = repo.ReportOptions.Where(option => option.ReportId == reportId).OrderBy(option => option.ReportOptionId);
+            return allReportOptions;
         }
     }
 }
