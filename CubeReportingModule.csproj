@@ -99,12 +99,14 @@
     </Compile>
     <Compile Include="Pages\ReportDisplayHTML.aspx.cs">
       <DependentUpon>ReportDisplayHTML.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\ReportDisplayHTML.aspx.designer.cs">
       <DependentUpon>ReportDisplayHTML.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\ReportDisplayPDF.aspx.cs">
       <DependentUpon>ReportDisplayPDF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\ReportDisplayPDF.aspx.designer.cs">
       <DependentUpon>ReportDisplayPDF.aspx</DependentUpon>
