@@ -7,9 +7,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CubeReportingModule.Models
 {
+    [Table("ReportOptions")]
     public class ReportOption
     {
+        [Key]
+        [Column(Order = 1)]
         public int ReportId { get; set; }
+        [Key]
+        [Column(Order = 2)]
         public int ReportOptionId { get; set; }
         public string Type { get; set; }
         public string Alias { get; set; }
@@ -21,19 +26,20 @@ namespace CubeReportingModule.Models
 
         public string toString()
         {
-            string markup = @"<asp:";
+            string markup = "";
 
             switch (Type)
             {
                 case "customer":
-                    markup += @"SqlDataSource ID=""CompanyNameSelect"" runat=""server"" DataSourceMode=""DataReader"" SelectCommand=""SELECT Company_Name FROM Org_Company WHERE Company_Name IS NOT NULL AND Company_Name != '' ORDER BY Company_Name ASC"; 
+                    markup += @"SqlDataSource ID=""CompanyNameSelect"" runat=""server"" DataSourceMode=""DataReader"" SelectCommand=""SELECT Company_Name FROM Org_Company WHERE Company_Name IS NOT NULL AND Company_Name != '' ORDER BY Company_Name ASC "; 
                     markup += @"ConnectionString=""Data Source=204.174.60.182;Initial Catalog=GainTest;Persist Security Info=True;User ID=Michelle;Password=SRGTChronos3"">";
                     markup += @"</asp:SqlDataSource>";
                     markup += @"<asp:ListBox id=""ClientListBox"" runat=""server"" DataTextField=""Company_Name"" DataSourceID=""CompanyNameSelect"" Height=""200"">";
                     markup += @"</asp:ListBox>";
+                    break;
+
                 case "list":
                     markup += @"DropDownList runat=""server"">";
-                    markup += @"<br>";
 
                     //foreach(string listOption in listOptions)
                     //{
@@ -44,8 +50,8 @@ namespace CubeReportingModule.Models
                     break;
 
                 case "date":
-                    markup += @"Calendar ID=" + "\"" + Name + "\"" + @" runat=""server"">" + "\n" + @"<TodayDayStyle />";
-                    markup += @"<br>";
+                    markup += @"Calendar ID=" + "\"" + Name + "\"" + @" runat=""server"">" + "\n";
+                    markup += @"<TodayDayStyle />";
                     markup += @"</asp:Calendar>";
                     break;
 

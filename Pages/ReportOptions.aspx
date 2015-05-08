@@ -10,11 +10,10 @@
             <ItemTemplate>
                 <div>
                     <label for="<%# Item.Label %>"><%# Item.Label %>:</label>
-                    <%# Item.toString() %>
+                    <%#: Eval(Item.toString()) %>
                 </div>
             </ItemTemplate>
         </asp:Repeater>
-
 
         <button type="submit">Generate Report</button>
         <button type="reset">Reset</button>
