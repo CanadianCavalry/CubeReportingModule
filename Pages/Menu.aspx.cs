@@ -12,6 +12,8 @@ namespace CubeReportingModule.Pages
 {
     public partial class Menu : System.Web.UI.Page
     {
+        private Repository repo = new Repository();
+
         protected void Application_Start(object sender, EventArgs e)
         {
         }
@@ -35,8 +37,7 @@ namespace CubeReportingModule.Pages
 
         public IEnumerable<Report> GetReports()
         {
-            AppContext db = (AppContext) HttpContext.Current.Application["appContext"];
-            IEnumerable<Report> reports = db.Reports;
+            IEnumerable<Report> reports = repo.Reports;
             return reports;
         }
     }

@@ -12,20 +12,13 @@
         <br />
     </div>
     <div class="RightPane">
-        <asp:Repeater ID="ReportButtonsRepeater" ItemType="CubeReportingModule.Models.Report"
+       <asp:Repeater ItemType="CubeReportingModule.Models.Report"
             SelectMethod="GetReports" runat="server">
             <ItemTemplate>
                 <button name="report" class="MenuButton" type="submit" value="<%# Item.ReportId %>" onclick="reportButton_Click"><%# Item.Name %></button>
-<%--                <asp:Button runat="server" CssClass="MenuButton" CommandName="report" CommandArgument="<%# Item.ReportId %>" Text="<%# Item.name %>" OnClick="reportButton_Click" />--%>
                 <br />
             </ItemTemplate>
         </asp:Repeater>
-<%--        <asp:Button runat="server" ID="report1" CssClass="MenuButton" CommandName="report" CommandArgument="1" Text="Get All Customer Transactions" OnClick="reportButton_Click" />
-        <br />
-        <asp:Button runat="server" ID="report2" CssClass="MenuButton" CommandName="report" CommandArgument="2" Text="Get All Empty Spaces" OnClick="reportButton_Click" />
-        <br />
-        <asp:Button runat="server" ID="report3" CssClass="MenuButton" CommandName="report" CommandArgument="3" Text="Get All Irregularities" OnClick="reportButton_Click" />
-        <br />--%>
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="BottomPane" runat="server">

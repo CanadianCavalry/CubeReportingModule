@@ -8,12 +8,6 @@ namespace CubeReportingModule.Cache
 {
     public class WarehouseCache
     {
-        public static void createAppDatabase()
-        {
-            AppContext db = new AppContext();
-            HttpContext.Current.Application["appContext"] = db;
-        }
-
         public static void createWarehouseCache()
         {
             Warehouse warehouseCache = new Warehouse(1, "defaultWarehouse", "Cube");

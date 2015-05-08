@@ -15,7 +15,6 @@ namespace CubeReportingModule
         protected void Application_Start(object sender, EventArgs e)
         {
             WarehouseCache.createWarehouseCache();
-            WarehouseCache.createAppDatabase();
         }
 
         protected void Session_Start(object sender, EventArgs e)
