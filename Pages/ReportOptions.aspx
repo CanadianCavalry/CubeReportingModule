@@ -10,7 +10,7 @@
             <ItemTemplate>
                 <div>
                     <label for="<%# Item.Label %>"><%# Item.Label %>:</label>
-                    <%#: Eval(Item.toString()) %>
+<%--                    <%#: Eval(Item.toString()) %>--%>
                 </div>
             </ItemTemplate>
         </asp:Repeater>
