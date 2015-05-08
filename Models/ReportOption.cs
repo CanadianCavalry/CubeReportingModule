@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace CubeReportingModule.Models
 {
     public class ReportOption
     {
-        public uint ReportId { get; set; }
-        public uint ReportOptionId { get; set; }
+        public int ReportId { get; set; }
+        public int ReportOptionId { get; set; }
         public string type { get; set; }
         public string alias { get; set; }
         public string label { get; set; }
