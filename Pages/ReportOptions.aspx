@@ -16,14 +16,15 @@
         </asp:Repeater>
 
         <label for="customername">Customer Name:</label>
+        <br />
         <asp:SqlDataSource 
             ID="CompanyNameSelect" runat="server" 
             DataSourceMode="DataReader" 
-            SelectCommand="SELECT Company_Name FROM Org_Company ORDER BY Company_Name ASC" 
+            SelectCommand="SELECT Company_Name FROM Org_Company WHERE Company_Name IS NOT NULL AND Company_Name != '' ORDER BY Company_Name ASC" 
             ConnectionString="Data Source=204.174.60.182;Initial Catalog=GainTest;Persist Security Info=True;User ID=Michelle;Password=SRGTChronos3">
         </asp:SqlDataSource>
         <asp:ListBox
-            id="ClientListBox" runat="server" DataTextField="Company_Name" DataSourceID="CompanyNameSelect">
+            id="ClientListBox" runat="server" DataTextField="Company_Name" DataSourceID="CompanyNameSelect" Height="200">
         </asp:ListBox>
 
     </div>
