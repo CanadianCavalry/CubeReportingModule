@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ReportDisplayPDF.aspx.cs" Inherits="CubeReportingModule.Pages.ReportDisplayPDF" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Pages/Site.Master" CodeBehind="ReportDisplayPDF.aspx.cs" Inherits="CubeReportingModule.Pages.ReportDisplayPDF" %>
 
 <!DOCTYPE html>
 

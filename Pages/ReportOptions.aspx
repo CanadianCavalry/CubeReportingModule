@@ -23,7 +23,7 @@
             ConnectionString="Data Source=204.174.60.182;Initial Catalog=GainTest;Persist Security Info=True;User ID=Michelle;Password=SRGTChronos3">
         </asp:SqlDataSource>
         <asp:ListBox
-            id="ClientListBox" runat="server" DataTextField="Company_Name" DataSourceID="CompanyNameSelect">
+            id="ClientListBox" runat="server" DataTextField="Company_Name" DataSourceID="CompanyNameSelect" Height="200px">
         </asp:ListBox>
 
     </div>
