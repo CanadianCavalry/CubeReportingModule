@@ -19,12 +19,12 @@
           ConnectionString="<%# connectionString %>"
           SelectCommand="<%# queryString %>">
         </asp:SqlDataSource>
-        <asp:ListBox
+        <asp:ListView
             id="ReportDisplay"
             runat="server"
             DataTextField=" "
             DataSourceId="SqlDataSource1">
-        </asp:ListBox>
+        </asp:ListView>
     </div>
     </form>
 </body>
