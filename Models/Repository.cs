@@ -13,5 +13,10 @@ namespace CubeReportingModule.Models
         {
             get { return context.Reports; }
         }
+
+        public IEnumerable<ReportOption> ReportOptions
+        {
+            get { return context.ReportOptions; }
+        }
     }
 }
