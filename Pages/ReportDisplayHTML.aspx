@@ -10,14 +10,55 @@
           id="SqlDataSource1"
           runat="server"
           DataSourceMode="DataReader"
-          ConnectionString="<% =connectionString %>"
-          SelectCommand="<% =queryString %>">
+          ConnectionString="Data Source=204.174.60.182;Initial Catalog=GainTest;Persist Security Info=True;User ID=Thomas;Password=Coral3dAir"
+          SelectCommand="select Loc_Box_Max - Loc_Box_Current AS AvailableSpace,Locator_Id,Loc_Row_Id,Loc_Size_Code,Last_Update,Last_By from Locator where Loc_Box_Max - Loc_Box_Current > 0 and Loc_Box_Max - Loc_Box_Current < 12 Order BY Loc_Row_Id,AvailableSpace DESC">
         </asp:SqlDataSource>
         <asp:ListView
-            id="ReportDisplay"
+            id="Display"
             runat="server"
             DataTextField=" "
             DataSourceId="SqlDataSource1">
+            <LayoutTemplate>
+                <table cellpadding="2" width="640px" border="1" runat="server" id="tblReport">
+                    <tr id="Tr1" runat="server">
+                        <th id="Th1" runat="server">Available Space</th>
+                        <th id="Th2" runat="server">Locator Id</th>
+                        <th id="Th3" runat="server">Loc Row Id</th>
+                        <th id="Th4" runat="server">Loc Size Code</th>
+                        <th id="Th5" runat="server">Last Update</th>
+                        <th id="Th6" runat="server">Uodated By</th>
+                    </tr>
+                    <tr runat="server" id="itemPlaceholder" />
+                </table>
+            </LayoutTemplate>
+            <ItemTemplate>
+                <tr id="Tr2" runat="server">
+                    <td runat="server">
+                        <asp:Label ID="SpaceLabel" runat="server" 
+                            Text='<%#Eval("AvailableSpace") %>' />
+                    </td>
+                    <td id="Td1" runat="server">
+                        <asp:Label ID="Label1" runat="server" 
+                            Text='<%#Eval("Locator_Id") %>' />
+                    </td>
+                    <td id="Td2" runat="server">
+                        <asp:Label ID="Label2" runat="server" 
+                            Text='<%#Eval("Loc_Row_Id") %>' />
+                    </td>
+                    <td id="Td3" runat="server">
+                        <asp:Label ID="Label3" runat="server" 
+                            Text='<%#Eval("Loc_Size_Code") %>' />
+                    </td>
+                    <td id="Td4" runat="server">
+                        <asp:Label ID="Label4" runat="server" 
+                            Text='<%#Eval("Last_Update") %>' />
+                    </td>
+                    <td id="Td5" runat="server">
+                        <asp:Label ID="Label5" runat="server" 
+                            Text='<%#Eval("Last_By") %>' />
+                    </td>
+                </tr> 
+            </ItemTemplate>
         </asp:ListView>
     </div>
 </asp:Content>
