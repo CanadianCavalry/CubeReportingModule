@@ -16,6 +16,11 @@ namespace CubeReportingModule.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (IsPostBack)
+            {
+                Response.Redirect("ReportDisplayHTML.aspx");
+            }
+
             reportId = Convert.ToInt32((string) Session["ReportId"]);
 
             IEnumerable<Report> allReports = repo.Reports;
