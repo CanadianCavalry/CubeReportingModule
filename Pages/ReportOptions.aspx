@@ -4,16 +4,17 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
     <div class="selectOptions">
-        <h1><%# reportName %></h1>
+        <h1><% Response.Write(reportName); %></h1>
         <asp:Repeater ItemType="CubeReportingModule.Models.ReportOption"
-            SelectMethod="allOptions" runat="server">
+            SelectMethod="GetReportOptions" runat="server">
             <ItemTemplate>
                 <div>
                     <label for="<%# Item.Label %>"><%# Item.Label %>:</label>
-<%--                    <% Item.toString(); %>--%>
+                    <%# Item.toString() %>
                 </div>
             </ItemTemplate>
         </asp:Repeater>
+<<<<<<< HEAD
 
         <label for="customername">Customer Name:</label>
         <br />
@@ -42,6 +43,11 @@
     </div>
     <button align="center" type="submit">Submit</button>
     <button align="center" type="reset">Reset</button>
+=======
+        <button type="submit">Generate Report</button>
+        <button type="reset">Reset</button>
+        <button type="button">Back</button>
+>>>>>>> b4b9d1ca72d85bef4d021a3eac96fc2edc39ea6e
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="BottomPane" runat="server">
