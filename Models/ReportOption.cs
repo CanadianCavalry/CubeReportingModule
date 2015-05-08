@@ -25,6 +25,12 @@ namespace CubeReportingModule.Models
 
             switch (Type)
             {
+                case "customer":
+                    markup += @"SqlDataSource ID=""CompanyNameSelect"" runat=""server"" DataSourceMode=""DataReader"" SelectCommand=""SELECT Company_Name FROM Org_Company WHERE Company_Name IS NOT NULL AND Company_Name != '' ORDER BY Company_Name ASC"; 
+                    markup += @"ConnectionString=""Data Source=204.174.60.182;Initial Catalog=GainTest;Persist Security Info=True;User ID=Michelle;Password=SRGTChronos3"">";
+                    markup += @"</asp:SqlDataSource>";
+                    markup += @"<asp:ListBox id=""ClientListBox"" runat=""server"" DataTextField=""Company_Name"" DataSourceID=""CompanyNameSelect"" Height=""200"">";
+                    markup += @"</asp:ListBox>";
                 case "list":
                     markup += @"DropDownList runat=""server"">";
                     markup += @"<br>";
