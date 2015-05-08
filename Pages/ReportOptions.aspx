@@ -19,20 +19,13 @@
         <asp:SqlDataSource 
             ID="CompanyNameSelect" runat="server" 
             DataSourceMode="DataReader" 
-            SelectCommand="SELECT Company_Name FROM Org_Company" 
+            SelectCommand="SELECT Company_Name FROM Org_Company ORDER BY Company_Name ASC" 
             ConnectionString="Data Source=204.174.60.182;Initial Catalog=GainTest;Persist Security Info=True;User ID=Michelle;Password=SRGTChronos3">
         </asp:SqlDataSource>
         <asp:ListBox
             id="ClientListBox" runat="server" DataTextField="Company_Name" DataSourceID="CompanyNameSelect">
-
         </asp:ListBox>
-        <asp:DropDownList runat="server">
-            <asp:ListItem Enabled="true" Selected="True" Text="Customer1" Value="customer1" />
-            <asp:ListItem Enabled="true" Selected="false" Text="Customer2" Value="customer2" />
-            <asp:ListItem Enabled="true" Selected="false" Text="Customer3" Value="customer3" />
-            <asp:ListItem Enabled="true" Selected="false" Text="Customer4" Value="customer4" />
-            <asp:ListItem Enabled="true" Selected="false" Text="Customer5" Value="customer5" />
-        </asp:DropDownList>
+
     </div>
     <div align="center">
         <label for="dates">From Date:</label>
@@ -46,8 +39,8 @@
             <TodayDayStyle />
         </asp:Calendar>
     </div>
-    <button type="submit">Submit</button>
-    <button type="reset">Reset</button>
+    <button align="center" type="submit">Submit</button>
+    <button align="center" type="reset">Reset</button>
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="BottomPane" runat="server">
