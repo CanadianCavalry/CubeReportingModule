@@ -8,6 +8,8 @@
 </head>
 <body>
     <h3>Report Preview</h3>
+    <asp:Button runat="server" ID="CreatePdf" CssClass="NavButton" text="Create PDF" />
+    <asp:Button runat="server" ID="Email" CssClass="NavButton" text="Email to User" />
     <form id="form1" runat="server">
     <div>
         <asp:SqlDataSource
