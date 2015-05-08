@@ -15,7 +15,7 @@
         <asp:Button runat="server" Text="Login" OnClick="Login_Click" />
         <br />
         <asp:HyperLink ID="HyperLink1" runat="server" Text="Forgot your password?" />
-        <button type="submit">Log In</button>
+        
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="BottomPane" runat="server">
