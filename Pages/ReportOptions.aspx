@@ -4,13 +4,13 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
     <div class="selectOptions">
-        <h1><% ReportName(); %></h1>
-        <asp:Repeater ID="ReportOptionsRepeater" ItemType="CubeReportingModule.Resources.ReportOption"
+        <h1><%# reportName %></h1>
+        <asp:Repeater ItemType="CubeReportingModule.Models.ReportOption"
             SelectMethod="allOptions" runat="server">
             <ItemTemplate>
                 <div>
-                    <label for="<%# Item.label %>"><%# Item.label %>:</label>
-                    <%# Item.toString(); %>
+                    <label for="<%# Item.Label %>"><%# Item.Label %>:</label>
+<%--                    <% Item.toString(); %>--%>
                 </div>
             </ItemTemplate>
         </asp:Repeater>
