@@ -26,7 +26,6 @@
 
         <button type="submit">Generate Report</button>
         <button type="reset">Reset</button>
-        <button type="button">Back</button>
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="BottomPane" runat="server">
