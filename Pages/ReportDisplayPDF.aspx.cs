@@ -13,5 +13,15 @@ namespace CubeReportingModule.Pages
         {
 
         }
+
+        //protected void createPdf(object sender, EventArgs e)
+        //{
+        //    // Create a HTML to PDF converter object with default settings
+        //    HtmlToPdfConverter htmlToPdfConverter = new HtmlToPdfConverter();
+        //    HtmlToPdfConverter.HtmlViewerWidth = int.Parse(htmlViewerWidthTextBox.Text);
+
+        //    byte[] outPdfBuffer = null;
+
+        //}
     }
 }

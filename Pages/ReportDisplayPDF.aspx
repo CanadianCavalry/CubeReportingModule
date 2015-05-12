@@ -1,16 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Pages/Site.Master" CodeBehind="ReportDisplayPDF.aspx.cs" Inherits="CubeReportingModule.Pages.ReportDisplayPDF" %>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-    
-    </div>
-    </form>
-</body>
-</html>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Pages/Site.Master" AutoEventWireup="true" CodeBehind="ReportDisplayPDF.aspx.cs" Inherits="CubeReportingModule.Pages.ReportDisplayPDF" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="BottomPane" runat="server">
+</asp:Content>
