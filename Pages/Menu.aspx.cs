@@ -18,9 +18,12 @@ namespace CubeReportingModule.Pages
         {
             if (IsPostBack)
             {
-                string reportId = Request.Form["report"];
-                Session["ReportId"] = reportId;
-                Response.Redirect("ReportOptions.aspx");
+                if (Request.Form["report"] != null)
+                {
+                    string reportId = Request.Form["report"];
+                    Session["ReportId"] = reportId;
+                    Response.Redirect("ReportOptions.aspx");
+                }
             }
         }
 

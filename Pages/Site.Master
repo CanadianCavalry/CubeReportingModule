@@ -14,9 +14,9 @@
     </div>
     <form id="PageForm" runat="server">
         <div class="NavBar">
-            Currently logged in as USER
+            Currently logged in as <asp:LoginName ID="LoginName1" runat="server" />
             <asp:Button runat="server" ID="Back" cssclass="NavButton" Text="Back" />
-            <asp:Button runat="server" ID="LogOut" cssclass="NavButton" Text="Log Out" />
+            <asp:LoginStatus ID="LoginStatus1" runat="server" CssClass="NavButton" LogoutAction="RedirectToLoginPage" />
         </div>
         <div class="CenterBox">
             <asp:ContentPlaceHolder ID="MainPane" runat="server">

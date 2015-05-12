@@ -17,11 +17,16 @@ namespace CubeReportingModule.Pages
         {
             if (IsPostBack)
             {
-                Response.Redirect("ReportDisplayPDF.aspx");
+
             }
 
             connectionString = "Data Source=204.174.60.182;Initial Catalog=GainTest;Persist Security Info=True;User ID=Thomas;Password=Coral3dAir";
             queryString = (string)Session["queryString"];
+        }
+
+        public void CreatePdfButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ReportDisplayPDF.aspx");
         }
 
     }

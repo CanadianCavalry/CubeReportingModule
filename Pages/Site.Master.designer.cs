@@ -31,6 +31,15 @@ namespace CubeReportingModule.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlForm PageForm;
         
         /// <summary>
+        /// LoginName1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LoginName LoginName1;
+        
+        /// <summary>
         /// Back control.
         /// </summary>
         /// <remarks>
@@ -40,13 +49,13 @@ namespace CubeReportingModule.Pages {
         protected global::System.Web.UI.WebControls.Button Back;
         
         /// <summary>
-        /// LogOut control.
+        /// LoginStatus1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button LogOut;
+        protected global::System.Web.UI.WebControls.LoginStatus LoginStatus1;
         
         /// <summary>
         /// MainPane control.

@@ -71,7 +71,6 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Pages\Admin.aspx" />
-    <Content Include="Pages\Default.aspx" />
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\Menu.aspx" />
     <Content Include="Pages\ReportDisplayHTML.aspx" />
@@ -127,13 +126,6 @@
     </Compile>
     <Compile Include="Pages\Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Menu.aspx.cs">
       <DependentUpon>Menu.aspx</DependentUpon>
