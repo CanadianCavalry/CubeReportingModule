@@ -9,11 +9,10 @@ namespace CubeReportingModule.Pages
 {
     public partial class Site1 : System.Web.UI.MasterPage
     {
-        public bool navBarVisible = true;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.FindControl("NavBarPlaceholder").Visible = navBarVisible;
+            //this.FindControl("NavBarPlaceholder").Visible = navBarVisible;
         }
     }
 }

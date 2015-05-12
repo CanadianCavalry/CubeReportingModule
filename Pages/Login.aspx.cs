@@ -13,7 +13,7 @@ namespace CubeReportingModule.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            navBarVisible = false;
+
         }
     }
 }
