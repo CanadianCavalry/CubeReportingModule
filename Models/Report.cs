@@ -16,8 +16,9 @@ namespace CubeReportingModule.Models
         public string Name { get; set; }
         //public BasicUser Creator { get; set; }
         public string Query { get; set; }
-        public string Tables { get; set; }
-        public string EliminationCriterium { get; set; }
+        //public string SelectClause { get; set; }
+        //public string FromClause { get; set; }
+        //public string WhereClause { get; set; }
         //public List<ReportOption> allOptions { get; set; }
         //public List<ReportOption> sortingCriteria { get; set; }
         //public string eliminationCriterium { get; set; }
