@@ -23,8 +23,8 @@
                     </asp:PlaceHolder>
 
                     <asp:PlaceHolder runat="server" ID="RangeControl" Visible='<%# Item.isVisible("Range") %>'>
-                        <input runat="server" type="number" name="Floor" min='<%# Item.MinValue %>' max='<%# Item.MaxValue %>' />
-                        <input runat="server" type="number" name="Ceiling" min='<%# Item.MinValue %>' max='<%# Item.MaxValue %>' />
+                        <input runat="server" type="number" name="Floor" min='<%# Item.MinValue %>' max='<%# Item.MaxValue %>' value='<%# Item.MinValue %>' />
+                        <input runat="server" type="number" name="Ceiling" min='<%# Item.MinValue %>' max='<%# Item.MaxValue %>' value='<%# Item.MinValue %>' />
                     </asp:PlaceHolder>
                 </div>
             </ItemTemplate>
