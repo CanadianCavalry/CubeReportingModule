@@ -10,7 +10,7 @@
           id="SqlDataSource1"
           runat="server"
           DataSourceMode="DataReader"
-          ConnectionString="Data Source=204.174.60.182;Initial Catalog=GainTest;Persist Security Info=True;User ID=Thomas;Password=Coral3dAir"
+          ConnectionString="<%$ ConnectionStrings:AppContext %>"
           SelectCommand="select Loc_Box_Max - Loc_Box_Current AS AvailableSpace,Locator_Id,Loc_Row_Id,Loc_Size_Code,Last_Update,Last_By from Locator where Loc_Box_Max - Loc_Box_Current > 0 and Loc_Box_Max - Loc_Box_Current < 12 Order BY Loc_Row_Id,AvailableSpace DESC">
         </asp:SqlDataSource>
         <asp:ListView

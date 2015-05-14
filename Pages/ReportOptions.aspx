@@ -11,7 +11,7 @@
                 <div>
                     <label for="<%# Item.Label %>"><%# Item.Label %>:</label>
                     <asp:PlaceHolder runat="server" ID="ListBoxControl" Visible='<%# Item.isVisible("ListBox") %>'>
-                        <asp:SqlDataSource runat="server" ID='QueryData' DataSourceMode="DataReader" SelectCommand="<%# Item.SelectCommand %>" ConnectionString="Data Source=204.174.60.182;Initial Catalog=GainTest;Persist Security Info=True;User ID=Michelle;Password=SRGTChronos3" />
+                        <asp:SqlDataSource runat="server" ID='QueryData' DataSourceMode="DataReader" SelectCommand="<%# Item.SelectCommand %>" ConnectionString="<%$ ConnectionStrings:AppContext %>" />
                         <asp:ListBox runat="server" id="ListBox" DataTextField='<%# Item.DataTextField %>' DataSourceID='<%# Item.DataSourceId %>' Height='<%# Item.Height %>' />
 <%--                        <asp:ListBox runat="server" id='ClientListBox' DataTextField='<%# Item.DataTextField %>' DataSourceID='<%# Item.DataSourceId %>' Height='<%# Item.Height %>' />--%>
                     </asp:PlaceHolder>
