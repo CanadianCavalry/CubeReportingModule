@@ -74,7 +74,6 @@
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\Menu.aspx" />
     <Content Include="Pages\ReportDisplayHTML.aspx" />
-    <Content Include="Pages\ReportDisplayPDF.aspx" />
     <Content Include="Pages\ReportOptions.aspx" />
     <Content Include="Resources\CubeBanner.png" />
     <Content Include="Resources\GainRMLogOut.png" />
@@ -106,13 +105,6 @@
     </Compile>
     <Compile Include="Pages\ReportDisplayHTML.aspx.designer.cs">
       <DependentUpon>ReportDisplayHTML.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\ReportDisplayPDF.aspx.cs">
-      <DependentUpon>ReportDisplayPDF.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\ReportDisplayPDF.aspx.designer.cs">
-      <DependentUpon>ReportDisplayPDF.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\ReportOptions.aspx.cs">
       <DependentUpon>ReportOptions.aspx</DependentUpon>
@@ -159,7 +151,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Temp\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

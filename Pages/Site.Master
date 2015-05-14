@@ -20,7 +20,7 @@
             <asp:LoginStatus ID="LoginStatus1" runat="server" CssClass="NavButton" LogoutAction="RedirectToLoginPage"  LogoutImageUrl="~/Resources/GainRMLogOut.png"/>
         </div>
         </asp:PlaceHolder>
-        <div class="CenterBox">
+        <div class="CenterBox" id="pdfmarker">
             <asp:ContentPlaceHolder ID="MainPane" runat="server">
             </asp:ContentPlaceHolder>
         </div>
