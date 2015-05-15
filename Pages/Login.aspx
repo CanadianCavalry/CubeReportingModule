@@ -8,6 +8,8 @@
         ID="Login1" 
         runat="server" 
         DestinationPageUrl="Menu.aspx"
+        PasswordRecoveryText="Forgotten your password?"
+        PasswordRecoveryUrl="~/Pages/RecoverPassword.aspx"
         BorderStyle="Solid"
         BorderWidth="1px"
         BorderColor="black" >

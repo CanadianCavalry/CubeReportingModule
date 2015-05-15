@@ -24,7 +24,12 @@ namespace CubeReportingModule
                 CdnSupportsSecureConnection = true,
                 LoadSuccessExpression = "window.jQuery"
             });
+
+            // Create the internal data model
             WarehouseCache.createWarehouseCache();
+
+            //Create the user roles
+
         }
 
         protected void Session_Start(object sender, EventArgs e)
