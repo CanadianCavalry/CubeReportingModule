@@ -66,7 +66,8 @@ namespace CubeReportingModule.Pages
                     continue;
                 }
 
-                WhereClauses.Enqueue(optionValue);
+                string clauseToAdd = optionName + " " + optionValue;
+                WhereClauses.Enqueue(clauseToAdd);
             }
 
             if(WhereClauses.Count != 0) {

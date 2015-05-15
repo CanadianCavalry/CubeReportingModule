@@ -10,10 +10,12 @@ namespace CubeReportingModule.Pages
 {
     public partial class ReportDisplayHTML : System.Web.UI.Page
     {
-        string reportName = "GainReport.pdf";
+        public string reportName = "GainReport.pdf";
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            QueryData.SelectCommand = GetSelectCommand();
+            Display.DataSourceID = "QueryData";
         }
 
         public string GetSelectCommand()
