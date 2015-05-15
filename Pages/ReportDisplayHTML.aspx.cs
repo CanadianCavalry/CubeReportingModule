@@ -14,7 +14,12 @@ namespace CubeReportingModule.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
+        }
 
+        public string GetSelectCommand()
+        {
+            string selectCommand = (string) Session["Query"];
+            return selectCommand;
         }
 
         public void CreatePdfButton_Click(object sender, EventArgs e)

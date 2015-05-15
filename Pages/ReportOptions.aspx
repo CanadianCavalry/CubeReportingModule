@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
     <div class="selectOptions">
-        <h1><% Response.Write(pageReport.Name); %></h1>
+        <h1><%: pageReport.Name %></h1>
         <asp:Repeater ItemType="CubeReportingModule.Models.ReportOption"
             SelectMethod="GetReportOptions" runat="server">
             <ItemTemplate>

@@ -6,13 +6,14 @@
     <asp:Button runat="server" ID="CreatePdf" CssClass="NavButton" text="Create PDF" OnClick="CreatePdfButton_Click" />
     <asp:Button runat="server" ID="Email" CssClass="NavButton" text="Email to User" />
     <div>
+        <%= GetSelectCommand() %>
+        <%: GetSelectCommand() %>
         <asp:SqlDataSource
-          id="SqlDataSource1"
           runat="server"
+          id="SqlDataSource1"
           DataSourceMode="DataReader"
-          ConnectionString="<%$ ConnectionStrings:AppContext %>"
-          SelectCommand="select Loc_Box_Max - Loc_Box_Current AS AvailableSpace,Locator_Id,Loc_Row_Id,Loc_Size_Code,Last_Update,Last_By from Locator where Loc_Box_Max - Loc_Box_Current > 0 and Loc_Box_Max - Loc_Box_Current < 12 Order BY Loc_Row_Id,AvailableSpace DESC">
-        </asp:SqlDataSource>
+          SelectCommand="select Loc_Box_Max - Loc_Box_Current AS AvailableSpace,Locator_Id,Loc_Row_Id,Loc_Size_Code,Last_Update,Last_By from Locator where Loc_Box_Max - Loc_Box_Current > 0 and Loc_Box_Max - Loc_Box_Current < 12 Order BY Loc_Row_Id,AvailableSpace DESC"
+          ConnectionString="<%$ ConnectionStrings:AppContext %>" />
         <asp:ListView
             id="Display"
             runat="server"
@@ -26,7 +27,7 @@
                         <th id="Th3" runat="server">Loc Row Id</th>
                         <th id="Th4" runat="server">Loc Size Code</th>
                         <th id="Th5" runat="server">Last Update</th>
-                        <th id="Th6" runat="server">Uodated By</th>
+                        <th id="Th6" runat="server">Updated By</th>
                     </tr>
                     <tr runat="server" id="itemPlaceholder" />
                 </table>

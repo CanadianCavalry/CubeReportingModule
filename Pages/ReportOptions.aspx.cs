@@ -38,7 +38,12 @@ namespace CubeReportingModule.Pages
 
         private string BuildQuery()
         {
+            if (pageReport.SelectClause == null || pageReport.SelectClause.Equals(""))
+            {
+                pageReport.SelectClause = "*";
+            }
             string query = "Select " + pageReport.SelectClause;
+
             query += "\n";
 
             query += "From " + pageReport.FromClause;
@@ -61,7 +66,7 @@ namespace CubeReportingModule.Pages
                     continue;
                 }
 
-                //WhereClauses.Enqueue(optionValue);
+                WhereClauses.Enqueue(optionValue);
             }
 
             if(WhereClauses.Count != 0) {

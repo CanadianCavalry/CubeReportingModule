@@ -13,6 +13,7 @@
         BorderStyle="Solid"
         BorderWidth="1px"
         BorderColor="black" >
+        align="center">
         </asp:Login>
     </div>
 </asp:Content>
