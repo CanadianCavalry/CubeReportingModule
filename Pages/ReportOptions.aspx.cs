@@ -13,11 +13,13 @@ namespace CubeReportingModule.Pages
         private Repository repo = new Repository();
         public int reportId { get; set; }
         public string reportName { get; set; }
+        private string query { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (IsPostBack)
             {
+                Session["Query"] = query;
                 Response.Redirect("ReportDisplayHTML.aspx");
             }
 

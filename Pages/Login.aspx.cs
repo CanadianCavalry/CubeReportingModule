@@ -13,26 +13,7 @@ namespace CubeReportingModule.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (IsPostBack)
-            {
-                string name = Request.Form["name"];
-                string password = Request.Form["password"];
-                if (name != null && password != null && FormsAuthentication.Authenticate(name, password))
-                {
-                    FormsAuthentication.SetAuthCookie(name, false);
-                    Response.Redirect(Request["ReturnUrl"] ?? "/");
-                }
-                else
-                {
-                    ModelState.AddModelError("fail", "Login failed. Please try again");
-                }
-            }
-        }
 
-        protected void Login_Click(object sender, EventArgs e)
-        {
-            HttpContext.Current.RewritePath("Menu.aspx");
-            //Server.Transfer("Menu.aspx", false);
         }
     }
 }

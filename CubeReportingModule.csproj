@@ -64,17 +64,19 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="wnvhtmltopdf">
+      <HintPath>packages\wnvhtmlconvert.11.19\lib\net40\wnvhtmltopdf.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Pages\Admin.aspx" />
-    <Content Include="Pages\Default.aspx" />
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\Menu.aspx" />
     <Content Include="Pages\ReportDisplayHTML.aspx" />
-    <Content Include="Pages\ReportDisplayPDF.aspx" />
     <Content Include="Pages\ReportOptions.aspx" />
     <Content Include="Resources\CubeBanner.png" />
+    <Content Include="Resources\GainRMLogOut.png" />
     <Content Include="Resources\Print.css" />
     <Content Include="Resources\Style.css" />
     <Content Include="Web.config" />
@@ -104,13 +106,6 @@
     <Compile Include="Pages\ReportDisplayHTML.aspx.designer.cs">
       <DependentUpon>ReportDisplayHTML.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ReportDisplayPDF.aspx.cs">
-      <DependentUpon>ReportDisplayPDF.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\ReportDisplayPDF.aspx.designer.cs">
-      <DependentUpon>ReportDisplayPDF.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Pages\ReportOptions.aspx.cs">
       <DependentUpon>ReportOptions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -124,13 +119,6 @@
     </Compile>
     <Compile Include="Pages\Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Menu.aspx.cs">
       <DependentUpon>Menu.aspx</DependentUpon>
@@ -163,7 +151,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Temp\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

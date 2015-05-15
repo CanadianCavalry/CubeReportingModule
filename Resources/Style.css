@@ -48,6 +48,10 @@ body {
 
 /*Log-In Page*/
 
+.LoginName1 {
+    text-transform: uppercase;
+}
+
 .loginContainer {
     padding: 10px;
     text-align: center;
