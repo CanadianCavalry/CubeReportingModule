@@ -32,5 +32,10 @@ namespace CubeReportingModule.Pages
             IEnumerable<Report> reports = repo.Reports;
             return reports;
         }
+
+        protected void Accounts_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Admin/ManageUsers.aspx");
+        }
     }
 }

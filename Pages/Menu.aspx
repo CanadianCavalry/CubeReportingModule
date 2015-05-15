@@ -24,12 +24,10 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="BottomPane" runat="server">
     <p style="text-align: center; font-size: 24px;">Admin Control Panel</p>
     <div class="LeftPane">
-        <asp:Button runat="server" ID="Accounts" CssClass="AdminButton" Text="Manage Accounts" />
-    </div>
-    <div class="CenterPane">
-        <asp:Button runat="server" ID="Logs" CssClass="AdminButton" Text="View Access Logs" />
+        <asp:Button runat="server" ID="Accounts" CssClass="AdminButton" Text="Manage Accounts" OnClick="Accounts_Click" />
     </div>
     <div class="RightPane">
+        <asp:Button runat="server" ID="Logs" CssClass="AdminButton" Text="View Access Logs" />
         <asp:Button runat="server" ID="Templates" CssClass="AdminButton" Text="Manage Report Templates" />
     </div>
 </asp:Content>

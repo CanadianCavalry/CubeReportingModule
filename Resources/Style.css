@@ -133,3 +133,11 @@ body {
 .selectionOptions Calendar {
     text-align:center;
 }
+
+/*General*/
+
+.StatusMessage {
+    color: red;
+    text-align: center;
+    font-size: large;
+}

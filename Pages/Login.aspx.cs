@@ -11,9 +11,11 @@ namespace CubeReportingModule.Pages
 {
     public partial class Login : System.Web.UI.Page
     {
+        MembershipCreateStatus status;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Membership.CreateUser("Bob", "password!", "Email@email.com", "Really?", "yes really", true, out status);
         }
     }
 }
