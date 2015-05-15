@@ -10,9 +10,7 @@
         DestinationPageUrl="Menu.aspx"
         PasswordRecoveryText="Forgotten your password?"
         PasswordRecoveryUrl="~/Pages/RecoverPassword.aspx"
-        BorderStyle="Solid"
-        BorderWidth="1px"
-        BorderColor="black" >
+        align="center">
         </asp:Login>
     </div>
 </asp:Content>

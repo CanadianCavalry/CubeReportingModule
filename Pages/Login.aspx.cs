@@ -15,10 +15,7 @@ namespace CubeReportingModule.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Membership.DeleteUser("admin");
-            MembershipUser newUser = Membership.CreateUser("admin", "turingtaco!",
-                                                    "CanadianCavalry@gmail.com", "How much wood would a wood chuck chuck?",
-                                                    "lots", true, out status);
+            Membership.CreateUser("Bob", "password!", "Email@email.com", "Really?", "yes really", true, out status);
         }
     }
 }
