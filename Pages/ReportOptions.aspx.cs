@@ -53,20 +53,27 @@ namespace CubeReportingModule.Pages
 
             if (pageReport.WhereClause != null && ! pageReport.WhereClause.Equals(""))
             {
-                WhereClauses.Enqueue(pageReport.WhereClause);
+                //WhereClauses.Enqueue(pageReport.WhereClause);
             }
 
             IEnumerable<ReportOption> allReportOptions = GetReportOptions();
             foreach (ReportOption option in allReportOptions)
             {
                 string optionName = option.Name;
+                string optionCondition = option.Condition;
                 string optionValue = Request.Form[optionName];
+
+                if (option.Metric != null && !option.Metric.Equals(""))
+                {
+                    optionValue = option.Metric;
+                }
+
                 if (optionValue == null || optionValue.Equals(""))
                 {
                     continue;
                 }
 
-                string clauseToAdd = optionName + " " + optionValue;
+                string clauseToAdd = optionName + " " + optionCondition + " " + optionValue;
                 WhereClauses.Enqueue(clauseToAdd);
             }
 
@@ -85,7 +92,7 @@ namespace CubeReportingModule.Pages
 
             if (pageReport.OrderByClause != null && ! pageReport.OrderByClause.Equals(""))
             {
-                WhereClauses.Enqueue(pageReport.OrderByClause);
+                OrderByClauses.Enqueue(pageReport.OrderByClause);
             }
 
             if (OrderByClauses.Count != 0)

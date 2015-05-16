@@ -9,11 +9,10 @@
             SelectMethod="GetReportOptions" runat="server">
             <ItemTemplate>
                 <div>
-                    <label for="<%# Item.Label %>"><%# Item.Label %>:</label>
+                    <label for="<%# Item.Name %>"><%# Item.Label %> <%# Item.Condition %></label>
                     <asp:PlaceHolder runat="server" ID="ListBoxControl" Visible='<%# Item.isVisible("ListBox") %>'>
                         <asp:SqlDataSource runat="server" ID='QueryData' DataSourceMode="DataReader" SelectCommand="<%# Item.SelectCommand %>" ConnectionString="<%$ ConnectionStrings:AppContext %>" />
-                        <asp:ListBox runat="server" id="ListBox" DataTextField='<%# Item.DataTextField %>' DataSourceID='<%# Item.DataSourceId %>' Height='<%# Item.Height %>' />
-<%--                        <asp:ListBox runat="server" id='ClientListBox' DataTextField='<%# Item.DataTextField %>' DataSourceID='<%# Item.DataSourceId %>' Height='<%# Item.Height %>' />--%>
+                        <asp:ListBox runat="server" id="ListBox" DataTextField='<%# Item.DataTextField %>' DataSourceID='<%# Item.DataSourceId %>' />
                     </asp:PlaceHolder>
 
                     <asp:PlaceHolder runat="server" ID="DateControl" Visible='<%# Item.isVisible("Date") %>'>
@@ -22,9 +21,12 @@
                         </asp:Calendar>
                     </asp:PlaceHolder>
 
-                    <asp:PlaceHolder runat="server" ID="RangeControl" Visible='<%# Item.isVisible("Range") %>'>
-                        <input runat="server" type="number" name="Floor" min='<%# Item.MinValue %>' max='<%# Item.MaxValue %>' value='<%# Item.MinValue %>' />
-                        <input runat="server" type="number" name="Ceiling" min='<%# Item.MinValue %>' max='<%# Item.MaxValue %>' value='<%# Item.MinValue %>' />
+                    <asp:PlaceHolder runat="server" ID="NumberControl" Visible='<%# Item.isVisible("Number") %>'>
+                        <input runat="server" type="number" name="<%# Item.Name %>" min='<%# Item.MinValue %>' max='<%# Item.MaxValue %>' value='<%# Item.MinValue %>' />
+                    </asp:PlaceHolder>
+
+                    <asp:PlaceHolder runat="server" ID="TextControl" Visible='<%# Item.isVisible("Text") %>' >
+                        <input runat="server" type="text" name="<%# Item.Name %>" />
                     </asp:PlaceHolder>
                 </div>
             </ItemTemplate>

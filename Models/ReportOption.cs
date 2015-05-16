@@ -17,8 +17,10 @@ namespace CubeReportingModule.Models
         [Column(Order = 2)]
         public int ReportOptionId { get; set; }
         public string ControlType { get; set; }
-        public string Label { get; set; }
         public string Name { get; set; }
+        public string Label { get; set; }
+        public string Condition { get; set; }
+        public string Metric { get; set; }
         public string DataId { get; set; }
         public string SelectCommand { get; set; }
         public string Id { get; set; }
@@ -26,7 +28,6 @@ namespace CubeReportingModule.Models
         public string DataSourceId { get; set; }
         public int MinValue { get; set; }
         public int MaxValue { get; set; }
-        public int Height { get; set; }
 
         public bool isVisible(string controlType)
         {
