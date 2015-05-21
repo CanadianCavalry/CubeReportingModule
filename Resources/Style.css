@@ -52,8 +52,8 @@ body {
 
 }
 
-.LoginName1 {
-    text-transform: uppercase;
+.LoginName {
+    text-transform: capitalize;
 }
 
 .loginContainer {

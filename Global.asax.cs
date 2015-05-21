@@ -14,6 +14,9 @@ namespace CubeReportingModule
     {
         protected void Application_Start(object sender, EventArgs e)
         {
+            MembershipCreateStatus status;
+            Membership.CreateUser("deus", "ExMachina!", "email@email.com", "Really?", "yes really", true, out status);
+
             string JQueryVer = "1.7.1";
             ScriptManager.ScriptResourceMapping.AddDefinition("jquery", new ScriptResourceDefinition
             {

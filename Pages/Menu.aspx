@@ -4,6 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
     <div class="LeftPane">
+        <%-- Static menu buttons --%>
         <asp:Button runat="server" ID="Adhoc" CssClass="MenuButton" Text="Create Report" />
         <br />
         <asp:Button runat="server" ID="Events" CssClass="MenuButton" Text="Modify Scheduled Reports" />
@@ -12,6 +13,7 @@
         <br />
     </div>
     <div class="RightPane">
+        <%-- Dynamically generate report buttons from reports table in database --%>
        <asp:Repeater ItemType="CubeReportingModule.Models.Report"
             SelectMethod="GetReports" runat="server">
             <ItemTemplate>

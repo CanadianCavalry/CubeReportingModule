@@ -2,6 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
+    <%-- Create new user wizard --%>
         <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" 
             HorizontalAlign="Center">
         <WizardSteps>
