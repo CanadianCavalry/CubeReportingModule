@@ -190,7 +190,7 @@ namespace CubeReportingModule.Pages
                     continue;
                 }
 
-                string clauseToAdd = optionName + " " + optionCondition + " " + optionValue;
+                string clauseToAdd = optionName + " " + optionCondition + " '" + optionValue + "'";
                 WhereClauses.Enqueue(clauseToAdd);
             }
 
