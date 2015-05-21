@@ -35,6 +35,7 @@ namespace CubeReportingModule.Pages
 
         protected void Accounts_Click(object sender, EventArgs e)
         {
+            LogWriter.createAccessLog(LogWriter.adminPanelIn);
             Response.Redirect("~/Admin/ManageUsers.aspx");
         }
     }

@@ -93,6 +93,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\HtmlInputNumber.cs" />
+    <Compile Include="Models\LogWriter.cs" />
     <Compile Include="Models\ReportOption.cs" />
     <Compile Include="Models\Repository.cs" />
     <Compile Include="Pages\Admin.aspx.cs">

@@ -18,5 +18,10 @@ namespace CubeReportingModule.Models
         {
             get { return context.ReportOptions; }
         }
+
+        public IEnumerable<AccessLog> AccessLogs
+        {
+            get { return context.AccessLogs; }
+        }
     }
 }
