@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Pages/Site.Master" AutoEventWireup="true" Inherits="CubeReportingModule.Admin.ManageUsers" CodeFile="ManageUsers.aspx.cs" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Pages/Site.Master" AutoEventWireup="true" Inherits="CubeReportingModule.Admin.ManageUsers" Codebehind="ManageUsers.aspx.cs" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server" align="center">
@@ -24,7 +24,9 @@
             </asp:Repeater> 
         </p>
         <p>
-            <asp:DropDownList ID="RoleList" runat="server" DataTextField="Role" DataValueField="RoleList"
+            <asp:DropDownList ID="RoleList" runat="server" AutoPostBack="true"
+                DataTextField="RoleName" DataValueField="RoleName">
+            </asp:DropDownList>
         </p>
     </div>
 </asp:Content>

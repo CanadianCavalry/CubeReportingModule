@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
         <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" 
-            align="center">
+            HorizontalAlign="Center">
         <WizardSteps>
             <asp:CreateUserWizardStep ID="CreateUserWizardStep1" runat="server" Title="Fill out the fields below to create a new user:">
             </asp:CreateUserWizardStep>

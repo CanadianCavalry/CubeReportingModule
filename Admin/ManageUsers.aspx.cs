@@ -15,6 +15,10 @@ namespace CubeReportingModule.Admin
             // Bind the users and roles 
             BindUsersToUserList();
             BindUserRolesToList();
+
+            if (IsPostBack)
+            {
+            }
  
         }
 
@@ -29,8 +33,8 @@ namespace CubeReportingModule.Admin
         private void BindUserRolesToList()
         {
             // Get all of the roles 
-            string[] roles = Roles.GetRolesForUser("admin");
-            UsersRoleList.DataSource = roles;
+            string[] userRoles = Roles.GetRolesForUser(UserList.SelectedValue);
+            UsersRoleList.DataSource = userRoles;
             UsersRoleList.DataBind();
         }
 

@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
-    <asp:PasswordRecovery ID="PasswordRecovery1" Runat="server">
+    <asp:PasswordRecovery ID="PasswordRecovery1" Runat="server" align="center">
     </asp:PasswordRecovery>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="BottomPane" runat="server">

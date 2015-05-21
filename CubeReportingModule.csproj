@@ -175,6 +175,8 @@
   <ItemGroup>
     <Content Include="Pages\Site.Master" />
     <Content Include="packages.config" />
+    <Content Include="Admin\Web.config" />
+    <Content Include="Pages\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
