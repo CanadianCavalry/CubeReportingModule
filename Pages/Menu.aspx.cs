@@ -20,7 +20,7 @@ namespace CubeReportingModule.Pages
             {
                 if (Request.Form["report"] != null)
                 {
-                    string reportId = Request.Form["report"];
+                    string reportId = String.Format("{0}", Request.Form["report"]);
                     Session["ReportId"] = reportId;
                     Response.Redirect("ReportOptions.aspx");
                 }

@@ -3,8 +3,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
-    <div class="selectOptions">
-        <h1><%: pageReport.Name %></h1>
+    <div id="SelectOptions" class="selectOptions" runat="server">
+        <h1 id="OptionsHeader" runat="server"></h1>
+        <div id="OptionControls" runat="server" />
+        <%--<h1><%: pageReport.Name %></h1>
         <asp:Repeater ItemType="CubeReportingModule.Models.ReportOption"
             SelectMethod="GetReportOptions" runat="server">
             <ItemTemplate>
@@ -22,15 +24,15 @@
                     </asp:PlaceHolder>
 
                     <asp:PlaceHolder runat="server" ID="NumberControl" Visible='<%# Item.isVisible("Number") %>'>
-                        <input runat="server" type="number" name="<%# Item.Name %>" min='<%# Item.MinValue %>' max='<%# Item.MaxValue %>' value='<%# Item.MinValue %>' />
+                        <input runat="server" id="Number" type="number" name="<%# Item.Name %>" min='<%# Item.MinValue %>' max='<%# Item.MaxValue %>' value='<%# Item.MinValue %>' />
                     </asp:PlaceHolder>
 
                     <asp:PlaceHolder runat="server" ID="TextControl" Visible='<%# Item.isVisible("Text") %>' >
-                        <input runat="server" type="text" name="<%# Item.Name %>" />
+                        <input runat="server" id="Text" type="text" name="<%# Item.Name %>" />
                     </asp:PlaceHolder>
                 </div>
             </ItemTemplate>
-        </asp:Repeater>
+        </asp:Repeater>--%>
 
         <button type="submit">Generate Report</button>
         <button type="reset">Reset</button>

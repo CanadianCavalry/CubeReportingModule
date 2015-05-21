@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using CubeReportingModule.Models;
 using System.Diagnostics;
@@ -17,6 +19,7 @@ namespace CubeReportingModule.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             pageReport = getPageReport();
+            BuildSelectOptions();
 
             if (IsPostBack)
             {
@@ -36,6 +39,103 @@ namespace CubeReportingModule.Pages
             return toGet;
         }
 
+        public void BuildSelectOptions()
+        {
+            //HtmlGenericControl div = FindControl("SelectOptions") as HtmlGenericControl;
+            HtmlGenericControl div = OptionControls;
+            if (div == null)
+            {
+                return;
+            }
+
+            OptionsHeader.InnerText = pageReport.Name;
+
+            IEnumerable<ReportOption> allReportOptions = GetReportOptions();
+            foreach (ReportOption option in allReportOptions)
+            {
+                string optionType = option.ControlType;
+
+                Label label = new Label();
+                label.Text = option.Label + " " + option.Condition;
+                div.Controls.Add(label);
+
+                switch (optionType)
+                {
+                    case "ListBox":
+                        SqlDataSource dataSource = new SqlDataSource();
+                        dataSource.ID = option.DataSourceId;
+                        dataSource.DataSourceMode = SqlDataSourceMode.DataReader;
+                        dataSource.SelectCommand = option.SelectCommand;
+                        dataSource.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["AppContext"].ConnectionString;
+
+                        ListBox listBox = new ListBox();
+                        listBox.ID = option.Id;
+                        listBox.ClientIDMode = ClientIDMode.Static;
+                        listBox.DataTextField = option.DataTextField;
+                        listBox.DataSourceID = option.DataSourceId;
+
+                        div.Controls.Add(dataSource);
+                        div.Controls.Add(listBox);
+                        break;
+
+                    case "Date":
+                        Calendar calendar = new Calendar();
+                        calendar.ID = option.Id;
+                        calendar.ClientIDMode = ClientIDMode.Static;
+
+                        div.Controls.Add(calendar);
+                        break;
+
+                    case "Number":
+                        HtmlInputText number = new HtmlInputText();
+                        number.ID = option.Id;
+                        number.ClientIDMode = ClientIDMode.Static;
+                        number.Name = option.Name;
+                        //number.Min = option.MinValue;
+                        //number.Max = option.MaxValue;
+                        number.Value = option.MinValue.ToString();
+
+                        div.Controls.Add(number);
+                        break;
+
+                    case "Text":
+                        HtmlInputText text = new HtmlInputText();
+                        text.ID = option.Id;
+                        text.ClientIDMode = ClientIDMode.Static;
+                        text.Name = option.Name;
+
+                        div.Controls.Add(text);
+                        break;
+                }
+            }
+        }
+
+        private List<Control> GetAllPageControls()
+        {
+            List<Control> allPageControls = new List<Control>();
+
+            AddControlsToList<Control>(Page.Controls, allPageControls);
+
+            return allPageControls;
+        }
+
+        private void AddControlsToList<T>(ControlCollection controls, List<T> list)
+            where T : Control
+        {
+            foreach (Control control in controls)
+            {
+                if (control is T)
+                {
+                    list.Add((T)control);
+                }
+
+                if (control.HasControls())
+                {
+                    AddControlsToList(control.Controls, list);
+                }
+            }
+        }
+
         private string BuildQuery()
         {
             if (pageReport.SelectClause == null || pageReport.SelectClause.Equals(""))
@@ -51,17 +151,34 @@ namespace CubeReportingModule.Pages
 
             Queue<string> WhereClauses = new Queue<string>();
 
-            if (pageReport.WhereClause != null && ! pageReport.WhereClause.Equals(""))
+            List<Control> allControls = GetAllPageControls();
+
+            if (pageReport.WhereClause != null && !pageReport.WhereClause.Equals(""))
             {
                 //WhereClauses.Enqueue(pageReport.WhereClause);
             }
 
+            NameValueCollection postData = Request.Form;
+            foreach (string key in postData.AllKeys)
+            {
+                string[] values = postData.GetValues(key);
+                Debug.Write(key);
+                foreach(string value in values) {
+                    Debug.Write(" " + value);
+                }
+                Debug.Write("\n");
+            }
+
             IEnumerable<ReportOption> allReportOptions = GetReportOptions();
-            foreach (ReportOption option in allReportOptions)
+            foreach(ReportOption option in allReportOptions)
             {
                 string optionName = option.Name;
                 string optionCondition = option.Condition;
-                string optionValue = Request.Form[optionName];
+                string optionId = option.Id;
+                Control optionControl = allControls.Where(control => control.ClientID.Equals(optionId)).FirstOrDefault();
+                string controlName = optionControl.UniqueID;
+                string optionValue = "";
+                optionValue = String.Format("{0}", Request.Form[controlName]);
 
                 if (option.Metric != null && !option.Metric.Equals(""))
                 {
@@ -77,7 +194,8 @@ namespace CubeReportingModule.Pages
                 WhereClauses.Enqueue(clauseToAdd);
             }
 
-            if(WhereClauses.Count != 0) {
+            if (WhereClauses.Count != 0)
+            {
                 query += "Where " + WhereClauses.Dequeue();
 
                 while (WhereClauses.Count > 0)
@@ -88,23 +206,17 @@ namespace CubeReportingModule.Pages
                 query += "\n";
             }
 
-            Queue<string> OrderByClauses = new Queue<string>();
+            string OrderByClause = "";
 
-            if (pageReport.OrderByClause != null && ! pageReport.OrderByClause.Equals(""))
+            if (pageReport.OrderByClause != null && !pageReport.OrderByClause.Equals(""))
             {
-                OrderByClauses.Enqueue(pageReport.OrderByClause);
+                OrderByClause = pageReport.OrderByClause;
             }
 
-            if (OrderByClauses.Count != 0)
+            if (! OrderByClause.Equals(""))
             {
-                query += "Order By " + OrderByClauses.Dequeue();
+                query += "Order By " + OrderByClause;
                 query += " Desc";
-
-                while (OrderByClauses.Count > 0)
-                {
-                    query += " And " + OrderByClauses.Dequeue();
-                    query += " Desc";
-                }
             }
 
             return query;
