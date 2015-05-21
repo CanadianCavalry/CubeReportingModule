@@ -15,7 +15,7 @@ namespace CubeReportingModule.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Membership.CreateUser("Bob", "password!", "Email@email.com", "Really?", "yes really", true, out status);
+
         }
     }
 }

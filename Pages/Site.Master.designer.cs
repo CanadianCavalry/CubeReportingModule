@@ -40,6 +40,15 @@ namespace CubeReportingModule.Pages {
         protected global::System.Web.UI.WebControls.PlaceHolder NavBarPlaceholder;
         
         /// <summary>
+        /// nav control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl nav;
+        
+        /// <summary>
         /// LoginName1 control.
         /// </summary>
         /// <remarks>

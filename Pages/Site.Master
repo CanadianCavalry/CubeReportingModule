@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="CubeReportingModule.Pages.Site1" %>
+﻿<%@ Master Language="C#" AutoEventWireup="True" CodeBehind="Site.Master.cs" Inherits="CubeReportingModule.Pages.Site1" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml"> 
@@ -14,7 +14,7 @@
     </div>
     <form id="PageForm" runat="server">
         <asp:PlaceHolder runat="server" id="NavBarPlaceholder" Visible="true">
-        <div class="NavBar">
+        <div class="NavBar" runat="server" id="nav">
             Currently logged in as <asp:LoginName ID="LoginName1" runat="server" />
             <asp:Button runat="server" ID="Back" cssclass="NavButton" Text="Back" />
             <asp:LoginStatus ID="LoginStatus1" runat="server" CssClass="NavButton" LogoutAction="RedirectToLoginPage"  LogoutImageUrl="~/Resources/GainRMLogOut.png"/>

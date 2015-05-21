@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
+using System.Web.Security;
 
 namespace CubeReportingModule.Pages
 {
@@ -12,7 +14,7 @@ namespace CubeReportingModule.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //this.FindControl("NavBarPlaceholder").Visible = navBarVisible;
+            nav.Visible = HttpContext.Current.Request.IsAuthenticated;
         }
     }
 }

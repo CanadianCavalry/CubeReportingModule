@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data.Linq;
 using CubeReportingModule.Models;
 using CubeReportingModule.Cache;
+using System.Web.Security;
 
 namespace CubeReportingModule.Pages
 {
@@ -25,6 +26,7 @@ namespace CubeReportingModule.Pages
                     Response.Redirect("ReportOptions.aspx");
                 }
             }
+            AdminPane.Visible = Roles.IsUserInRole("Admin");
         }
 
         public IEnumerable<Report> GetReports()
@@ -37,6 +39,11 @@ namespace CubeReportingModule.Pages
         {
             LogWriter.createAccessLog(LogWriter.manageUsersIn);
             Response.Redirect("~/Admin/ManageUsers.aspx");
+        }
+
+        protected void AddUser_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Admin/AddUser.aspx");
         }
     }
 }

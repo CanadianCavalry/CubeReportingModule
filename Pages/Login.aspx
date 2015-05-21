@@ -7,6 +7,7 @@
         <asp:Login 
         ID="Login1" 
         runat="server" 
+        CssClass="LoginPanel"
         DestinationPageUrl="Menu.aspx"
         PasswordRecoveryText="Forgotten your password?"
         PasswordRecoveryUrl="~/Pages/RecoverPassword.aspx"
