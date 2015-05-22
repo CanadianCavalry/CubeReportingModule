@@ -75,6 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\AddTemplate.aspx" />
     <Content Include="Admin\AddUser.aspx" />
     <Content Include="Admin\ManageUsers.aspx" />
     <Content Include="Global.asax" />
@@ -91,6 +92,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AddTemplate.aspx.cs">
+      <DependentUpon>AddTemplate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddTemplate.aspx.designer.cs">
+      <DependentUpon>AddTemplate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\AddUser.aspx.cs">
       <DependentUpon>AddUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

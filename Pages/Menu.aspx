@@ -32,7 +32,7 @@
         </div>
         <div class="RightPane">
             <asp:Button runat="server" ID="Logs" CssClass="AdminButton" Text="View Access Logs" />
-            <asp:Button runat="server" ID="Templates" CssClass="AdminButton" Text="Manage Report Templates" />
+            <asp:Button runat="server" ID="Templates" CssClass="AdminButton" Text="Manage Report Templates" OnClick="Templates_Click" />
         </div>
     </div>
 </asp:Content>

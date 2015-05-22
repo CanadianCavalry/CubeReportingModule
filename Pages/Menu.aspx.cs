@@ -45,5 +45,10 @@ namespace CubeReportingModule.Pages
         {
             Response.Redirect("~/Admin/AddUser.aspx");
         }
+
+        protected void Templates_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Admin/AddTemplate.aspx");
+        }
     }
 }
