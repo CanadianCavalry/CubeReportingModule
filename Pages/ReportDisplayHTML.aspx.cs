@@ -5,12 +5,13 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using CubeReportingModule.Models;
 
 namespace CubeReportingModule.Pages
 {
     public partial class ReportDisplayHTML : System.Web.UI.Page
     {
-        public string reportName = "GainReport.pdf";
+        public string reportName = @"I:\GainReport.xlsx";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,6 +23,21 @@ namespace CubeReportingModule.Pages
         {
             string selectCommand = (string) Session["Query"];
             return selectCommand;
+        }
+
+        public void CreateExcelButton_Click(object sender, EventArgs e)
+        {
+            List<List<string>> allRows = new List<List<string>>();
+            for(int i = 1; i < 5; i++)
+            {
+                List<string> row = new List<string>();
+                for (int j = 1; j < 5; j++)
+                {
+                    row.Add(String.Format("{0}", j));
+                }
+                allRows.Add(row);
+            }
+            ExcelConverter.WriteExcelFile(reportName, "test", allRows);
         }
 
         public void CreatePdfButton_Click(object sender, EventArgs e)
