@@ -87,13 +87,12 @@ namespace CubeReportingModule.Pages
                         break;
 
                     case "Number":
-                        HtmlInputText number = new HtmlInputText();
+                        Literal number = new Literal();
+                        string html = String.Format(@"<input type=""number"" id=""{0}"" name=""{0}"" min=""{1}"" max=""{2}"" value=""{1}"">", option.Id, option.MinValue, option.MaxValue);
+                        number.Mode = LiteralMode.PassThrough;
                         number.ID = option.Id;
                         number.ClientIDMode = ClientIDMode.Static;
-                        number.Name = option.Name;
-                        //number.Min = option.MinValue;
-                        //number.Max = option.MaxValue;
-                        number.Value = option.MinValue.ToString();
+                        number.Text = html;
 
                         div.Controls.Add(number);
                         break;
@@ -102,7 +101,7 @@ namespace CubeReportingModule.Pages
                         HtmlInputText text = new HtmlInputText();
                         text.ID = option.Id;
                         text.ClientIDMode = ClientIDMode.Static;
-                        text.Name = option.Name;
+                        text.Name = option.ColumnName;
 
                         div.Controls.Add(text);
                         break;
@@ -158,27 +157,32 @@ namespace CubeReportingModule.Pages
                 //WhereClauses.Enqueue(pageReport.WhereClause);
             }
 
-            NameValueCollection postData = Request.Form;
-            foreach (string key in postData.AllKeys)
-            {
-                string[] values = postData.GetValues(key);
-                Debug.Write(key);
-                foreach(string value in values) {
-                    Debug.Write(" " + value);
-                }
-                Debug.Write("\n");
-            }
+            //NameValueCollection postData = Request.Form;
+            //foreach (string key in postData.AllKeys)
+            //{
+            //    string[] values = postData.GetValues(key);
+            //    Debug.Write(key);
+            //    foreach(string value in values) {
+            //        Debug.Write(" " + value);
+            //    }
+            //    Debug.Write("\n");
+            //}
 
             IEnumerable<ReportOption> allReportOptions = GetReportOptions();
             foreach(ReportOption option in allReportOptions)
             {
-                string optionName = option.Name;
+                string optionName = option.ColumnName;
                 string optionCondition = option.Condition;
                 string optionId = option.Id;
                 Control optionControl = allControls.Where(control => control.ClientID.Equals(optionId)).FirstOrDefault();
                 string controlName = optionControl.UniqueID;
                 string optionValue = "";
-                optionValue = String.Format("{0}", Request.Form[controlName]);
+                optionValue = Server.HtmlDecode(String.Format("{0}", Request.Form[controlName]));
+                
+                if (optionValue == null || optionValue.Equals(""))
+                {
+                    optionValue = Server.HtmlDecode(String.Format("{0}", Request.Form[option.Id]));
+                }
 
                 if (option.Metric != null && !option.Metric.Equals(""))
                 {
@@ -204,19 +208,6 @@ namespace CubeReportingModule.Pages
                 }
 
                 query += "\n";
-            }
-
-            string OrderByClause = "";
-
-            if (pageReport.OrderByClause != null && !pageReport.OrderByClause.Equals(""))
-            {
-                OrderByClause = pageReport.OrderByClause;
-            }
-
-            if (! OrderByClause.Equals(""))
-            {
-                query += "Order By " + OrderByClause;
-                query += " Desc";
             }
 
             return query;

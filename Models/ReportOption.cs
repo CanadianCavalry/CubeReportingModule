@@ -17,7 +17,7 @@ namespace CubeReportingModule.Models
         [Column(Order = 2)]
         public int ReportOptionId { get; set; }
         public string ControlType { get; set; }
-        public string Name { get; set; }
+        public string ColumnName { get; set; }
         public string Label { get; set; }
         public string Condition { get; set; }
         public string Metric { get; set; }
