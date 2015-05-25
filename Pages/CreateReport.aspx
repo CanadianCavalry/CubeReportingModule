@@ -6,9 +6,11 @@
     <asp:Panel ID="CreateTemplate" runat="server">
         <h1>Create New Report</h1>
         <asp:Panel ID="Controls" runat="server">
-            Enter Report name:
-            <asp:TextBox runat="server" ID="ReportName" ClientIDMode="Static" />
-            <asp:Panel runat="server" ID="TableControls" ClientIDMode="Static" ScrollBars="Vertical">
+            <asp:Panel runat="server" ID="NameControls" ClientIDMode="Static">
+                Enter Report name:
+                <asp:TextBox runat="server" ID="ReportName" ClientIDMode="Static" />
+            </asp:Panel>
+            <asp:Panel runat="server" ID="TableControls" ClientIDMode="Static" ScrollBars="Vertical" Height="200px">
                 Choose tables:
                 <asp:SqlDataSource runat="server" ID="TableQuery" DataSourceMode="DataSet" SelectCommand="SELECT TABLE_NAME FROM information_schema.tables Where TABLE_NAME not like 'GRA%' And TABLE_NAME not like 'aspnet%' Order By TABLE_NAME Asc" ConnectionString="<%$ ConnectionStrings:AppContext %>" />
                 <asp:CheckBoxList runat="server" ID="TableNames" ClientIDMode="Static" DataSourceID="TableQuery" DataTextField="TABLE_NAME" DataValueField="TABLE_NAME" />

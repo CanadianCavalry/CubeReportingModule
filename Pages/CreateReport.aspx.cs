@@ -42,7 +42,7 @@ namespace CubeReportingModule.Pages
                     break;
 
                 case 1:
-                    ReportName.Enabled = false;
+                    NameControls.Enabled = false;
                     TableControls.Enabled = false;
                     ColumnControls.Visible = true;
                     OptionsControls.Visible = false;
@@ -65,11 +65,12 @@ namespace CubeReportingModule.Pages
                     break;
 
                 case 2:
-                    ReportName.Enabled = false;
+                    NameControls.Enabled = false;
                     TableControls.Enabled = false;
                     ColumnControls.Visible = true;
                     ColumnControls.Enabled = false;
                     OptionsControls.Visible = true;
+                    Next.Visible = false;
                     Back.Visible = true;
                     Done.Visible = true;
 
@@ -84,7 +85,7 @@ namespace CubeReportingModule.Pages
                     break;
 
                 default:
-                    ReportName.Visible = false;
+                    NameControls.Visible = false;
                     TableControls.Visible = false;
                     ColumnControls.Visible = false;
                     OptionsControls.Visible = false;
