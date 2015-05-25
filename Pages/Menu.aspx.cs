@@ -19,11 +19,12 @@ namespace CubeReportingModule.Pages
         {
             if (IsPostBack)
             {
-                if (Request.Form["report"] != null)
+                if (Request.Form["Report"] != null)
                 {
-                    string reportId = String.Format("{0}", Request.Form["report"]);
+                    string reportId = String.Format("{0}", Server.HtmlDecode(Request.Form["Report"]));
                     Session["ReportId"] = reportId;
                     Response.Redirect("ReportOptions.aspx");
+                    return;
                 }
             }
             AdminPane.Visible = Roles.IsUserInRole("Admin");
@@ -33,6 +34,11 @@ namespace CubeReportingModule.Pages
         {
             IEnumerable<Report> reports = repo.Reports;
             return reports;
+        }
+
+        protected void CreateReport_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CreateReport.aspx");
         }
 
         protected void Accounts_Click(object sender, EventArgs e)
