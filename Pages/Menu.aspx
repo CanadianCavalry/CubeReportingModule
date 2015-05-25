@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
     <div class="LeftPane">
         <%-- Static menu buttons --%>
-        <asp:Button runat="server" ID="Adhoc" CssClass="MenuButton" Text="Create Report" />
+        <asp:Button runat="server" ID="Adhoc" CssClass="MenuButton" Text="Create Report" OnClick="CreateReport_Click" />
         <br />
         <asp:Button runat="server" ID="Events" CssClass="MenuButton" Text="Modify Scheduled Reports" />
         <br />
@@ -17,7 +17,7 @@
        <asp:Repeater ItemType="CubeReportingModule.Models.Report"
             SelectMethod="GetReports" runat="server">
             <ItemTemplate>
-                <button name="report" class="MenuButton" type="submit" value="<%# Item.ReportId %>"><%# Item.Name %></button>
+                <button name="Report" class="MenuButton" type="submit" value="<%# Item.ReportId %>"><%# Item.Name %></button>
                 <br />
             </ItemTemplate>
         </asp:Repeater>

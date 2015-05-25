@@ -87,12 +87,19 @@ namespace CubeReportingModule.Pages
                         break;
 
                     case "Number":
-                        Literal number = new Literal();
-                        string html = String.Format(@"<input type=""number"" id=""{0}"" name=""{0}"" min=""{1}"" max=""{2}"" value=""{1}"">", option.Id, option.MinValue, option.MaxValue);
-                        number.Mode = LiteralMode.PassThrough;
+                        HtmlInputText number = new HtmlInputText();
+                        number.Attributes["type"] = "number";
+                        number.Attributes["name"] = option.Id;
+                        number.Attributes["min"] = option.MinValue.ToString();
+                        number.Attributes["max"] = option.MaxValue.ToString();
+                        //number.Attributes["value"] = option.InitValue.ToString();
+                        number.Attributes["value"] = option.MinValue.ToString();
+                        //Literal number = new Literal();
+                        //string html = String.Format(@"<input type=""number"" id=""{0}"" name=""{0}"" min=""{1}"" max=""{2}"" value=""{1}"">", option.Id, option.MinValue, option.MaxValue);
+                        //number.Mode = LiteralMode.PassThrough;
                         number.ID = option.Id;
                         number.ClientIDMode = ClientIDMode.Static;
-                        number.Text = html;
+                        //number.Text = html;
 
                         div.Controls.Add(number);
                         break;
@@ -154,7 +161,7 @@ namespace CubeReportingModule.Pages
 
             if (pageReport.WhereClause != null && !pageReport.WhereClause.Equals(""))
             {
-                //WhereClauses.Enqueue(pageReport.WhereClause);
+                WhereClauses.Enqueue(pageReport.WhereClause);
             }
 
             //NameValueCollection postData = Request.Form;
