@@ -108,7 +108,7 @@ namespace CubeReportingModule.Pages
                         HtmlInputText text = new HtmlInputText();
                         text.ID = option.Id;
                         text.ClientIDMode = ClientIDMode.Static;
-                        text.Name = option.ColumnName;
+                        text.Name = option.Name;
 
                         div.Controls.Add(text);
                         break;
@@ -178,7 +178,7 @@ namespace CubeReportingModule.Pages
             IEnumerable<ReportOption> allReportOptions = GetReportOptions();
             foreach(ReportOption option in allReportOptions)
             {
-                string optionName = option.ColumnName;
+                string optionName = option.Name;
                 string optionCondition = option.Condition;
                 string optionId = option.Id;
                 Control optionControl = allControls.Where(control => control.ClientID.Equals(optionId)).FirstOrDefault();
