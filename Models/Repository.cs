@@ -14,9 +14,9 @@ namespace CubeReportingModule.Models
             get { return context.Reports; }
         }
 
-        public IEnumerable<ReportOption> ReportOptions
+        public IEnumerable<GRAReportOption> GRAReportOptions
         {
-            get { return context.ReportOptions; }
+            get { return context.GRAReportOptions; }
         }
 
         public IEnumerable<AccessLog> AccessLogs

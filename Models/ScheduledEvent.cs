@@ -30,9 +30,9 @@ namespace CubeReportingModule.Models
         //    get { return eventId; }
         //}
 
-        //public void addRecipient(string toAdd)
+        //public void addRecipient(string tableNameToAdd)
         //{
-        //    allRecipients.Add(toAdd);
+        //    allRecipients.Add(tableNameToAdd);
         //}
 
         //public void removeRecipient(string toRemove)

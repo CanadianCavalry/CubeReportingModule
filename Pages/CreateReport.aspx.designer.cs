@@ -130,6 +130,33 @@ namespace CubeReportingModule.Pages {
         protected global::System.Web.UI.WebControls.Button AddOption;
         
         /// <summary>
+        /// RestrictionsControls control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel RestrictionsControls;
+        
+        /// <summary>
+        /// Restrictions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Restrictions;
+        
+        /// <summary>
+        /// AddRestriction control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AddRestriction;
+        
+        /// <summary>
         /// Next control.
         /// </summary>
         /// <remarks>
@@ -139,22 +166,22 @@ namespace CubeReportingModule.Pages {
         protected global::System.Web.UI.WebControls.Button Next;
         
         /// <summary>
-        /// Back control.
+        /// Previous control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Back;
+        protected global::System.Web.UI.WebControls.Button Previous;
         
         /// <summary>
-        /// Done control.
+        /// Summary control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Done;
+        protected global::System.Web.UI.WebControls.Button Summary;
         
         /// <summary>
         /// ReportSummary control.
@@ -166,22 +193,22 @@ namespace CubeReportingModule.Pages {
         protected global::System.Web.UI.WebControls.Panel ReportSummary;
         
         /// <summary>
-        /// Summary control.
+        /// SummaryDisplay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder Summary;
+        protected global::System.Web.UI.WebControls.PlaceHolder SummaryDisplay;
         
         /// <summary>
-        /// Ok control.
+        /// Done control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Ok;
+        protected global::System.Web.UI.WebControls.Button Done;
         
         /// <summary>
         /// Modify control.

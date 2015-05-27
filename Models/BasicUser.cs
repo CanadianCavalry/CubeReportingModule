@@ -13,7 +13,6 @@ namespace CubeReportingModule.Models
         [Key]
         public string Username { get; set; }
         public string Password { get; set; }
-        public List<SecurityQuestion> allSecurityQuestions { get; set; }
         public string Email { get; set; }
         protected bool AdminFlag { get; set; }
         protected bool ClientFlag { get; set; }
@@ -55,14 +54,6 @@ namespace CubeReportingModule.Models
         }
 
         public void resetPassword()
-        {
-        }
-
-        public void confirmSecurityAnswers(List<string> allAnswers)
-        {
-        }
-
-        public void changeSecurityQuestion(SecurityQuestion toChange, SecurityQuestion replacement)
         {
         }
 
