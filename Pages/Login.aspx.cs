@@ -11,11 +11,34 @@ namespace CubeReportingModule.Pages
 {
     public partial class Login : System.Web.UI.Page
     {
-        MembershipCreateStatus status;
-
         protected void Page_Load(object sender, EventArgs e)
         {
+            CreateDefaultSysAdmin();
+        }
 
+        protected void CreateDefaultSysAdmin()
+        {
+            MembershipCreateStatus status;      //tracks the success of the CreateUser method
+            MembershipUser sysAdmin;            //used to track the default sysadmin account
+
+            //create the Sysadmin account, if it does not exist
+            Membership.CreateUser("deus", "exmachina!", "email@email.com", "Really?", "yes really", true, out status);
+
+            //Find the Sysadmin account
+            MembershipUserCollection matchingUsers = Membership.FindUsersByName("deus");
+            foreach (MembershipUser user in matchingUsers)
+            {
+                if (user.ToString() == "deus")
+                {
+                    sysAdmin = user;
+                }
+            }
+
+            //Add the Sysadmin account to the SysAdmin role, if neccessary
+            if (!Roles.IsUserInRole("deus", "SysAdmin"))
+            {
+                Roles.AddUserToRole("deus", "SysAdmin");
+            }
         }
     }
 }

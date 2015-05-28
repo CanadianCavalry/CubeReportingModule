@@ -12,16 +12,22 @@ namespace CubeReportingModule.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Bind the users and roles 
             BindUsersToUserList();
             BindRolesToList();
             CheckRolesForSelectedUser();
+
+            if (IsPostBack)
+            {
+                UserList.SelectedValue = Request.Form[UserList.UniqueID];
+            }
+            
         }
         
         private void BindUsersToUserList()
         {
             // Get all of the user accounts 
             MembershipUserCollection users = Membership.GetAllUsers();
+            users.Remove("deus");
             UserList.DataSource = users;
             UserList.DataBind();
         }
@@ -29,7 +35,12 @@ namespace CubeReportingModule.Admin
         private void BindRolesToList()
         {
             // Get all of the roles 
-            string[] roles = Roles.GetAllRoles();
+            List<string> roles = new List<string>(Roles.GetAllRoles());
+            roles.Remove("SysAdmin");
+            if (!Roles.IsUserInRole("SysAdmin"))
+            {
+                roles.Remove("Admin");
+            }
             UsersRoleList.DataSource = roles;
             UsersRoleList.DataBind();
         }
@@ -84,7 +95,7 @@ namespace CubeReportingModule.Admin
 
         protected void UserList_SelectedIndexChanged1(object sender, EventArgs e)
         {
-            CheckRolesForSelectedUser();
+            //CheckRolesForSelectedUser();
         }
     }
 }

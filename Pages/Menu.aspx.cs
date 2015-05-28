@@ -27,7 +27,11 @@ namespace CubeReportingModule.Pages
                     return;
                 }
             }
-            AdminPane.Visible = Roles.IsUserInRole("Admin");
+
+            if ((Roles.IsUserInRole("Admin")) || (Roles.IsUserInRole("SysAdmin"))){
+                AdminPane.Visible = true;
+            }
+            
         }
 
         public IEnumerable<Report> GetReports()

@@ -16,5 +16,10 @@ namespace CubeReportingModule.Pages
         {
             nav.Visible = HttpContext.Current.Request.IsAuthenticated;
         }
+
+        protected void Menu_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Pages/Menu.aspx");
+        }
     }
 }

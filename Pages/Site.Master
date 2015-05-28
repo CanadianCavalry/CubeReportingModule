@@ -16,7 +16,7 @@
         <asp:PlaceHolder runat="server" id="NavBarPlaceholder" Visible="true">
         <div class="NavBar" runat="server" id="nav">
             Currently logged in as <asp:LoginName ID="LoginName1" runat="server" CssClass="LoginName" />
-            <asp:Button runat="server" ID="Back" cssclass="NavButton" Text="Back" />
+            <asp:Button runat="server" ID="Menu" cssclass="NavButton" Text="Main Menu" OnClick="Menu_Click" />
             <asp:LoginStatus ID="LoginStatus1" runat="server" CssClass="NavButton" LogoutAction="RedirectToLoginPage"  LogoutImageUrl="~/Resources/GainRMLogOut.png"/>
         </div>
         </asp:PlaceHolder>
