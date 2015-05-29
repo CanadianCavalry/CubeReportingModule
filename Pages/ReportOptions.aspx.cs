@@ -50,8 +50,8 @@ namespace CubeReportingModule.Pages
 
             OptionsHeader.InnerText = pageReport.Name;
 
-            IEnumerable<ReportOption> allReportOptions = GetReportOptions();
-            foreach (ReportOption option in allReportOptions)
+            IEnumerable<GRAReportOption> allReportOptions = GetReportOptions();
+            foreach (GRAReportOption option in allReportOptions)
             {
                 string optionType = option.ControlType;
 
@@ -175,8 +175,8 @@ namespace CubeReportingModule.Pages
             //    Debug.Write("\n");
             //}
 
-            IEnumerable<ReportOption> allReportOptions = GetReportOptions();
-            foreach(ReportOption option in allReportOptions)
+            IEnumerable<GRAReportOption> allReportOptions = GetReportOptions();
+            foreach(GRAReportOption option in allReportOptions)
             {
                 string optionName = option.Name;
                 string optionCondition = option.Condition;
@@ -220,10 +220,10 @@ namespace CubeReportingModule.Pages
             return query;
         }
 
-        public IEnumerable<ReportOption> GetReportOptions()
+        public IEnumerable<GRAReportOption> GetReportOptions()
         {
             int reportId = pageReport.ReportId;
-            IEnumerable<ReportOption> allReportOptions = repo.ReportOptions.Where(option => option.ReportId == reportId).OrderBy(option => option.ReportOptionId);
+            IEnumerable<GRAReportOption> allReportOptions = repo.GRAReportOptions.Where(option => option.ReportId == reportId).OrderBy(option => option.ReportOptionId);
             return allReportOptions;
         }
     }

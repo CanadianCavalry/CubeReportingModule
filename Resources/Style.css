@@ -140,8 +140,16 @@ body {
 
 /*Admin*/
 
-.ManageUserControl {
-    
+.UserSelect {
+    float: left;
+    text-align:center;
+    width: 50%;
+}
+
+.RoleSelect {
+    float: right;
+    text-align:center;
+    width: 50%;
 }
 
 /*General*/

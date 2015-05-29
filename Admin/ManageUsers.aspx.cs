@@ -12,90 +12,78 @@ namespace CubeReportingModule.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindUsersToUserList();
-            BindRolesToList();
-            CheckRolesForSelectedUser();
+            if (!Roles.IsUserInRole(Membership.GetUser().UserName, "SysAdmin"))
+            {
+                RoleList.Items.FindByText("Admin").Enabled = false;
+            }
 
+            // Populate the drop-down box of users
+            BindUsersToUserList();
             if (IsPostBack)
             {
                 UserList.SelectedValue = Request.Form[UserList.UniqueID];
             }
-            
+
+            if (!IsPostBack)
+            {
+                UpdateUserRole();
+            }
         }
         
         private void BindUsersToUserList()
         {
-            // Get all of the user accounts 
+            // Get all of the user accounts
             MembershipUserCollection users = Membership.GetAllUsers();
             users.Remove("deus");
+            users.Remove(Membership.GetUser().UserName);
+
+            // If the logged in user is not a SysAdmin, hide all the Admin users
+            if (!Roles.IsUserInRole("SysAdmin"))
+            {
+                string[] admins = Roles.GetUsersInRole("Admin");
+                foreach (string userName in admins)
+                {
+                    users.Remove(userName);
+                }
+            }
             UserList.DataSource = users;
             UserList.DataBind();
         }
 
-        private void BindRolesToList()
-        {
-            // Get all of the roles 
-            List<string> roles = new List<string>(Roles.GetAllRoles());
-            roles.Remove("SysAdmin");
-            if (!Roles.IsUserInRole("SysAdmin"))
-            {
-                roles.Remove("Admin");
-            }
-            UsersRoleList.DataSource = roles;
-            UsersRoleList.DataBind();
-        }
-
-        private void CheckRolesForSelectedUser()
-        {
-            // Determine what roles the selected user belongs to 
-            string selectedUserName = UserList.SelectedValue;
-            string[] selectedUsersRoles = Roles.GetRolesForUser(selectedUserName);
-
-            // Loop through the Repeater's Items and check or uncheck the checkbox as needed 
-
-            foreach (RepeaterItem ri in UsersRoleList.Items)
-            {
-                // Programmatically reference the CheckBox 
-                CheckBox RoleCheckBox = ri.FindControl("RoleCheckBox") as CheckBox;
-                // See if RoleCheckBox.Text is in selectedUsersRoles 
-                if (selectedUsersRoles.Contains<string>(RoleCheckBox.Text))
-                    RoleCheckBox.Checked = true;
-                else
-                    RoleCheckBox.Checked = false;
-            }
-        }
-
-        protected void RoleCheckBox_CheckChanged(object sender, EventArgs e)
-        {
-             // Reference the CheckBox that raised this event 
-             CheckBox RoleCheckBox = sender as CheckBox; 
-
-             // Get the currently selected user and role 
-             string selectedUserName = UserList.SelectedValue; 
-
-             string roleName = RoleCheckBox.Text; 
-
-             // Determine if we need to add or remove the user from this role 
-             if (RoleCheckBox.Checked) 
-             { 
-                  // Add the user to the role 
-                  Roles.AddUserToRole(selectedUserName, roleName); 
-                  // Display a status message 
-                  ActionStatus.Text = string.Format("User {0} was added to role {1}.", selectedUserName, roleName); 
-             } 
-             else 
-             { 
-                  // Remove the user from the role 
-                  Roles.RemoveUserFromRole(selectedUserName, roleName); 
-                  // Display a status message 
-                  ActionStatus.Text = string.Format("User {0} was removed from role {1}.", selectedUserName, roleName); 
-
-             } 
-        }
-
+        // Update the radio buttons when a user is selected
         protected void UserList_SelectedIndexChanged1(object sender, EventArgs e)
         {
-            //CheckRolesForSelectedUser();
+            UpdateUserRole();
+        }
+
+        private void UpdateUserRole()
+        {
+            string userRole = Roles.GetRolesForUser(UserList.SelectedItem.Text)[0];
+
+            // Find the button corresponding to the users role
+            ListItem item = RoleList.Items.FindByText(userRole);
+            item.Selected = true;
+        }
+
+        protected void RoleList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Get the currently selected user and their roles
+            string userName = Membership.GetUser(UserList.SelectedItem.Text).UserName;
+            string selectedRole = RoleList.SelectedItem.Text;
+            string[] userRoles = Roles.GetRolesForUser(userName);
+
+            // If they are already in that role, return
+            if (Roles.IsUserInRole(userName, selectedRole)) 
+            {
+                return;
+            }
+
+            // Remove them from all roles
+            Roles.RemoveUserFromRoles(userName, userRoles);
+
+            // Add them to the selected role and display a success message
+            Roles.AddUserToRole(userName, RoleList.SelectedItem.Text);
+            ActionStatus.Text = string.Format("User {0} was changed to role {1}.", userName, RoleList.SelectedItem.Text);
         }
     }
 }

@@ -17,6 +17,8 @@ namespace CubeReportingModule.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            AdminPane.Visible = false;
+
             if (IsPostBack)
             {
                 if (Request.Form["Report"] != null)
