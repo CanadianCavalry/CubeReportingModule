@@ -12,6 +12,7 @@ namespace CubeReportingModule.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Prevent non-SysAdmins from granting admin status
             if (!Roles.IsUserInRole(Membership.GetUser().UserName, "SysAdmin"))
             {
                 RoleList.Items.FindByText("Admin").Enabled = false;

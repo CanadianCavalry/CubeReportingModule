@@ -17,6 +17,7 @@ namespace CubeReportingModule.Admin
 
         protected void BindUsersToList()
         {
+            // Create the initial list of users and hide the sysadmin and current user.
             MembershipUserCollection users = Membership.GetAllUsers();
             users.Remove("deus");
             users.Remove(Membership.GetUser().UserName);

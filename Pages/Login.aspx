@@ -4,7 +4,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
     <asp:ValidationSummary ID="ValidationSummary1" runat="server" DisplayMode="SingleParagraph" CssClass="error" />
      <div class="loginContainer">
-
         <asp:Login 
         ID="Login1" 
         runat="server" 
