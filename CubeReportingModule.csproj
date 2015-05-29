@@ -91,6 +91,7 @@
     <Content Include="Pages\RecoverPassword.aspx" />
     <Content Include="Pages\ReportDisplayHTML.aspx" />
     <Content Include="Pages\ReportOptions.aspx" />
+    <Content Include="Admin\ViewLogs.aspx" />
     <Content Include="Resources\CubeBanner.png" />
     <Content Include="Resources\GainRMLogOut.png" />
     <Content Include="Resources\Print.css" />
@@ -179,6 +180,10 @@
     </Compile>
     <Compile Include="Pages\Menu.aspx.designer.cs">
       <DependentUpon>Menu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ViewLogs.aspx.cs">
+      <DependentUpon>ViewLogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\AccessLog.cs" />

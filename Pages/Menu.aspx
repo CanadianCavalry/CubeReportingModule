@@ -31,7 +31,7 @@
             <asp:Button runat="server" ID="Accounts" CssClass="AdminButton" Text="Manage Accounts" OnClick="Accounts_Click" />
         </div>
         <div class="RightPane">
-            <asp:Button runat="server" ID="Logs" CssClass="AdminButton" Text="View Access Logs" />
+            <asp:Button runat="server" ID="Logs" CssClass="AdminButton" Text="View Access Logs" OnClick="Logs_Click" />
             <asp:Button runat="server" ID="Templates" CssClass="AdminButton" Text="Manage Report Templates" OnClick="Templates_Click" />
         </div>
     </div>
