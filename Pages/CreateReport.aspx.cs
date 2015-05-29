@@ -176,6 +176,27 @@ namespace CubeReportingModule.Pages
                     break;
 
                 case 3:
+                    Label summary = new Label();
+                    string reportInfo = "";
+
+                    reportInfo += "Tables: ";
+                    foreach (ListItem item in (ListItemCollection)Session["TableNames"])
+                    {
+                        reportInfo += item.ToString();
+                        reportInfo += ", ";
+                    }
+                    reportInfo += "/n";
+
+                    reportInfo += "Columns: ";
+                    foreach (ListItem item in (ListItemCollection)Session["ColumnNames"])
+                    {
+                        reportInfo += item.ToString();
+                        reportInfo += ", ";
+                    }
+                    reportInfo += "/n";
+
+                    summary.Text = String.Format(reportInfo);
+                    SummaryDisplay.Controls.Add(summary);
                     break;
 
                 default:

@@ -34,15 +34,20 @@ namespace CubeReportingModule.Pages
             HtmlTextWriter outHtmlTextWriter = new HtmlTextWriter(outTextWriter);
             base.Render(outHtmlTextWriter);
 
-            //// Obtain the current page HTML string
-            string currentPageHtmlString = outTextWriter.ToString();
-
+             ////Obtain the current page HTML string
+            string currentPageHtmlString = outHtmlTextWriter.ToString();
             List<string> row = new List<string>();
-            row.Add(outTextWriter.ToString());
-            
             List<List<string>> allRows = new List<List<string>>();
-            allRows.Add(row);
 
+            while (currentPageHtmlString != "</table>")
+            {
+                while(currentPageHtmlString != "</tr>"){
+                
+                row.Add(outTextWriter.ToString());
+                    }
+                
+                allRows.Add(row);
+            }
             //List<string> row = new List<string>();
            // row.Add(currentPageHtmlString);
             //allRows.Add(row);
