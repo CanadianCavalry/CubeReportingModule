@@ -12,7 +12,7 @@ namespace CubeReportingModule.Pages
     public partial class ReportDisplayHTML : System.Web.UI.Page
     {
 
-        public string reportName = @"C:\Users\M\Documents\School\Term6\GainReport1.xlsx";
+        public string reportName = @"C:\GainReport1.xlsx";
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -41,15 +41,15 @@ namespace CubeReportingModule.Pages
 
             while (currentPageHtmlString != "</table>")
             {
-                while(currentPageHtmlString != "</tr>"){
-                
-                row.Add(outTextWriter.ToString());
-                    }
+                while(currentPageHtmlString != "</tr>")
+                {
+                    row.Add(outTextWriter.ToString());
+                }
                 
                 allRows.Add(row);
             }
             //List<string> row = new List<string>();
-           // row.Add(currentPageHtmlString);
+            //row.Add(currentPageHtmlString);
             //allRows.Add(row);
 
             ExcelConverter.WriteExcelFile(reportName, "report1", allRows);
@@ -58,7 +58,7 @@ namespace CubeReportingModule.Pages
             //Response.AddHeader("Content-Type", "application/xlsx");
 
             //// Instruct the browser to open the PDF file as an attachment or inline
-            //Response.AddHeader("Content-Disposition", String.Format("attachment; filename=GAINReport.pdf; size={0}"));
+            //Response.AddHeader("Content-Disposition", String.Format("attachment; filename=GAINReport.xls; size={0}"));
 
             //// Write the PDF document buffer to HTTP response
             //Response.BinaryWrite(outPdfBuffer);
@@ -91,7 +91,7 @@ namespace CubeReportingModule.Pages
            // //// Set response content type
            // Response.AddHeader("Content-Type", "application/pdf");
 
-           // //// Instruct the browser to open the PDF file as an attachment or inline
+           // //// Instruct the browser to open the PDF file as an attachment
            //Response.AddHeader("Content-Disposition", String.Format("attachment; filename=Partially_Convert_HTML.pdf; size={0}", outPdfBuffer.Length.ToString()));
 
            // //// Write the PDF document buffer to HTTP response
