@@ -175,7 +175,7 @@ namespace CubeReportingModule.Pages {
         protected global::System.Web.UI.WebControls.Button Previous;
         
         /// <summary>
-        /// summary control.
+        /// Summary control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

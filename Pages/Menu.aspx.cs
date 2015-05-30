@@ -38,7 +38,7 @@ namespace CubeReportingModule.Pages
 
         public IEnumerable<Report> GetReports()
         {
-            IEnumerable<Report> reports = repo.Reports;
+            IEnumerable<Report> reports = repo.Reports.OrderBy(report => report.Name);
             return reports;
         }
 
@@ -60,7 +60,7 @@ namespace CubeReportingModule.Pages
 
         protected void Templates_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Admin/AddTemplate.aspx");
+            Response.Redirect("ManageReports.aspx");
         }
 
         protected void Logs_Click(object sender, EventArgs e)

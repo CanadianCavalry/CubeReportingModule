@@ -80,13 +80,13 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Admin\AddTemplate.aspx" />
     <Content Include="Admin\AddUser.aspx" />
     <Content Include="Admin\ManageUsers.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Pages\Admin.aspx" />
     <Content Include="Pages\CreateReport.aspx" />
     <Content Include="Pages\Login.aspx" />
+    <Content Include="Pages\ManageReports.aspx" />
     <Content Include="Pages\Menu.aspx" />
     <Content Include="Pages\RecoverPassword.aspx" />
     <Content Include="Pages\ReportDisplayHTML.aspx" />
@@ -99,13 +99,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\AddTemplate.aspx.cs">
-      <DependentUpon>AddTemplate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\AddTemplate.aspx.designer.cs">
-      <DependentUpon>AddTemplate.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Admin\AddUser.aspx.cs">
       <DependentUpon>AddUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -148,6 +141,13 @@
     <Compile Include="Pages\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\ManageReports.aspx.cs">
+      <DependentUpon>ManageReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\ManageReports.aspx.designer.cs">
+      <DependentUpon>ManageReports.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\RecoverPassword.aspx.cs">
       <DependentUpon>RecoverPassword.aspx</DependentUpon>

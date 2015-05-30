@@ -12,7 +12,7 @@
             </asp:Panel>
             <asp:Panel runat="server" ID="TableControls" ClientIDMode="Static" ScrollBars="Vertical" Height="200px">
                 Choose tables:
-                <asp:SqlDataSource runat="server" ID="TableQuery" DataSourceMode="DataSet" SelectCommand="SELECT TABLE_NAME FROM information_schema.tables Where TABLE_NAME not like 'GRA%' And TABLE_NAME not like 'aspnet%' Order By TABLE_NAME Asc" ConnectionString="<%$ ConnectionStrings:AppContext %>" />
+                <asp:SqlDataSource runat="server" ID="TableQuery" DataSourceMode="DataSet" SelectCommand="SELECT TABLE_NAME FROM information_schema.tables Where TABLE_NAME not like 'GRA%' And TABLE_NAME not like '%aspnet%' Order By TABLE_NAME Asc" ConnectionString="<%$ ConnectionStrings:AppContext %>" />
                 <asp:CheckBoxList runat="server" ID="TableNames" ClientIDMode="Static" DataSourceID="TableQuery" DataTextField="TABLE_NAME" DataValueField="TABLE_NAME" />
             </asp:Panel>
             <asp:Panel runat="server" ID="ColumnControls" ClientIDMode="Static">

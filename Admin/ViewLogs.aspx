@@ -22,8 +22,8 @@
             PageSize="10"
             PagerSettings-PageButtonCount="5"
             PagerSettings-Mode="NumericFirstLast" 
-            PagerSettings-FirstPageText="Newest" 
-            PagerSettings-LastPageText="Oldest">
+            PagerSettings-FirstPageText="First" 
+            PagerSettings-LastPageText="Last">
             <Columns>
                 <asp:BoundField DataField="Username" HeaderText="User" SortExpression="Username" />
                 <asp:BoundField DataField="Description" HeaderText="Action" SortExpression="Description" />
