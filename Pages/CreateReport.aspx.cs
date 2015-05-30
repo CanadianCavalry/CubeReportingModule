@@ -13,7 +13,7 @@ namespace CubeReportingModule.Pages
     public partial class CreateReport : System.Web.UI.Page
     {
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected void Page_Init(object sender, EventArgs e)
         {
             int step = Convert.ToInt32(Session["Step"] ?? "0");
             Response.Write(String.Format("Step: {0}", step));   //debug

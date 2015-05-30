@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CubeReportingModule.Pages {
+namespace CubeReportingModule.Admin {
     
     
-    public partial class ViewAccessLogs {
+    public partial class ViewLogs {
         
         /// <summary>
         /// Logs control.
@@ -20,5 +20,23 @@ namespace CubeReportingModule.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Logs;
+        
+        /// <summary>
+        /// LogData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource LogData;
+        
+        /// <summary>
+        /// Display control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView Display;
     }
 }
