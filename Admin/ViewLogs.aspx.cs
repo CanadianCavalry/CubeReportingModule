@@ -82,11 +82,11 @@ namespace CubeReportingModule.Admin
             return sortedLogs;
         }
 
-        //public List<AccessLog> GetPageOfAccessLogs(int logsPerPage, int pageIndex)
+        //public List<AccessLog> GetPageOfAccessLogs(int reportsPerPage, int pageIndex)
         //{
         //    List<AccessLog> pageOfLogs = GetAccessLogsAsQuery()
-        //        .Skip((pageIndex - 1) * logsPerPage)
-        //        .Take(logsPerPage).ToList();
+        //        .Skip((pageIndex - 1) * reportsPerPage)
+        //        .Take(reportsPerPage).ToList();
         //    return pageOfLogs;
         //}
 

@@ -1,8 +1,46 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Pages/Site.Master" AutoEventWireup="true" CodeBehind="ManageReports.aspx.cs" Inherits="CubeReportingModule.Pages.ManageReports" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
     <h1>Manage Reports</h1>
+    <asp:GridView runat="server"
+        ID="Display"
+        ItemType="CubeReportingModule.Models.Report"
+        DataKeyNames="ReportId"
+        SelectMethod="GetReportsAsQuery"
+        AllowSorting="true"
+        AllowPaging="true"
+        OnPageIndexChanging="Display_PageIndexChanging"
+        PageSize="10"
+        PagerSettings-PageButtonCount="5"
+        PagerSettings-Mode="NumericFirstLast"
+        PagerSettings-FirstPageText="First"
+        PagerSettings-LastPageText="Last"
+        AutoGenerateColumns="False">
+        <Columns>
+            <asp:DynamicField DataField="Name" HeaderText="Report Name" />
+            <asp:DynamicField DataField="SelectClause" HeaderText="Select" />
+            <asp:DynamicField DataField="FromClause" HeaderText="From" />
+            <asp:DynamicField DataField="WhereClause" HeaderText="Where" />
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <asp:Button runat="server" ID="Modify" 
+                        Visible="<%# SetModifyVisibility(Item.Creator) %>" Text="Modify" 
+                        UseSubmitBehavior="False" CommandArgument="<%# Item.ReportId %>" 
+                        OnClick="Modify_Click" />
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <asp:Button runat="server" ID="Delete" 
+                        Visible="<%# SetDeleteVisibility() %>" Text="Delete" 
+                        UseSubmitBehavior="False" CommandArgument="Delete" 
+                        OnClick="Delete_Click" />
+                </ItemTemplate>
+            </asp:TemplateField>
+        </Columns>
+    </asp:GridView>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="BottomPane" runat="server">
 </asp:Content>
