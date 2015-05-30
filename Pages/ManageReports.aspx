@@ -9,6 +9,8 @@
         ItemType="CubeReportingModule.Models.Report"
         DataKeyNames="ReportId"
         SelectMethod="GetReportsAsQuery"
+        UpdateMethod="Display_UpdateItem"
+        DeleteMethod="Display_DeleteItem"
         AllowSorting="true"
         AllowPaging="true"
         OnPageIndexChanging="Display_PageIndexChanging"
@@ -27,15 +29,19 @@
                 <ItemTemplate>
                     <asp:Button runat="server" ID="Modify" 
                         Visible="<%# SetModifyVisibility(Item.Creator) %>" Text="Modify" 
-                        UseSubmitBehavior="False" CommandArgument="<%# Item.ReportId %>" 
+                        UseSubmitBehavior="False"
+                        CommandName="Modify"
+                        CommandArgument="<%# Item.ReportId %>" 
                         OnClick="Modify_Click" />
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField>
                 <ItemTemplate>
                     <asp:Button runat="server" ID="Delete" 
-                        Visible="<%# SetDeleteVisibility() %>" Text="Delete" 
-                        UseSubmitBehavior="False" CommandArgument="Delete" 
+                        Visible="<%# SetDeleteVisibility(Item.Creator) %>" Text="Delete" 
+                        UseSubmitBehavior="False" 
+                        CommandName="Delete"
+                        CommandArgument="<%# Item.ReportId %>" 
                         OnClick="Delete_Click" />
                 </ItemTemplate>
             </asp:TemplateField>

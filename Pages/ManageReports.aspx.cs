@@ -27,6 +27,27 @@ namespace CubeReportingModule.Pages
 
         public bool SetModifyVisibility(string creator)
         {
+            //if ((Roles.IsUserInRole("Admin")) || (Roles.IsUserInRole("SysAdmin")))
+            //{
+            //    return true;
+            //}
+
+            return false;
+
+            //if (creator == null)
+            //{
+            //    return false;
+            //}
+
+            //string currentUsername = Membership.GetUser().UserName;
+
+            //bool visible = creator.Equals(currentUsername);
+
+            //return visible;
+        }
+
+        public bool SetDeleteVisibility(string creator)
+        {
             if ((Roles.IsUserInRole("Admin")) || (Roles.IsUserInRole("SysAdmin")))
             {
                 return true;
@@ -42,16 +63,6 @@ namespace CubeReportingModule.Pages
             bool visible = creator.Equals(currentUsername);
 
             return visible;
-        }
-
-        public bool SetDeleteVisibility()
-        {
-            if ((Roles.IsUserInRole("Admin")) || (Roles.IsUserInRole("SysAdmin")))
-            {
-                return true;
-            }
-
-            return false;
         }
 
         public IQueryable<Report> GetReportsAsQuery()
@@ -73,15 +84,39 @@ namespace CubeReportingModule.Pages
         }
 
         // The id parameter name should match the DataKeyNames value set on the control
-        public void Display_UpdateItem(int id)
+        public void Display_UpdateItem(int? id)
         {
-            Debug.WriteLine("Id: " + id);
+            if (id == null)
+            {
+                return;
+            }
+
+            AppContext db = new AppContext();
+            Report toModify = db.Reports.Where(report => report.ReportId == id).FirstOrDefault();
+            IEnumerable<GRAReportOption> allOptions = db.GRAReportOptions.Where(option => option.ReportId == id);
+
+            //Session["Step"] = 2;
+            //Session["ReportName"] = toModify.Name;
+            //Session["TableNames"];
+            //Session["ColumnNames"] = toModify.SelectClause;
+            //Session["Options"];
+            //Session["Restrictions"];
+
+            //Response.Redirect("CreateReport.aspx");
         }
 
         // The id parameter name should match the DataKeyNames value set on the control
-        public void Display_DeleteItem(int id)
+        public void Display_DeleteItem(int? id)
         {
+            if (id == null)
+            {
+                return;
+            }
 
+            AppContext db = new AppContext();
+            Report toDelete = db.Reports.Where(report => report.ReportId == id).FirstOrDefault();
+            db.Reports.Remove(toDelete);
+            db.SaveChanges();
         }
 
         protected void Modify_Click(object sender, EventArgs e)
@@ -93,7 +128,9 @@ namespace CubeReportingModule.Pages
 
         protected void Delete_Click(object sender, EventArgs e)
         {
-
+            Button button = (Button)sender;
+            int reportId = Convert.ToInt32(Server.HtmlDecode(button.CommandArgument));
+            Display_DeleteItem(reportId);
         }
     }
 }

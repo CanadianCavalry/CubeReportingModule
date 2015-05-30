@@ -816,8 +816,7 @@ namespace CubeReportingModule.Pages
 
             Report reportToAdd = (Report) Session["FinishedReport"];
             //db.Reports.Add(reportToAdd);
-            int reportId = reportToAdd.ReportId != null ? reportToAdd.ReportId : 0;
-            reportId = db.Reports.Last().ReportId;
+            int reportId = db.Reports.Last().ReportId;
 
             foreach (GRAReportOption option in (List<GRAReportOption>) Session["FinishedReportOptions"])
             {
