@@ -38,7 +38,7 @@ namespace CubeReportingModule.Pages
 
         public IEnumerable<Report> GetReports()
         {
-            IEnumerable<Report> reports = repo.Reports;
+            IEnumerable<Report> reports = repo.Reports.OrderBy(report => report.Name);
             return reports;
         }
 

@@ -7,12 +7,14 @@
         <%-- Static menu buttons --%>
         <asp:Button runat="server" ID="Adhoc" CssClass="MenuButton" Text="Create Report" OnClick="CreateReport_Click" />
         <br />
+        <asp:Button runat="server" ID="Templates" CssClass="MenuButton" Text="Manage Report Templates" OnClick="Templates_Click" />
+        <br />
         <asp:Button runat="server" ID="Events" CssClass="MenuButton" Text="Modify Scheduled Reports" />
         <br />
         <asp:Button runat="server" ID="Help" CssClass="MenuButton" Text="Help" />
         <br />
     </div>
-    <div class="RightPane">
+    <asp:Panel runat="server" ID="Reports" Cssclass="RightPane" ScrollBars="Vertical">
         <%-- Dynamically generate report buttons from reports table in database --%>
        <asp:Repeater ItemType="CubeReportingModule.Models.Report"
             SelectMethod="GetReports" runat="server">
@@ -21,7 +23,7 @@
                 <br />
             </ItemTemplate>
         </asp:Repeater>
-    </div>
+    </asp:Panel>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="BottomPane" runat="server">
     <div id="AdminPane" runat="server">

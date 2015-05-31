@@ -11,7 +11,7 @@ namespace CubeReportingModule.Models
     public class AccessLog
     {
         [Key]
-        public int LogId { get; set; }
+        public Int64 LogId { get; set; }
         public string Description { get; set; }
         public DateTime LogDate { get; set; }
         public string Username { get; set; }

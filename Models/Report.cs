@@ -17,6 +17,7 @@ namespace CubeReportingModule.Models
         public string SelectClause { get; set; }
         public string FromClause { get; set; }
         public string WhereClause { get; set; }
+        public string Creator { get; set; }
 
         public void refreshData()
         {
