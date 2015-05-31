@@ -27,12 +27,12 @@
     <div id="AdminPane" runat="server">
         <p style="text-align: center; font-size: 24px;">Admin Control Panel</p>
         <div class="LeftPane">
-            <asp:Button runat="server" ID="AddUser" CssClass="AdminButton" Text="Add User" OnClick="AddUser_Click" />
-            <asp:Button runat="server" ID="Accounts" CssClass="AdminButton" Text="Manage Accounts" OnClick="Accounts_Click" />
+            <asp:Button runat="server" ID="AddUser" CssClass="AdminButton" Text="Add/Remove Users" OnClick="AddUser_Click" />
+            <asp:Button runat="server" ID="Accounts" CssClass="AdminButton" Text="Manage Roles" OnClick="Accounts_Click" />
         </div>
         <div class="RightPane">
             <asp:Button runat="server" ID="Logs" CssClass="AdminButton" Text="View Access Logs" OnClick="Logs_Click" />
-            <asp:Button runat="server" ID="Templates" CssClass="AdminButton" Text="Manage Report Templates" OnClick="Templates_Click" />
+            <asp:Button runat="server" ID="ResetPasswords" CssClass="AdminButton" Text="Reset User Passwords" OnClick="ResetPasswords_Click" />
         </div>
     </div>
 </asp:Content>

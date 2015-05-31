@@ -80,9 +80,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Admin\AddTemplate.aspx" />
     <Content Include="Admin\AddUser.aspx" />
     <Content Include="Admin\ManageUsers.aspx" />
+    <Content Include="Admin\ResetPasswords.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Pages\Admin.aspx" />
     <Content Include="Pages\CreateReport.aspx" />
@@ -99,13 +99,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\AddTemplate.aspx.cs">
-      <DependentUpon>AddTemplate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\AddTemplate.aspx.designer.cs">
-      <DependentUpon>AddTemplate.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Admin\AddUser.aspx.cs">
       <DependentUpon>AddUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -119,6 +112,13 @@
     </Compile>
     <Compile Include="Admin\ManageUsers.aspx.designer.cs">
       <DependentUpon>ManageUsers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ResetPasswords.aspx.cs">
+      <DependentUpon>ResetPasswords.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ResetPasswords.aspx.designer.cs">
+      <DependentUpon>ResetPasswords.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cache\WarehouseCache.cs" />
     <Compile Include="Global.asax.cs">

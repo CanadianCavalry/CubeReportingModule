@@ -58,14 +58,14 @@ namespace CubeReportingModule.Pages
             Response.Redirect("~/Admin/AddUser.aspx");
         }
 
-        protected void Templates_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Admin/AddTemplate.aspx");
-        }
-
         protected void Logs_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Admin/ViewLogs.aspx");
+        }
+
+        protected void ResetPasswords_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Admin/ResetPasswords.aspx");
         }
     }
 }
