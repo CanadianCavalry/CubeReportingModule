@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CubeReportingModule.Pages {
+namespace CubeReportingModule.Admin {
     
     
     public partial class TimerRefresh {

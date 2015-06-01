@@ -9,9 +9,9 @@ namespace CubeReportingModule.Models
     {
         private AppContext context = new AppContext();
 
-        public IEnumerable<Report> Reports
+        public IEnumerable<GRAReport> GRAReports
         {
-            get { return context.Reports; }
+            get { return context.GRAReports; }
         }
 
         public IEnumerable<GRAReportOption> GRAReportOptions
@@ -19,9 +19,14 @@ namespace CubeReportingModule.Models
             get { return context.GRAReportOptions; }
         }
 
-        public IEnumerable<AccessLog> AccessLogs
+        public IEnumerable<GRAAccessLog> GRAAccessLogs
         {
-            get { return context.AccessLogs; }
+            get { return context.GRAAccessLogs; }
+        }
+
+        public IEnumerable<GRAScheduledEvent> GRAScheduledEvents
+        {
+            get { return context.GRAScheduledEvents; }
         }
     }
 }

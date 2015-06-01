@@ -16,7 +16,7 @@ namespace CubeReportingModule
     public class Global : System.Web.HttpApplication
     {
         private const string timerKey = "timerKey";
-        private const string timerPageUrl = @"http://localhost:5099/Pages/TimerRefresh.aspx";
+        private const string timerPageUrl = @"http://localhost:5099/Admin/TimerRefresh.aspx";
         private const int timerInterval = 5;
 
         protected void Application_Start(object sender, EventArgs e)
@@ -41,7 +41,7 @@ namespace CubeReportingModule
             //Create the user roles
 
 
-            //Setup the timer for ScheduledEvents using Cache expiry callback
+            //Setup the timer for GRAScheduledEvents using Cache expiry callback
             StartCacheTimer();
         }
 
@@ -78,7 +78,18 @@ namespace CubeReportingModule
             client.DownloadData(timerPageUrl);
 
             // Do the service work
+            CheckScheduledEvents();
+        }
 
+        private void CheckScheduledEvents()
+        {
+            AppContext db = new AppContext();
+            IEnumerable<GRAScheduledEvent> activeEvents = db.GRAScheduledEvents
+                .Where(schedEvent => schedEvent.NextDate == DateTime.Now);
+            foreach (GRAScheduledEvent schedEvent in activeEvents)
+            {
+                schedEvent.sendReport();
+            }
         }
 
         protected void Session_Start(object sender, EventArgs e)

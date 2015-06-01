@@ -15,13 +15,13 @@ namespace CubeReportingModule.Models
 
         public static void createAccessLog(string description)
         {
-            AccessLog logFile = new AccessLog();
+            GRAAccessLog logFile = new GRAAccessLog();
             logFile.Username = Membership.GetUser().UserName;
             logFile.LogDate = DateTime.Now;
             logFile.Description = description;
 
             AppContext db = new AppContext();
-            db.AccessLogs.Add(logFile);
+            db.GRAAccessLogs.Add(logFile);
             db.SaveChanges();
         }
     }

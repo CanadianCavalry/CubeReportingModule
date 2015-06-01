@@ -21,31 +21,31 @@ namespace CubeReportingModule.Admin
             }
         }
 
-        public IEnumerable<AccessLog> GetAccessLogs()
+        public IEnumerable<GRAAccessLog> GetAccessLogs()
         {
-            IEnumerable<AccessLog> allLogs = repo.AccessLogs;
+            IEnumerable<GRAAccessLog> allLogs = repo.GRAAccessLogs;
             return allLogs;
         }
 
-        public IQueryable<AccessLog> GetAccessLogsAsQuery()
+        public IQueryable<GRAAccessLog> GetAccessLogsAsQuery()
         {
-            IQueryable<AccessLog> allLogs = GetAccessLogs().AsQueryable<AccessLog>();
+            IQueryable<GRAAccessLog> allLogs = GetAccessLogs().AsQueryable<GRAAccessLog>();
             return allLogs;
         }
 
-        public List<AccessLog> GetAccessLogList()
+        public List<GRAAccessLog> GetAccessLogList()
         {
             return GetAccessLogList(int.MaxValue, 0, String.Empty);
         }
 
-        public List<AccessLog> GetAccessLogList(string SortExpression)
+        public List<GRAAccessLog> GetAccessLogList(string SortExpression)
         {
             return GetAccessLogList(int.MaxValue, 0, SortExpression);
         }
 
-        public List<AccessLog> GetAccessLogList(int logsPerPage, int pageIndex, string SortExpression)
+        public List<GRAAccessLog> GetAccessLogList(int logsPerPage, int pageIndex, string SortExpression)
         {
-            List<AccessLog> allLogs = GetAccessLogsAsQuery().ToList();
+            List<GRAAccessLog> allLogs = GetAccessLogsAsQuery().ToList();
 
             string sortBy = SortExpression;
             bool isDesc = false;
@@ -55,8 +55,8 @@ namespace CubeReportingModule.Admin
                 isDesc = true;
             }
 
-            List<AccessLog> sortedLogs = new List<AccessLog>();
-            IEnumerable<AccessLog> toSort = from log in allLogs
+            List<GRAAccessLog> sortedLogs = new List<GRAAccessLog>();
+            IEnumerable<GRAAccessLog> toSort = from log in allLogs
                                             select log;
 
             switch (sortBy)
@@ -74,7 +74,7 @@ namespace CubeReportingModule.Admin
                     break;
             }
 
-            foreach (AccessLog log in toSort)
+            foreach (GRAAccessLog log in toSort)
             {
                 sortedLogs.Add(log);
             }
@@ -82,9 +82,9 @@ namespace CubeReportingModule.Admin
             return sortedLogs;
         }
 
-        //public List<AccessLog> GetPageOfAccessLogs(int reportsPerPage, int pageIndex)
+        //public List<GRAAccessLog> GetPageOfAccessLogs(int reportsPerPage, int pageIndex)
         //{
-        //    List<AccessLog> pageOfLogs = GetAccessLogsAsQuery()
+        //    List<GRAAccessLog> pageOfLogs = GetAccessLogsAsQuery()
         //        .Skip((pageIndex - 1) * reportsPerPage)
         //        .Take(reportsPerPage).ToList();
         //    return pageOfLogs;
@@ -92,7 +92,7 @@ namespace CubeReportingModule.Admin
 
         protected void Display_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            //IQueryable<AccessLog> pageOfLogs = GetAccessLogsAsQuery()
+            //IQueryable<GRAAccessLog> pageOfLogs = GetAccessLogsAsQuery()
             //    .Skip((e.NewPageIndex - 1) * Display.PageSize)
             //    .Take(Display.PageSize);
             Display.PageIndex = e.NewPageIndex;

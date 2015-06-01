@@ -22,9 +22,9 @@ namespace CubeReportingModule.Models
         {
         }
 
-        public List<AccessLog> getAccessLogs()
+        public List<GRAAccessLog> getAccessLogs()
         {
-            List<AccessLog> allAccessLogs = new List<AccessLog>();
+            List<GRAAccessLog> allAccessLogs = new List<GRAAccessLog>();
 
             return allAccessLogs;
         }

@@ -49,7 +49,7 @@ namespace CubeReportingModule.Pages {
         protected global::System.Web.UI.WebControls.Button Help;
         
         /// <summary>
-        /// Reports control.
+        /// GRAReports control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

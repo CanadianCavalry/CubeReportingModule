@@ -67,15 +67,15 @@ namespace CubeReportingModule.Pages
             return visible;
         }
 
-        public IQueryable<Report> GetReportsAsQuery()
+        public IQueryable<GRAReport> GetReportsAsQuery()
         {
-            IQueryable<Report> allReports = repo.Reports.AsQueryable<Report>().OrderBy(report => report.Name);
+            IQueryable<GRAReport> allReports = repo.GRAReports.AsQueryable<GRAReport>().OrderBy(report => report.Name);
             return allReports;
         }
 
-        public IEnumerable<Report> GetReports()
+        public IEnumerable<GRAReport> GetReports()
         {
-            IEnumerable<Report> allReports = repo.Reports.OrderBy(report => report.Name);
+            IEnumerable<GRAReport> allReports = repo.GRAReports.OrderBy(report => report.Name);
             return allReports;
         }
 
@@ -94,7 +94,7 @@ namespace CubeReportingModule.Pages
             }
 
             AppContext db = new AppContext();
-            Report toModify = db.Reports.Where(report => report.ReportId == id).FirstOrDefault();
+            GRAReport toModify = db.GRAReports.Where(report => report.ReportId == id).FirstOrDefault();
             IEnumerable<GRAReportOption> allOptions = db.GRAReportOptions.Where(option => option.ReportId == id);
 
             List<string> keywords = GetTablesInFromClause(toModify.FromClause);
@@ -106,7 +106,7 @@ namespace CubeReportingModule.Pages
             //end debug
 
             //Session["Step"] = 2;
-            //Session["ReportName"] = toModify.Name;
+            //Session["GetReportName"] = toModify.Name;
             //Session["TableNames"];
             //Session["ColumnNames"] = toModify.SelectClause;
             //Session["Options"];
@@ -143,8 +143,8 @@ namespace CubeReportingModule.Pages
             }
 
             AppContext db = new AppContext();
-            Report toDelete = db.Reports.Where(report => report.ReportId == id).FirstOrDefault();
-            db.Reports.Remove(toDelete);
+            GRAReport toDelete = db.GRAReports.Where(report => report.ReportId == id).FirstOrDefault();
+            db.GRAReports.Remove(toDelete);
             db.SaveChanges();
         }
 
