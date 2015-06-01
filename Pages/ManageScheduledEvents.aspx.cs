@@ -241,7 +241,8 @@ namespace CubeReportingModule.Pages
             int mins = Convert.ToInt32(Server.HtmlDecode(Request.Form["Minutes"]));
             TimeSpan interval = new TimeSpan(days, hours, mins, 0);
 
-            if (interval < new TimeSpan(0, 0, 2, 0))
+            int timerInterval = Global.timerInterval;
+            if (interval < new TimeSpan(0, 0, timerInterval, 0))
             {
                 return;
             }
