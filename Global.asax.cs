@@ -7,11 +7,18 @@ using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.UI;
+using System.Diagnostics;
+using System.Web.Caching;
+using System.Net;
 
 namespace CubeReportingModule
 {
     public class Global : System.Web.HttpApplication
     {
+        private const string timerKey = "timerKey";
+        private const string timerPageUrl = @"http://localhost:5099/Pages/TimerRefresh.aspx";
+        private const int timerInterval = 5;
+
         protected void Application_Start(object sender, EventArgs e)
         {
             MembershipCreateStatus status;
@@ -33,6 +40,45 @@ namespace CubeReportingModule
 
             //Create the user roles
 
+
+            //Setup the timer for ScheduledEvents using Cache expiry callback
+            StartCacheTimer();
+        }
+
+        private bool StartCacheTimer()
+        {
+            if (HttpContext.Current.Cache[timerKey] != null)
+            {
+                return false;
+            }
+
+            int timerExpirey = timerInterval;
+            if (timerExpirey < 2)
+            {
+                timerExpirey = 2;
+            }
+
+            Debug.WriteLine("Cache Timer started: " + DateTime.Now.ToString());
+
+            HttpContext.Current.Cache.Add(timerKey, "Test", null,
+                DateTime.MaxValue, TimeSpan.FromMinutes(timerExpirey),
+                CacheItemPriority.Normal,
+                new CacheItemRemovedCallback(CacheTimerExpiredCallback));
+
+            return true;
+        }
+
+        public void CacheTimerExpiredCallback(string key,
+            object value, CacheItemRemovedReason reason)
+        {
+            Debug.WriteLine("Cache Timer callback: " + DateTime.Now.ToString());
+
+            //Refresh the cache timer
+            WebClient client = new WebClient();
+            client.DownloadData(timerPageUrl);
+
+            // Do the service work
+
         }
 
         protected void Session_Start(object sender, EventArgs e)
@@ -42,7 +88,11 @@ namespace CubeReportingModule
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-
+            // If the timer page is hit, then it means we want to restart the cache timer
+            if (HttpContext.Current.Request.Url.ToString() == timerPageUrl)
+            {
+                StartCacheTimer();
+            }
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
