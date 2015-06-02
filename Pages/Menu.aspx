@@ -7,7 +7,7 @@
         <%-- Static menu buttons --%>
         <asp:Button runat="server" ID="Adhoc" CssClass="MenuButton" Text="Create Report" OnClick="CreateReport_Click" />
         <br />
-        <asp:Button runat="server" ID="Templates" CssClass="MenuButton" Text="Manage Report Templates" OnClick="Templates_Click" />
+        <asp:Button runat="server" ID="Templates" CssClass="MenuButton" Text="Manage Report Templates" />
         <br />
         <asp:Button runat="server" ID="Events" CssClass="MenuButton" Text="Modify Scheduled Reports" />
         <br />
@@ -34,7 +34,7 @@
         </div>
         <div class="RightPane">
             <asp:Button runat="server" ID="Logs" CssClass="AdminButton" Text="View Access Logs" OnClick="Logs_Click" />
-            <asp:Button runat="server" ID="ResetPasswords" CssClass="AdminButton" Text="Reset User Passwords" OnClick="ResetPasswords_Click" />
+            <asp:Button runat="server" ID="ResetPasswords" CssClass="AdminButton" Text="User Security" OnClick="ResetPasswords_Click" />
         </div>
     </div>
 </asp:Content>

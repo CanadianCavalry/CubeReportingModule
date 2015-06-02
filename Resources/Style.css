@@ -94,6 +94,7 @@ body {
     width:50%;
     float: right;
     text-align: center;
+    margin-left: 0px;
 }
 
 .MenuButton {
@@ -150,6 +151,17 @@ body {
     float: right;
     text-align:center;
     width: 50%;
+}
+.AdminRightPane {
+    width:auto;
+    float: right;
+    text-align:center;
+}
+
+.AdminLeftPane {
+    width:auto;
+    float: left;
+    text-align:center;
 }
 
 /*General*/
