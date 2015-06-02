@@ -37,6 +37,7 @@ namespace CubeReportingModule.Pages
              ////Obtain the current page HTML string
             string currentPageHtmlString = outHtmlTextWriter.ToString();
 
+            // Set up all variables for parsing the html page
             List<string> row = new List<string>();
             List<List<string>> allRows = new List<List<string>>();
             string cellContents;
@@ -45,20 +46,25 @@ namespace CubeReportingModule.Pages
             int rowStart = 0;
             int rowEnd = 0;
 
+            // Find the next <tr> element on the page
             while (currentPageHtmlString.IndexOf("<tr>", rowEnd) != -1) {
+                // Get the table row as a string
                 rowStart = currentPageHtmlString.IndexOf("<tr>", rowEnd) + 4;
                 rowEnd = currentPageHtmlString.IndexOf("</tr>", rowStart);
                 string rowString = currentPageHtmlString.Substring(rowStart, rowEnd - rowStart);
 
-            // Search the row for each cell and add its contents to the array
+            //Find the next <td> element in the current row
                 while (rowString.IndexOf("<td>", tdEnd) != -1)
                 {
+                    // Get the contents of the <td> element and add it to the array
                     tdStart = rowString.IndexOf("<td>", tdEnd) + 4;
                     tdEnd = rowString.IndexOf("</td>", tdStart);
                     cellContents = rowString.Substring(tdStart, tdEnd - tdStart);
                     row.Add(cellContents);
                 }
                 allRows.Add(row);
+                tdStart = 0;
+                tdEnd = 0;
             }
 
             ExcelConverter.WriteExcelFile(reportName, "report1", allRows);
