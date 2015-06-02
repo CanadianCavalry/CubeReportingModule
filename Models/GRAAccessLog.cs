@@ -7,8 +7,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CubeReportingModule.Models
 {
-    [Table("AccessLogs")]
-    public class AccessLog
+    [Table("GRAAccessLogs")]
+    public class GRAAccessLog
     {
         [Key]
         public Int64 LogId { get; set; }

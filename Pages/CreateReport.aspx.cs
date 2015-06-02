@@ -305,11 +305,12 @@ namespace CubeReportingModule.Pages
             querySummary.Text = "Query:";
             TextBox queryDisplay = new TextBox();
             queryDisplay.Text = query;
+            queryDisplay.ReadOnly = true;
             SummaryDisplay.Controls.Add(querySummary);
             SummaryDisplay.Controls.Add(queryDisplay);
 
             //Save Report and ReportOptions
-            Report report = new Report();
+            GRAReport report = new GRAReport();
             report.Name = reportName;
             report.SelectClause = selectClause;
             report.FromClause = fromClause;
@@ -441,7 +442,7 @@ namespace CubeReportingModule.Pages
             {
                 case 0:
                     string reportName = Server.HtmlDecode((string)Request.Form[ReportName.UniqueID]);
-                    //Session["ReportName"] = ReportName.Text;
+                    //Session["GetReportName"] = GetReportName.Text;
                     Session["ReportName"] = reportName;
 
                     //if (TableNames.Items.Count == 0)
@@ -683,6 +684,10 @@ namespace CubeReportingModule.Pages
             columns.Text = "Choose column:";
             option.Controls.Add(columns);
             DropDownList columnsList = new DropDownList();
+            columnsList.DataSource = (ListItemCollection)Session["ColumnNames"];
+            columnsList.DataTextField = "Column";
+            //columnsList.DataValueField = "Name";
+            columnsList.DataBind();
             option.Controls.Add(columnsList);
 
             Label type = new Label();
@@ -814,9 +819,9 @@ namespace CubeReportingModule.Pages
         {
             AppContext db = new AppContext();
 
-            Report reportToAdd = (Report) Session["FinishedReport"];
-            //db.Reports.Add(reportToAdd);
-            int reportId = db.Reports.Last().ReportId;
+            GRAReport reportToAdd = (GRAReport) Session["FinishedReport"];
+            //db.GRAReports.Add(reportToAdd);
+            int reportId = db.GRAReports.Last().ReportId;
 
             foreach (GRAReportOption option in (List<GRAReportOption>) Session["FinishedReportOptions"])
             {

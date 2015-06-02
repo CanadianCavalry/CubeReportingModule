@@ -14,7 +14,7 @@ namespace CubeReportingModule.Pages
     public partial class ReportOptions : System.Web.UI.Page
     {
         private Repository repo = new Repository();
-        public Report pageReport;
+        public GRAReport pageReport;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -31,11 +31,11 @@ namespace CubeReportingModule.Pages
             }
         }
 
-        private Report getPageReport()
+        private GRAReport getPageReport()
         {
             int reportId = Convert.ToInt32((string)Session["ReportId"]);
-            IEnumerable<Report> allReports = repo.Reports;
-            Report toGet = allReports.Where(option => option.ReportId == reportId).FirstOrDefault();
+            IEnumerable<GRAReport> allReports = repo.GRAReports;
+            GRAReport toGet = allReports.Where(option => option.ReportId == reportId).FirstOrDefault();
             return toGet;
         }
 

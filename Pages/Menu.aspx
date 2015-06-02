@@ -9,14 +9,14 @@
         <br />
         <asp:Button runat="server" ID="Templates" CssClass="MenuButton" Text="Manage Report Templates" />
         <br />
-        <asp:Button runat="server" ID="Events" CssClass="MenuButton" Text="Modify Scheduled Reports" />
+        <asp:Button runat="server" ID="Events" CssClass="MenuButton" Text="Modify Scheduled Reports" OnClick="Events_Click" />
         <br />
         <asp:Button runat="server" ID="Help" CssClass="MenuButton" Text="Help" />
         <br />
     </div>
     <asp:Panel runat="server" ID="Reports" Cssclass="RightPane" ScrollBars="Vertical">
         <%-- Dynamically generate report buttons from reports table in database --%>
-       <asp:Repeater ItemType="CubeReportingModule.Models.Report"
+       <asp:Repeater ItemType="CubeReportingModule.Models.GRAReport"
             SelectMethod="GetReports" runat="server">
             <ItemTemplate>
                 <button name="Report" class="MenuButton" type="submit" value="<%# Item.ReportId %>"><%# Item.Name %></button>

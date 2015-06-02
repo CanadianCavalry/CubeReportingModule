@@ -36,9 +36,9 @@ namespace CubeReportingModule.Pages
             
         }
 
-        public IEnumerable<Report> GetReports()
+        public IEnumerable<GRAReport> GetReports()
         {
-            IEnumerable<Report> reports = repo.Reports.OrderBy(report => report.Name);
+            IEnumerable<GRAReport> reports = repo.GRAReports.OrderBy(report => report.Name);
             return reports;
         }
 
@@ -66,6 +66,16 @@ namespace CubeReportingModule.Pages
         protected void ResetPasswords_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Admin/ResetPasswords.aspx");
+        }
+
+        protected void Templates_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ManageReports.aspx");
+        }
+
+        protected void Events_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ManageScheduledEvents.aspx");
         }
     }
 }
