@@ -36,21 +36,30 @@ namespace CubeReportingModule.Pages
 
              ////Obtain the current page HTML string
             string currentPageHtmlString = outHtmlTextWriter.ToString();
+
             List<string> row = new List<string>();
             List<List<string>> allRows = new List<List<string>>();
+            string cellContents;
+            int tdStart = 0;
+            int tdEnd = 0;
+            int rowStart = 0;
+            int rowEnd = 0;
 
-            while (currentPageHtmlString != "</table>")
-            {
-                while(currentPageHtmlString != "</tr>")
+            while (currentPageHtmlString.IndexOf("<tr>", rowEnd) != -1) {
+                rowStart = currentPageHtmlString.IndexOf("<tr>", rowEnd) + 4;
+                rowEnd = currentPageHtmlString.IndexOf("</tr>", rowStart);
+                string rowString = currentPageHtmlString.Substring(rowStart, rowEnd - rowStart);
+
+            // Search the row for each cell and add its contents to the array
+                while (rowString.IndexOf("<td>", tdEnd) != -1)
                 {
-                    row.Add(outTextWriter.ToString());
+                    tdStart = rowString.IndexOf("<td>", tdEnd) + 4;
+                    tdEnd = rowString.IndexOf("</td>", tdStart);
+                    cellContents = rowString.Substring(tdStart, tdEnd - tdStart);
+                    row.Add(cellContents);
                 }
-                
                 allRows.Add(row);
             }
-            //List<string> row = new List<string>();
-            //row.Add(currentPageHtmlString);
-            //allRows.Add(row);
 
             ExcelConverter.WriteExcelFile(reportName, "report1", allRows);
 
@@ -66,39 +75,6 @@ namespace CubeReportingModule.Pages
             //// End the HTTP response and stop the current page processing
             //Response.End();
 
-        }
-
-        public void CreatePdfButton_Click(object sender, EventArgs e)
-        {
-           // //// Get the current page HTML string by rendering into a TextWriter object
-           // TextWriter outTextWriter = new StringWriter();
-           // HtmlTextWriter outHtmlTextWriter = new HtmlTextWriter(outTextWriter);
-           // base.Render(outHtmlTextWriter);
-
-           // //// Obtain the current page HTML string
-           // string currentPageHtmlString = outTextWriter.ToString();
-
-           // //// Create a HTML to PDF converter object with default settings
-           // HtmlToPdfConverter htmlToPdfConverter = new HtmlToPdfConverter();
-
-           // //// Start reading document from the top of the table
-           // string htmlElementSelector = "#pdfmarker";
-           // htmlToPdfConverter.RenderedHtmlElementSelector = htmlElementSelector;
-
-           // //// Store the pdf data into a buffer
-           // byte[] outPdfBuffer = htmlToPdfConverter.ConvertHtml(currentPageHtmlString, HttpContext.Current.Request.Url.AbsoluteUri);
-
-           // //// Set response content type
-           // Response.AddHeader("Content-Type", "application/pdf");
-
-           // //// Instruct the browser to open the PDF file as an attachment
-           //Response.AddHeader("Content-Disposition", String.Format("attachment; filename=Partially_Convert_HTML.pdf; size={0}", outPdfBuffer.Length.ToString()));
-
-           // //// Write the PDF document buffer to HTTP response
-           // Response.BinaryWrite(outPdfBuffer);
-
-           // //// End the HTTP response and stop the current page processing
-           // Response.End();
         }
     }
 }

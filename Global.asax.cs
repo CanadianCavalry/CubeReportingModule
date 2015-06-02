@@ -17,7 +17,7 @@ namespace CubeReportingModule
     {
         private const string timerKey = "timerKey";
         private const string timerPageUrl = @"http://localhost:5099/Admin/TimerRefresh.aspx";
-        public static const int timerInterval = 5;
+        public const int timerInterval = 5;
 
         protected void Application_Start(object sender, EventArgs e)
         {

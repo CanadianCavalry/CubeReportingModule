@@ -21,5 +21,10 @@ namespace CubeReportingModule.Pages
         {
             Response.Redirect("~/Pages/Menu.aspx");
         }
+
+        protected void Profile_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Pages/UserProfile.aspx");
+        }
     }
 }

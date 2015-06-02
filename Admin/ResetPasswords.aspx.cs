@@ -86,6 +86,7 @@ namespace CubeReportingModule.Admin
                 ActionStatus.Text = string.Format("The account belonging to user {0} has been suspended.\nThey will be unable to log in until the suspension is lifted.", selectedUser);
             }
             updateLockControls();
+            updateUserDisplay();
         }
         
         protected void UnlockAccountButton_Click(object sender, EventArgs e)
@@ -103,6 +104,7 @@ namespace CubeReportingModule.Admin
                 ActionStatus.Text = string.Format("The account belonging to user {0} has been unlocked.\nThey can now log in normally.", selectedUser);
             }
             updateLockControls();
+            updateUserDisplay();
         }
 
         private void updateLockControls()
