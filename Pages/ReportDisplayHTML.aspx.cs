@@ -12,7 +12,7 @@ namespace CubeReportingModule.Pages
     public partial class ReportDisplayHTML : System.Web.UI.Page
     {
 
-        public string reportName = @"C:\GainReport1.xlsx";
+        public string reportName = @"C:\Users\CanadianCavalry\Documents\GitHub\CubeReportingModule\Resources";
 
 
         protected void Page_Load(object sender, EventArgs e)

@@ -12,6 +12,7 @@
     <div class="HeadBanner">
         <asp:Image runat="server" ImageUrl="~/Resources/CubeBanner.png" AlternateText="CUBE Reporting Server" Height="100px" />
     </div>
+    <div class="BannerSpacer"></div>
     <form id="PageForm" runat="server">
         <asp:PlaceHolder runat="server" id="NavBarPlaceholder" Visible="true">
         <div class="NavBar" runat="server" id="nav">
