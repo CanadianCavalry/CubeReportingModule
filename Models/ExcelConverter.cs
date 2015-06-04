@@ -17,13 +17,13 @@ namespace CubeReportingModule.Models
             string fullPath = path + filename + extension;
             FileInfo file = new FileInfo(fullPath);
             bool filenameConflict = file.Exists;
-            int number = 0;
+            int number = 1;
             while (filenameConflict == true)
             {
-                number++;
                 fullPath = String.Format("{0}{1}({2}){3}", path, filename, number, extension);
                 file = new FileInfo(fullPath);
                 filenameConflict = file.Exists;
+                number++;
             }
 
             ExcelPackage package = new ExcelPackage(file);
