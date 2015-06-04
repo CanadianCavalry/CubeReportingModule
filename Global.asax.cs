@@ -10,6 +10,7 @@ using System.Web.UI;
 using System.Diagnostics;
 using System.Web.Caching;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace CubeReportingModule
 {
@@ -97,6 +98,16 @@ namespace CubeReportingModule
             {
                 schedEvent.sendReport();
             }
+        }
+
+        public static string CleanInput(string input)
+        {
+            //char[] specialChars;
+            //string cleanOutput = new String(input.Except(specialChars).ToArray());
+
+            //string cleanOutput = Regex.Replace(input, @"[^0-9a-zA-Z\._]", string.Empty);
+            string cleanOutput = Regex.Replace(input, @"[^0-9a-zA-Z\._\-]--.*", string.Empty);
+            return cleanOutput;
         }
 
         protected void Session_Start(object sender, EventArgs e)

@@ -192,14 +192,14 @@ namespace CubeReportingModule.Pages
             Queue<string> tableList = new Queue<string>();
             foreach (ListItem item in (ListItemCollection)Session["TableNames"])
             {
-                string tableName = Server.HtmlDecode(item.ToString());
+                string tableName = Global.CleanInput(item.ToString());
                 tableList.Enqueue(tableName);
             }
 
             Queue<string> columnList = new Queue<string>();
             foreach (ListItem item in (ListItemCollection)Session["ColumnNames"])
             {
-                string columnName = Server.HtmlDecode(item.ToString());
+                string columnName = Global.CleanInput(item.ToString());
                 columnList.Enqueue(columnName);
             }
 
@@ -285,7 +285,7 @@ namespace CubeReportingModule.Pages
             query += ";";
 
             //Display summary
-            string reportName = Server.HtmlDecode(Session["ReportName"].ToString());
+            string reportName = Global.CleanInput(Session["ReportName"].ToString());
             HtmlGenericControl title = new HtmlGenericControl("h1");
             title.InnerHtml = reportName;
             SummaryDisplay.Controls.Add(title);
@@ -347,7 +347,7 @@ namespace CubeReportingModule.Pages
                 TextBox metricInput = (TextBox)restrictionValues[7];
 
                 string metricFromList = metricsList.SelectedValue.ToString();
-                string metricFromInput = Server.HtmlDecode(metricInput.Text);
+                string metricFromInput = Global.CleanInput(metricInput.Text);
 
                 restrictionString += "'";
 
@@ -433,7 +433,7 @@ namespace CubeReportingModule.Pages
 
                 string id = control.UniqueID;
                 string name = control.ClientID;
-                string value = Server.HtmlDecode(Request.Form[key]);
+                string value = Global.CleanInput(Request.Form[key]);
                 Debug.WriteLine(String.Format("{0} : {1} : {2}", id, name, value));   //debug
             }
             //end debug
@@ -441,7 +441,7 @@ namespace CubeReportingModule.Pages
             switch (step)
             {
                 case 0:
-                    string reportName = Server.HtmlDecode((string)Request.Form[ReportName.UniqueID]);
+                    string reportName = Global.CleanInput((string)Request.Form[ReportName.UniqueID]);
                     //Session["GetReportName"] = GetReportName.Text;
                     Session["ReportName"] = reportName;
 
@@ -454,7 +454,7 @@ namespace CubeReportingModule.Pages
                     IEnumerable<string> tableKeys = Request.Form.AllKeys.Where(key => key.StartsWith(TableNames.UniqueID) == true);
                     foreach (string key in tableKeys)
                     {
-                        string value = Server.HtmlDecode(Request.Form[key]);
+                        string value = Global.CleanInput(Request.Form[key]);
                         ListItem toAdd = new ListItem();
                         toAdd.Value = value;
                         toAdd.Selected = true;
@@ -477,7 +477,7 @@ namespace CubeReportingModule.Pages
                     IEnumerable<string> columnKeys = Request.Form.AllKeys.Where(key => key.StartsWith(ColumnNames.UniqueID) == true);
                     foreach (string key in columnKeys)
                     {
-                        string value = Server.HtmlDecode(Request.Form[key]);
+                        string value = Global.CleanInput(Request.Form[key]);
                         ListItem toAdd = new ListItem();
                         toAdd.Value = value;
                         toAdd.Selected = true;
