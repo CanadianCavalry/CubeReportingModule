@@ -88,7 +88,7 @@ namespace CubeReportingModule
             AppContext db = new AppContext();
             List<GRAScheduledEvent> allEvents = db.GRAScheduledEvents.ToList();
             IEnumerable<GRAScheduledEvent> activeEvents = allEvents
-                .Where(schedEvent => DateTime.Compare(schedEvent.NextDate, DateTime.Now) == 0);
+                .Where(schedEvent => DateTime.Compare(schedEvent.NextDate, DateTime.Now) <= 0);
             if (activeEvents.Count() == 0)
             {
                 return;
