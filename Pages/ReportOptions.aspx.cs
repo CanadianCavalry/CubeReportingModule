@@ -185,11 +185,11 @@ namespace CubeReportingModule.Pages
                 Control optionControl = allControls.Where(control => control.ClientID.Equals(optionId)).FirstOrDefault();
                 string controlName = optionControl.UniqueID;
                 string optionValue = "";
-                optionValue = Server.HtmlDecode(String.Format("{0}", Request.Form[controlName]));
+                optionValue = Global.CleanInput(String.Format("{0}", Request.Form[controlName]));
                 
                 if (optionValue == null || optionValue.Equals(""))
                 {
-                    optionValue = Server.HtmlDecode(String.Format("{0}", Request.Form[option.Id]));
+                    optionValue = Global.CleanInput(String.Format("{0}", Request.Form[option.Id]));
                 }
 
                 if (option.Metric != null && !option.Metric.Equals(""))

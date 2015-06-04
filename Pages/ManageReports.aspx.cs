@@ -151,14 +151,14 @@ namespace CubeReportingModule.Pages
         protected void Modify_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            int reportId = Convert.ToInt32(Server.HtmlDecode(button.CommandArgument));
+            int reportId = Convert.ToInt32(Global.CleanInput(button.CommandArgument));
             Display_UpdateItem(reportId);
         }
 
         protected void Delete_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            int reportId = Convert.ToInt32(Server.HtmlDecode(button.CommandArgument));
+            int reportId = Convert.ToInt32(Global.CleanInput(button.CommandArgument));
             Display_DeleteItem(reportId);
         }
 

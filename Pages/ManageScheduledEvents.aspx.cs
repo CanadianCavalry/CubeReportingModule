@@ -112,14 +112,14 @@ namespace CubeReportingModule.Pages
         protected void Modify_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            int eventId = Convert.ToInt32(Server.HtmlDecode(button.CommandArgument));
+            int eventId = Convert.ToInt32(Global.CleanInput(button.CommandArgument));
             Display_UpdateItem(eventId);
         }
 
         protected void Delete_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            int eventId = Convert.ToInt32(Server.HtmlDecode(button.CommandArgument));
+            int eventId = Convert.ToInt32(Global.CleanInput(button.CommandArgument));
             Display_DeleteItem(eventId);
         }
 
@@ -236,9 +236,9 @@ namespace CubeReportingModule.Pages
 
         public void AddScheduledEvent(object sender, EventArgs e)
         {
-            int days = Convert.ToInt32(Server.HtmlDecode(Request.Form["Days"]));
-            int hours = Convert.ToInt32(Server.HtmlDecode(Request.Form["Hours"]));
-            int mins = Convert.ToInt32(Server.HtmlDecode(Request.Form["Minutes"]));
+            int days = Convert.ToInt32(Global.CleanInput(Request.Form["Days"]));
+            int hours = Convert.ToInt32(Global.CleanInput(Request.Form["Hours"]));
+            int mins = Convert.ToInt32(Global.CleanInput(Request.Form["Minutes"]));
             TimeSpan interval = new TimeSpan(days, hours, mins, 0);
 
             int timerInterval = Global.timerInterval;
@@ -249,7 +249,7 @@ namespace CubeReportingModule.Pages
 
             GRAScheduledEvent toAdd = new GRAScheduledEvent();
 
-            string reportName = Server.HtmlDecode(Request.Form["ReportName"]);
+            string reportName = Global.CleanInput(Request.Form["ReportName"]);
             int reportId = repo.GRAReports.Where(report => report.Name.Equals(reportName))
                 .FirstOrDefault().ReportId;
             toAdd.ReportId = reportId;
