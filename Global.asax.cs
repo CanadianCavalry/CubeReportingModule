@@ -52,6 +52,8 @@ namespace CubeReportingModule
                 return false;
             }
 
+            CheckScheduledEvents();
+
             int timerExpirey = timerInterval;
             if (timerExpirey < 2)
             {
@@ -84,8 +86,13 @@ namespace CubeReportingModule
         private void CheckScheduledEvents()
         {
             AppContext db = new AppContext();
-            IEnumerable<GRAScheduledEvent> activeEvents = db.GRAScheduledEvents
-                .Where(schedEvent => schedEvent.NextDate == DateTime.Now);
+            List<GRAScheduledEvent> allEvents = db.GRAScheduledEvents.ToList();
+            IEnumerable<GRAScheduledEvent> activeEvents = allEvents
+                .Where(schedEvent => DateTime.Compare(schedEvent.NextDate, DateTime.Now) == 0);
+            if (activeEvents.Count() == 0)
+            {
+                return;
+            }
             foreach (GRAScheduledEvent schedEvent in activeEvents)
             {
                 schedEvent.sendReport();

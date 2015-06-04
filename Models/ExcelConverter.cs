@@ -11,17 +11,29 @@ namespace CubeReportingModule.Models
 {
     public static class ExcelConverter
     {
-        public static void WriteExcelFile(string filename, string worksheetName, List<List<string>> allRows)
+        public static void WriteExcelFile(string path, string filename, string worksheetName, List<List<string>> allRows)
         {
-            FileInfo file = new FileInfo(filename);
+            string extension = @".xlsx";
+            string fullPath = path + filename + extension;
+            FileInfo file = new FileInfo(fullPath);
+            bool filenameConflict = file.Exists;
+            int number = 0;
+            while (filenameConflict == true)
+            {
+                number++;
+                fullPath = String.Format("{0}{1}({2}){3}", path, filename, number, extension);
+                file = new FileInfo(fullPath);
+                filenameConflict = file.Exists;
+            }
+
             ExcelPackage package = new ExcelPackage(file);
             ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(worksheetName);
-            for (int i = 1; i < allRows.Count; i++)
+            for (int i = 0; i < allRows.Count; i++)
             {
                 List<string> row = allRows.ElementAt(i);
-                for(int j = 1; j < row.Count; j++) {
+                for(int j = 0; j < row.Count; j++) {
                     string cell = row.ElementAt(j);
-                    worksheet.Cells[i, j].Value = cell.ToString();
+                    worksheet.Cells[i+1, j+1].Value = cell.ToString();
                 }
             }
 

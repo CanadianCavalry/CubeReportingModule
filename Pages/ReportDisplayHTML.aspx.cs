@@ -12,7 +12,7 @@ namespace CubeReportingModule.Pages
     public partial class ReportDisplayHTML : System.Web.UI.Page
     {
 
-        public string reportName = @"C:\Users\CanadianCavalry\Documents\GitHub\CubeReportingModule\Resources";
+        public string reportPath = @"C:\";
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -35,10 +35,9 @@ namespace CubeReportingModule.Pages
             base.Render(outHtmlTextWriter);
 
              ////Obtain the current page HTML string
-            string currentPageHtmlString = outHtmlTextWriter.ToString();
+            string currentPageHtmlString = outHtmlTextWriter.InnerWriter.ToString();
 
             // Set up all variables for parsing the html page
-            List<string> row = new List<string>();
             List<List<string>> allRows = new List<List<string>>();
             string cellContents;
             int tdStart = 0;
@@ -52,6 +51,17 @@ namespace CubeReportingModule.Pages
                 rowStart = currentPageHtmlString.IndexOf("<tr>", rowEnd) + 4;
                 rowEnd = currentPageHtmlString.IndexOf("</tr>", rowStart);
                 string rowString = currentPageHtmlString.Substring(rowStart, rowEnd - rowStart);
+                List<string> row = new List<string>();
+
+                //Find the next <th> element in the current row
+                while (rowString.IndexOf(";)\">", tdEnd) != -1)
+                {
+                    // Get the contents of the <td> element and add it to the array
+                    tdStart = rowString.IndexOf(";)\">", tdEnd) + 4;
+                    tdEnd = rowString.IndexOf("</a>", tdStart);
+                    cellContents = rowString.Substring(tdStart, tdEnd - tdStart);
+                    row.Add(cellContents);
+                }
 
             //Find the next <td> element in the current row
                 while (rowString.IndexOf("<td>", tdEnd) != -1)
@@ -67,7 +77,8 @@ namespace CubeReportingModule.Pages
                 tdEnd = 0;
             }
 
-            ExcelConverter.WriteExcelFile(reportName, "report1", allRows);
+            string reportName = Session["ReportName"].ToString();
+            ExcelConverter.WriteExcelFile(reportPath, reportName, "report", allRows);
 
             //// Set response content type
             //Response.AddHeader("Content-Type", "application/xlsx");
