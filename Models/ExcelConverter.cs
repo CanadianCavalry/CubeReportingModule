@@ -14,18 +14,21 @@ namespace CubeReportingModule.Models
         public static void WriteExcelFile(string path, string filename, string worksheetName, List<List<string>> allRows)
         {
             string extension = @".xlsx";
-            string fullPath = path + filename + extension;
+            string fullPath = String.Format(@"{0}\{1}{2}", path, filename, extension);
             FileInfo file = new FileInfo(fullPath);
+            //Check to see if there is a preexisting file with the same name
             bool filenameConflict = file.Exists;
+            //If there is a conflict create a copy with a numbered suffix
             int number = 1;
             while (filenameConflict == true)
             {
-                fullPath = String.Format("{0}{1}({2}){3}", path, filename, number, extension);
+                fullPath = String.Format(@"{0}\{1}({2}){3}", path, filename, number, extension);
                 file = new FileInfo(fullPath);
                 filenameConflict = file.Exists;
                 number++;
             }
 
+            //Populate file with column data by row
             ExcelPackage package = new ExcelPackage(file);
             ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(worksheetName);
             for (int i = 0; i < allRows.Count; i++)
@@ -37,57 +40,14 @@ namespace CubeReportingModule.Models
                 }
             }
 
+            //Set column names to bold
             worksheet.Row(1).Style.Font.Bold = true;
+
+            //Autofit all columns
             worksheet.Cells.AutoFitColumns(0);
 
+            //Save file and close
             package.Save();
         }
-
-        //public void ConvertToFile()
-        //{
-        //    Application app = new Microsoft.Office.Interop.Excel.Application();
-
-        //    if (app == null)
-        //    {
-        //        Debug.Write("Excel is not properly installed!!");
-        //        return;
-        //    }
-
-        //    Workbook workbook;
-        //    Worksheet worksheet;
-        //    object misValue = System.Reflection.Missing.Value;
-
-        //    workbook = app.Workbooks.Add(misValue);
-        //    worksheet = (Worksheet)workbook.Worksheets.get_Item(1);
-        //    worksheet.Cells[1, 1] = "Sheet 1 content";
-
-        //    workbook.SaveAs("i:\\csharp-Excel.xls", XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
-        //    workbook.Close(true, misValue, misValue);
-        //    app.Quit();
-
-        //    releaseObject(worksheet);
-        //    releaseObject(workbook);
-        //    releaseObject(app);
-
-        //    Debug.Write("Excel file created , you can find the file d:\\csharp-Excel.xls");
-        //}
-
-        //private void releaseObject(object obj)
-        //{
-        //    try
-        //    {
-        //        System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
-        //        obj = null;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        obj = null;
-        //        Debug.Write("Unable to release the Object " + ex.ToString());
-        //    }
-        //    finally
-        //    {
-        //        GC.Collect();
-        //    }
-        //}
     }
 }

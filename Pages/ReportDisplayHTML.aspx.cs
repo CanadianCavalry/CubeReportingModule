@@ -6,14 +6,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using CubeReportingModule.Models;
+using Microsoft.WindowsAPICodePack.Shell;
 
 namespace CubeReportingModule.Pages
 {
     public partial class ReportDisplayHTML : System.Web.UI.Page
     {
-
         public string reportPath = @"C:\";
-
+        public string downloadsPath = KnownFolders.Downloads.Path;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -78,7 +78,7 @@ namespace CubeReportingModule.Pages
             }
 
             string reportName = Session["ReportName"].ToString();
-            ExcelConverter.WriteExcelFile(reportPath, reportName, "report", allRows);
+            ExcelConverter.WriteExcelFile(downloadsPath, reportName, "report", allRows);
 
             //// Set response content type
             //Response.AddHeader("Content-Type", "application/xlsx");
