@@ -72,6 +72,7 @@ namespace CubeReportingModule.Pages
                     cellContents = rowString.Substring(tdStart, tdEnd - tdStart);
                     row.Add(cellContents);
                 }
+                // Add the current row to the array
                 allRows.Add(row);
                 tdStart = 0;
                 tdEnd = 0;

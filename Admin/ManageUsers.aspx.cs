@@ -12,30 +12,24 @@ namespace CubeReportingModule.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Prevent non-SysAdmins from granting admin status
-            if (!Roles.IsUserInRole(Membership.GetUser().UserName, "SysAdmin"))
-            {
-                RoleList.Items.FindByText("Admin").Enabled = false;
-            }
-
             // Populate the drop-down box of users
             BindUsersToUserList();
             if (IsPostBack)
             {
                 UserList.SelectedValue = Request.Form[UserList.UniqueID];
-            }
-
-            if (!IsPostBack)
-            {
                 UpdateUserRole();
             }
+
+            UpdateRoleRadioButtons();
         }
         
         private void BindUsersToUserList()
         {
             // Get all of the user accounts
             MembershipUserCollection users = Membership.GetAllUsers();
+            // Remove the SysAdmin
             users.Remove("deus");
+            // Remove the current user
             users.Remove(Membership.GetUser().UserName);
 
             // If the logged in user is not a SysAdmin, hide all the Admin users
@@ -51,13 +45,7 @@ namespace CubeReportingModule.Admin
             UserList.DataBind();
         }
 
-        // Update the radio buttons when a user is selected
-        protected void UserList_SelectedIndexChanged1(object sender, EventArgs e)
-        {
-            UpdateUserRole();
-        }
-
-        private void UpdateUserRole()
+        private void UpdateRoleRadioButtons()
         {
             string userRole = Roles.GetRolesForUser(UserList.SelectedItem.Text)[0];
 
@@ -66,7 +54,7 @@ namespace CubeReportingModule.Admin
             item.Selected = true;
         }
 
-        protected void RoleList_SelectedIndexChanged(object sender, EventArgs e)
+        protected void UpdateUserRole()
         {
             //Get the currently selected user and their roles
             string userName = Membership.GetUser(UserList.SelectedItem.Text).UserName;
@@ -85,6 +73,16 @@ namespace CubeReportingModule.Admin
             // Add them to the selected role and display a success message
             Roles.AddUserToRole(userName, RoleList.SelectedItem.Text);
             ActionStatus.Text = string.Format("User {0} was changed to role {1}.", userName, RoleList.SelectedItem.Text);
+        }
+
+        protected void UserList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void RoleList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
