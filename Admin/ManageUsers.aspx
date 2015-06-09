@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Pages/Site.Master" AutoEventWireup="true" Inherits="CubeReportingModule.Admin.ManageUsers" Codebehind="ManageUsers.aspx.cs"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">\
+<asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
     <div class="CenterOnly">
         <%-- Label to display the result of each operation. Hidden at initial page load --%>
         <div class="UserSelect">

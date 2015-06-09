@@ -80,6 +80,7 @@ namespace CubeReportingModule.Pages
 
             string reportName = Session["ReportName"].ToString();
             ExcelConverter.WriteExcelFile(downloadsPath, reportName, "report", allRows);
+            ActionStatus.Text = String.Format("Report successfully downloaded. Saved at {0}{1}", downloadsPath, reportName);
 
             //// Set response content type
             //Response.AddHeader("Content-Type", "application/xlsx");

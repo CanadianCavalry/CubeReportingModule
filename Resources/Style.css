@@ -59,10 +59,6 @@ body {
 
 /*Log-In Page*/
 
-.LoginName {
-    text-transform: capitalize;
-}
-
 .loginContainer {
     padding: 10px;
     text-align: left;
@@ -145,13 +141,13 @@ body {
 .UserSelect {
     float: left;
     text-align:center;
-    width: 50%;
+    margin-left: 30%;
 }
 
 .RoleSelect {
     float: right;
     text-align:center;
-    width: 50%;
+    margin-right: 30%;
 }
 .AdminRightPane {
     width:auto;
