@@ -29,5 +29,6 @@ namespace CubeReportingModule.Models
         public int InitValue { get; set; }
         public int MinValue { get; set; }
         public int MaxValue { get; set; }
+        public string InitType { get; set; }
     }
 }

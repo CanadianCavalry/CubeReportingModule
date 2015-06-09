@@ -8,6 +8,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using CubeReportingModule.Models;
 using System.Diagnostics;
+using System.Data;
 
 namespace CubeReportingModule.Pages
 {
@@ -25,7 +26,6 @@ namespace CubeReportingModule.Pages
             {
                 string query = BuildQuery();
                 Debug.Write(query); //debug
-                Session["ReportName"] = pageReport.Name;
                 Session["Query"] = query;
                 Response.Redirect("ReportDisplayHTML.aspx");
                 return;
@@ -60,22 +60,22 @@ namespace CubeReportingModule.Pages
                 label.Text = option.Label + " " + option.Condition;
                 div.Controls.Add(label);
 
+                SqlDataSource dataSource = new SqlDataSource();
+                dataSource.ID = option.DataSourceId;
+                dataSource.SelectCommand = option.SelectCommand;
+                dataSource.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["AppContext"].ConnectionString;
+                div.Controls.Add(dataSource);
+
                 switch (optionType)
                 {
                     case "ListBox":
-                        SqlDataSource dataSource = new SqlDataSource();
-                        dataSource.ID = option.DataSourceId;
-                        dataSource.DataSourceMode = SqlDataSourceMode.DataReader;
-                        dataSource.SelectCommand = option.SelectCommand;
-                        dataSource.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["AppContext"].ConnectionString;
-
                         ListBox listBox = new ListBox();
                         listBox.ID = option.Id;
                         listBox.ClientIDMode = ClientIDMode.Static;
                         listBox.DataTextField = option.DataTextField;
                         listBox.DataSourceID = option.DataSourceId;
+                        dataSource.DataSourceMode = SqlDataSourceMode.DataReader;
 
-                        div.Controls.Add(dataSource);
                         div.Controls.Add(listBox);
                         break;
 
@@ -88,28 +88,92 @@ namespace CubeReportingModule.Pages
                         break;
 
                     case "Number":
+                        dataSource.DataSourceMode = SqlDataSourceMode.DataSet;
+                        DataView data = (DataView)dataSource.Select(DataSourceSelectArguments.Empty);
+                        List<int> allValues = new List<int>();
+                        foreach (DataRow row in data.ToTable().Rows)
+                        {
+                            int value = Convert.ToInt32(row[option.DataTextField]);
+                            allValues.Add(value);
+                        }
+                        int maxValue = allValues.Max();
+                        int minValue = allValues.Min();
+                        if (minValue < 0)
+                        {
+                            minValue = 0;
+                        }
+
+                        int? initValue;
+                        switch (option.InitType)
+                        {
+                            case "min":
+                                initValue = minValue;
+                                break;
+
+                            case "max":
+                                initValue = maxValue;
+                                break;
+
+                            case "mid":
+                                initValue = (maxValue - minValue) / 2;
+                                break;
+
+                            default:
+                                initValue = null;
+                                break;
+                        }
+
                         HtmlInputText number = new HtmlInputText();
                         number.Attributes["type"] = "number";
                         number.Attributes["name"] = option.Id;
-                        number.Attributes["min"] = option.MinValue.ToString();
-                        number.Attributes["max"] = option.MaxValue.ToString();
-                        //number.Attributes["value"] = option.InitValue.ToString();
-                        number.Attributes["value"] = option.MinValue.ToString();
-                        //Literal number = new Literal();
-                        //string html = String.Format(@"<input type=""number"" id=""{0}"" name=""{0}"" min=""{1}"" max=""{2}"" value=""{1}"">", option.Id, option.MinValue, option.MaxValue);
-                        //number.Mode = LiteralMode.PassThrough;
+                        number.Attributes["min"] = minValue.ToString();
+                        number.Attributes["max"] = maxValue.ToString();
+                        if (initValue != null)
+                        {
+                            number.Attributes["value"] = initValue.ToString();
+                        }
                         number.ID = option.Id;
                         number.ClientIDMode = ClientIDMode.Static;
-                        //number.Text = html;
 
                         div.Controls.Add(number);
                         break;
 
                     case "Text":
+                        dataSource.DataSourceMode = SqlDataSourceMode.DataSet;
+                        data = (DataView)dataSource.Select(DataSourceSelectArguments.Empty);
+                        List<string> allItems = new List<string>();
+                        foreach (DataRow row in data.ToTable().Rows)
+                        {
+                            string item = row[option.DataTextField].ToString();
+                            allItems.Add(item);
+                        }
+                        string maxItem = allItems.Max();
+                        string minItem = allItems.Min();
+
+                        string initItem;
+                        switch (option.InitType)
+                        {
+                            case "min":
+                                initItem = minItem;
+                                break;
+
+                            case "max":
+                                initItem = maxItem;
+                                break;
+
+                            default:
+                                initItem = "";
+                                break;
+                        }
+
                         HtmlInputText text = new HtmlInputText();
                         text.ID = option.Id;
                         text.ClientIDMode = ClientIDMode.Static;
                         text.Name = option.Name;
+                        if (!initItem.Equals(""))
+                        {
+                            text.Value = initItem;
+                        }
 
                         div.Controls.Add(text);
                         break;
@@ -177,7 +241,7 @@ namespace CubeReportingModule.Pages
             //}
 
             IEnumerable<GRAReportOption> allReportOptions = GetReportOptions();
-            foreach(GRAReportOption option in allReportOptions)
+            foreach (GRAReportOption option in allReportOptions)
             {
                 string optionName = option.Name;
                 string optionCondition = option.Condition;
@@ -185,11 +249,11 @@ namespace CubeReportingModule.Pages
                 Control optionControl = allControls.Where(control => control.ClientID.Equals(optionId)).FirstOrDefault();
                 string controlName = optionControl.UniqueID;
                 string optionValue = "";
-                optionValue = Global.CleanInput(String.Format("{0}", Request.Form[controlName]));
-                
+                optionValue = Server.HtmlDecode(String.Format("{0}", Request.Form[controlName]));
+
                 if (optionValue == null || optionValue.Equals(""))
                 {
-                    optionValue = Global.CleanInput(String.Format("{0}", Request.Form[option.Id]));
+                    optionValue = Server.HtmlDecode(String.Format("{0}", Request.Form[option.Id]));
                 }
 
                 if (option.Metric != null && !option.Metric.Equals(""))
