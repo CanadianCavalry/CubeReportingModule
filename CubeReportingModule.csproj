@@ -36,6 +36,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+    <IncludeIisSettings>true</IncludeIisSettings>
+    <DeployIisAppPath>CubeReportingModule</DeployIisAppPath>
+    <DeployIisAppPhysicalPath>D:\CubeReportingApplication</DeployIisAppPhysicalPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -108,7 +112,9 @@
     <Content Include="Resources\GainRMLogOut.png" />
     <Content Include="Resources\Print.css" />
     <Content Include="Resources\Style.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\AddUser.aspx.cs">
@@ -247,6 +253,7 @@
     <Content Include="Admin\Web.config" />
     <Content Include="Pages\Web.config" />
     <None Include="Properties\PublishProfiles\Core.pubxml" />
+    <None Include="Properties\PublishProfiles\CubeHome.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -268,7 +275,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>56726</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:5099/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

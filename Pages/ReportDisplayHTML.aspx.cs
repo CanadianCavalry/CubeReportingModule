@@ -19,6 +19,13 @@ namespace CubeReportingModule.Pages
         {
             QueryData.SelectCommand = GetSelectCommand();
             Display.DataSourceID = "QueryData";
+
+            if (Session["StatusMessage"] != null)
+            {
+                string statusText = Session["StatusMessage"].ToString();
+                ActionStatus.Text = statusText;
+            }
+            Session["StatusMessage"] = null;
         }
 
         public string GetSelectCommand()
@@ -78,9 +85,12 @@ namespace CubeReportingModule.Pages
                 tdEnd = 0;
             }
 
-            string reportName = Session["ReportName"].ToString();
+            string reportName = Session["ReportName"].ToString() + DateTime.Now.ToShortDateString();
             ExcelConverter.WriteExcelFile(downloadsPath, reportName, "report", allRows);
-            ActionStatus.Text = String.Format("Report successfully downloaded. Saved at {0}{1}", downloadsPath, reportName);
+            string extension = ".xlsx";
+            Session["StatusMessage"] = String.Format("Report successfully downloaded. Saved at {0}\\{1}{2}", downloadsPath, reportName, extension); ;
+
+            Response.Redirect("~/Pages/ReportDisplayHTML.aspx");
 
             //// Set response content type
             //Response.AddHeader("Content-Type", "application/xlsx");

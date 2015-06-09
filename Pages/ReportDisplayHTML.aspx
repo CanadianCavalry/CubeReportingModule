@@ -1,5 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Pages/Site.Master" AutoEventWireup="True" CodeBehind="ReportDisplayHTML.aspx.cs" Inherits="CubeReportingModule.Pages.ReportDisplayHTML" EnableEventValidation="false" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+    <%--<script type="text/javascript" language="javascript">
+        function ConfirmOnDelete() {
+            if (confirm("Are you sure?") == true)
+                return true;
+            else
+                return false;
+        }
+    </script>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
     <asp:Label runat="server" CssClass="StatusMessage" ID="ActionStatus"></asp:Label>

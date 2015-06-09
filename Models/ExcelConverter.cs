@@ -14,8 +14,7 @@ namespace CubeReportingModule.Models
         public static void WriteExcelFile(string path, string filename, string worksheetName, List<List<string>> allRows)
         {
             string extension = @".xlsx";
-            string currentDate = DateTime.Now.ToShortDateString();
-            string fullPath = String.Format(@"{0}\{1}{2}{3}", path, filename, currentDate, extension);
+            string fullPath = String.Format(@"{0}\{1}{2}", path, filename, extension);
             FileInfo file = new FileInfo(fullPath);
             //Check to see if there is a preexisting file with the same name
             bool filenameConflict = file.Exists;
@@ -23,7 +22,7 @@ namespace CubeReportingModule.Models
             int number = 1;
             while (filenameConflict == true)
             {
-                fullPath = String.Format(@"{0}\{1}{2}({3}){4}", path, filename, currentDate, number, extension);
+                fullPath = String.Format(@"{0}\{1}({2}){3}", path, filename, number, extension);
                 file = new FileInfo(fullPath);
                 filenameConflict = file.Exists;
                 number++;
