@@ -13,7 +13,7 @@ namespace CubeReportingModule.Pages
     public partial class CreateReport : System.Web.UI.Page
     {
 
-        protected void Page_Init(object sender, EventArgs e)
+        protected void Page_LoadComplete(object sender, EventArgs e)
         {
             int step = Convert.ToInt32(Session["Step"] ?? "0");
             Response.Write(String.Format("Step: {0}", step));   //debug
@@ -63,6 +63,11 @@ namespace CubeReportingModule.Pages
             }
 
             SetControlVisibilities(step);
+        }
+
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            int step = Convert.ToInt32(Session["Step"] ?? "0");
             SetControlValues(step);
         }
 
@@ -109,6 +114,9 @@ namespace CubeReportingModule.Pages
 
                 case 3:
                     CreateTemplate.Visible = false;
+
+                    SetReportOptions();
+                    SetReportRestrictions();
                     break;
 
                 default:
@@ -172,10 +180,6 @@ namespace CubeReportingModule.Pages
                     ColumnQuery.SelectCommand = queryString;
 
                     SetSelectedColumnNames();
-
-                    SetReportOptions();
-
-                    SetReportRestrictions();
                     break;
 
                 case 3:
