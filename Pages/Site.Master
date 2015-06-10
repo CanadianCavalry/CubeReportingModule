@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="HeadBanner">
-        <asp:Image runat="server" ImageUrl="~/Resources/CubeBanner.png" AlternateText="CUBE Reporting Server" Height="100px" />
+        <asp:Image runat="server" ImageUrl="~/Resources/CubeBannerBlack.png" AlternateText="CUBE Reporting Server" Height="100px" />
     </div>
     <div class="BannerSpacer"></div>
     <form id="PageForm" runat="server">

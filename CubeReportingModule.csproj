@@ -109,6 +109,7 @@
     <Content Include="Admin\TimerRefresh.aspx" />
     <Content Include="Pages\UserProfile.aspx" />
     <Content Include="Resources\CubeBanner.png" />
+    <Content Include="Resources\CubeBannerBlack.png" />
     <Content Include="Resources\GainRMLogOut.png" />
     <Content Include="Resources\Print.css" />
     <Content Include="Resources\Style.css" />
