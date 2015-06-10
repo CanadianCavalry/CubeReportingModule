@@ -22,6 +22,7 @@ namespace CubeReportingModule.Pages
             {
                 string trigger = Request.Params["__EVENTTARGET"];
                 Button buttonTrigger = (Button) FindControl(trigger);
+
                 //debug
                 List<Button> allButtons = GetAllPageControlsOfType<Button>();
                 Debug.WriteLine("Page Buttons:");
@@ -31,6 +32,7 @@ namespace CubeReportingModule.Pages
                 }
                 //end debug
                 //Button buttonTrigger = allButtons.Where(button => button.ID.Equals(trigger)).FirstOrDefault();
+
                 string triggerId = "";
                 
                 if (buttonTrigger != null)
