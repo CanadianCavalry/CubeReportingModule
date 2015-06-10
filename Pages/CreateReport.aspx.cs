@@ -689,8 +689,8 @@ namespace CubeReportingModule.Pages
             option.Controls.Add(columns);
             DropDownList columnsList = new DropDownList();
             columnsList.DataSource = (ListItemCollection)Session["ColumnNames"];
-            columnsList.DataTextField = "Column";
-            //columnsList.DataValueField = "Name";
+            columnsList.DataTextField = "Text";
+            columnsList.DataValueField = "Value";
             columnsList.DataBind();
             option.Controls.Add(columnsList);
 
