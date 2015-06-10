@@ -12,8 +12,11 @@ namespace CubeReportingModule.Models
     {
         [Key]
         public Int64 LogId { get; set; }
+        [Required]
         public string Description { get; set; }
+        [Required]
         public DateTime LogDate { get; set; }
+        [Required]
         public string Username { get; set; }
 
         public override string ToString()

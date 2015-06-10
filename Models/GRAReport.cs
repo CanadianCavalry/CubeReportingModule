@@ -17,8 +17,11 @@ namespace CubeReportingModule.Models
     {
         [Key]
         public int ReportId { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string SelectClause { get; set; }
+        [Required]
         public string FromClause { get; set; }
         public string WhereClause { get; set; }
         public string Creator { get; set; }

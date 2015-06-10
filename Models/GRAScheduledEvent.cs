@@ -13,8 +13,11 @@ namespace CubeReportingModule.Models
     {
         [Key]
         public int EventId { get; set; }
+        [Required]
         public int ReportId { get; set; }
+        [Required]
         public TimeSpan TimeInterval { get; set; }
+        [Required]
         public DateTime NextDate { get; set; }
         public string Creator { get; set; }
         public string Recipients { get; set; }   //json string

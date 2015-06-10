@@ -13,13 +13,16 @@ namespace CubeReportingModule.Models
     {
         [Key]
         [Column(Order = 1)]
+        [Required]
         public int ReportId { get; set; }
         [Key]
         [Column(Order = 2)]
         public int ReportOptionId { get; set; }
         public string ControlType { get; set; }
+        [Required]
         public string Name { get; set; }
         public string Label { get; set; }
+        [Required]
         public string Condition { get; set; }
         public string Metric { get; set; }
         public string SelectCommand { get; set; }
