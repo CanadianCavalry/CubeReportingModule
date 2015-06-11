@@ -13,6 +13,15 @@ namespace CubeReportingModule.Pages {
     public partial class UserProfile {
         
         /// <summary>
+        /// ActionStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ActionStatus;
+        
+        /// <summary>
         /// ProfileUserName control.
         /// </summary>
         /// <remarks>
@@ -56,6 +65,15 @@ namespace CubeReportingModule.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ConfirmNewPasswordText;
+        
+        /// <summary>
+        /// CurrentPasswordText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox CurrentPasswordText;
         
         /// <summary>
         /// ProfileUpdateButton control.

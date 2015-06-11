@@ -12,14 +12,54 @@ namespace CubeReportingModule.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            UpdateUserInfo();
+            UpdateUserDisplay();
         }
 
-        protected void UpdateUserInfo()
+        protected void UpdateUserDisplay()
         {
             MembershipUser selectedUser = Membership.GetUser();
             ProfileUserName.Text = "UserName: " + selectedUser.UserName;
             ProfileUserEmail.Text = "Email: " + selectedUser.Email;
+        }
+
+        protected void UpdateUserData()
+        {
+            MembershipProvider adminProvider = Membership.Providers["AdminMembershipProvider"];
+            MembershipUser selectedUser = Membership.GetUser();
+            string newUserEmail = EmailUpdate.Text;
+            string newPassword = NewPasswordText.Text;
+            string passwordConfirm = ConfirmNewPasswordText.Text;
+            string currentPassword = CurrentPasswordText.Text;
+
+            if (newUserEmail != "")
+            {
+                selectedUser.Email = newUserEmail;
+            }
+
+            if (newPassword != "")
+            {
+                if (!newPassword.Equals(passwordConfirm))
+                {
+                    ActionStatus.Text = "Password confirmation does not match new password";
+                    return;
+                }
+
+                if (!Membership.ValidateUser(selectedUser.UserName, currentPassword))
+                {
+                    ActionStatus.Text = "Incorrect password";
+                    return;
+                }
+
+                if (!newPassword.Equals(passwordConfirm))
+                {
+                    ActionStatus.Text = "Password confirmation does not match new password";
+                    return;
+                }
+
+                adminProvider.ChangePassword(selectedUser.UserName, currentPassword, newPassword);
+            }
+
+            Membership.UpdateUser(selectedUser);
         }
     }
 }

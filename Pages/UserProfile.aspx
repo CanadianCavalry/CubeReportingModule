@@ -3,6 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
     <div class="CenterOnly">
+        <asp:Label runat="server" ID="ActionStatus" CssClass="StatusMessage"></asp:Label>
         <asp:Label runat="server" ID="ProfileUserName">
         </asp:Label>
         <br />
@@ -17,12 +18,17 @@
         <br />
         <br />
         Change Password:
-        <asp:TextBox runat="server" ID="NewPasswordText">
+        <asp:TextBox runat="server" ID="NewPasswordText" TextMode="Password">
         </asp:TextBox>
         <br />
         <br />
         Re-type Password:
-        <asp:TextBox runat="server" ID="ConfirmNewPasswordText">
+        <asp:TextBox runat="server" ID="ConfirmNewPasswordText" TextMode="Password">
+        </asp:TextBox>
+        <br />
+        <br />
+        Enter current password to validate changes:
+        <asp:TextBox runat="server" ID="CurrentPasswordText" TextMode="Password">
         </asp:TextBox>
         <br />
         <br />
