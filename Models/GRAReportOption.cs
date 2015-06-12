@@ -27,5 +27,12 @@ namespace CubeReportingModule.Models
         public string DataTextField { get; set; }
         public string DataSourceId { get; set; }
         public string InitType { get; set; }
+
+        public override string ToString()
+        {
+            string summary = String.Format("ID: {0}, Type: {1}, Label: {2}, Condition: {3}, Init value: {4}", 
+                Id, ControlType, Label, Condition, InitType);
+            return summary;
+        }
     }
 }

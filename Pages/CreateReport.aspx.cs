@@ -12,27 +12,48 @@ namespace CubeReportingModule.Pages
 {
     public partial class CreateReport : System.Web.UI.Page
     {
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            SetReportOptions();
+            SetReportRestrictions();
+        }
 
-        protected void Page_LoadComplete(object sender, EventArgs e)
+        protected void Page_PreLoad(object sender, EventArgs e)
         {
             int step = Convert.ToInt32(Session["Step"] ?? "0");
-            Response.Write(String.Format("Step: {0}", step));   //debug
+            //debug
+            Debug.WriteLine(String.Format("Step: {0}", step));
+
+            if (Session["Options"] != null)
+            {
+                Control[] allOptions = (Control[])Session["Options"];
+                int options = allOptions.Count();
+                Debug.WriteLine("Options: " + options);
+            }
+
+            if (Session["Restrictions"] != null)
+            {
+                Control[] allRestrictions = (Control[])Session["Restrictions"];
+                int restrictions = allRestrictions.Count();
+                Debug.WriteLine("Restrictions: " + restrictions);
+            }
+            //end debug
 
             if (IsPostBack)
             {
                 string trigger = Request.Params["__EVENTTARGET"];
-                Button buttonTrigger = (Button) FindControl(trigger);
+                Button buttonTrigger = (Button)FindControl(trigger);
                 //debug
-                List<Button> allButtons = GetAllPageControlsOfType<Button>();
-                Debug.WriteLine("Page Buttons:");
-                foreach (Button button in allButtons)
-                {
-                    Debug.WriteLine(String.Format("Id: {0}, ClientId: {1}, UniqueId: {2}", button.ID, button.ClientID, button.UniqueID));
-                }
+                //List<Button> allButtons = GetAllPageControlsOfType<Button>();
+                //Debug.WriteLine("Page Buttons:");
+                //foreach (Button button in allButtons)
+                //{
+                //    Debug.WriteLine(String.Format("Id: {0}, ClientId: {1}, UniqueId: {2}", button.ID, button.ClientID, button.UniqueID));
+                //}
                 //end debug
                 //Button buttonTrigger = allButtons.Where(button => button.ID.Equals(trigger)).FirstOrDefault();
                 string triggerId = "";
-                
+
                 if (buttonTrigger != null)
                 {
                     triggerId = buttonTrigger.ClientID;
@@ -65,7 +86,7 @@ namespace CubeReportingModule.Pages
             SetControlVisibilities(step);
         }
 
-        protected void Page_PreRender(object sender, EventArgs e)
+        protected void Page_PreRenderComplete(object sender, EventArgs e)
         {
             int step = Convert.ToInt32(Session["Step"] ?? "0");
             SetControlValues(step);
@@ -114,9 +135,6 @@ namespace CubeReportingModule.Pages
 
                 case 3:
                     CreateTemplate.Visible = false;
-
-                    SetReportOptions();
-                    SetReportRestrictions();
                     break;
 
                 default:
@@ -193,6 +211,11 @@ namespace CubeReportingModule.Pages
 
         private void BuildSummary()
         {
+            //Get next reportId
+            AppContext db = new AppContext();
+            int reportId = db.GRAReports.ToList().LastOrDefault().ReportId;
+            reportId++;
+
             Queue<string> tableList = new Queue<string>();
             foreach (ListItem item in (ListItemCollection)Session["TableNames"])
             {
@@ -207,7 +230,7 @@ namespace CubeReportingModule.Pages
                 columnList.Enqueue(columnName);
             }
 
-            Queue<GRAReportOption> optionList = GetOptionQueue();
+            Queue<GRAReportOption> optionList = GetOptionQueue(reportId);
 
             Queue<string> restrictionList = GetRestrictionQueue();
 
@@ -235,14 +258,17 @@ namespace CubeReportingModule.Pages
             toAdd = tableList.Dequeue();
             fromClause += toAdd;
             tableSummary += toAdd;
-            while (tableList.Count > 0)
+            if (tableList.Count > 0)
             {
-                toAdd = tableList.Dequeue();
-                fromClause += " join " + toAdd;
-                tableSummary += ", " + toAdd;
-            }
+                while (tableList.Count > 0)
+                {
+                    toAdd = tableList.Dequeue();
+                    fromClause += " join " + toAdd;
+                    tableSummary += ", " + toAdd;
+                }
 
-            fromClause += " 1=1";
+                fromClause += " 1=1";
+            }
 
             //Build Where clause of Query
             string whereClause = "";
@@ -257,7 +283,7 @@ namespace CubeReportingModule.Pages
                 {
                     toAdd = restrictionList.Dequeue();
                     whereClause += " And " + toAdd;
-                    restrictionSummary += "\n" + toAdd;
+                    restrictionSummary += "<br/>" + toAdd;
                 }
             }
 
@@ -276,12 +302,12 @@ namespace CubeReportingModule.Pages
                     option = optionList.Dequeue();
                     allOptions.Add(option);
                     toAdd = option.ToString();
-                    optionSummary += "\n" + toAdd;
+                    optionSummary += "<br/>" + toAdd;
                 }
             }
 
             //Build query
-            string query = String.Format("Select {0} From {1} ", selectClause, fromClause);
+            string query = String.Format("Select {0} From {1}", selectClause, fromClause);
             if (!whereClause.Equals(""))
             {
                 query = String.Format("{0} Where {1}", query, whereClause);
@@ -299,7 +325,7 @@ namespace CubeReportingModule.Pages
             for (int i = 0; i < 4; i++)
             {
                 Label summary = new Label();
-                summary.Text = String.Format("{0}: {1}", labels[i], summaries[i]);
+                summary.Text = String.Format("{0}:<br/>{1}", labels[i], summaries[i]);
                 SummaryDisplay.Controls.Add(summary);
                 SummaryDisplay.Controls.Add(new LiteralControl("<br />"));
             }
@@ -315,6 +341,7 @@ namespace CubeReportingModule.Pages
 
             //Save Report and ReportOptions
             GRAReport report = new GRAReport();
+            //report.ReportId = reportId;
             report.Name = reportName;
             report.SelectClause = selectClause;
             report.FromClause = fromClause;
@@ -332,39 +359,42 @@ namespace CubeReportingModule.Pages
                 return restrictionQueue;
             }
 
-            foreach (Control restriction in (ControlCollection)Session["Restrictions"])
+            Control[] allRestrictions = (Control[])Session["Restrictions"];
+            foreach (Control restriction in allRestrictions)
             {
-                string restrictionString = "";
                 ControlCollection restrictionValues = restriction.Controls;
 
                 Label columns = (Label)restrictionValues[0];
                 DropDownList columnsList = (DropDownList)restrictionValues[1];
-                restrictionString += columnsList.SelectedValue.ToString();
+                string columnName = columnsList.SelectedValue.ToString();
 
                 Label conditions = (Label)restrictionValues[2];
                 DropDownList conditionsList = (DropDownList)restrictionValues[3];
-                restrictionString += " " + conditionsList.SelectedValue.ToString();
+                string condition = conditionsList.SelectedValue.ToString();
 
                 Label metric = (Label)restrictionValues[4];
-                DropDownList metricsList = (DropDownList)restrictionValues[5];
-                Label or = (Label)restrictionValues[6];
-                TextBox metricInput = (TextBox)restrictionValues[7];
+                TextBox metricInput = (TextBox)restrictionValues[5];
+                string metricValue = Global.CleanInput(metricInput.Text.ToString());
+                //DropDownList metricsList = (DropDownList)restrictionValues[5];
+                //Label or = (Label)restrictionValues[6];
+                //TextBox metricInput = (TextBox)restrictionValues[7];
 
-                string metricFromList = metricsList.SelectedValue.ToString();
-                string metricFromInput = Global.CleanInput(metricInput.Text);
+                //string metricFromList = metricsList.SelectedValue.ToString();
+                //string metricFromInput = Global.CleanInput(metricInput.Text);
 
-                restrictionString += "'";
+                //restrictionString += "'";
 
-                if (metricFromInput.Equals(""))
-                {
-                    restrictionString += " " + metricFromList;
-                }
-                else
-                {
-                    restrictionString += " " + metricFromInput;
-                }
+                //if (metricFromInput.Equals(""))
+                //{
+                //    restrictionString += " " + metricFromList;
+                //}
+                //else
+                //{
+                //    restrictionString += " " + metricFromInput;
+                //}
 
-                restrictionString += "'";
+                //restrictionString += "'";
+                string restrictionString = String.Format("{0} {1} {2}", columnName, condition, metricValue);
 
                 restrictionQueue.Enqueue(restrictionString);
             }
@@ -372,7 +402,7 @@ namespace CubeReportingModule.Pages
             return restrictionQueue;
         }
 
-        private Queue<GRAReportOption> GetOptionQueue()
+        private Queue<GRAReportOption> GetOptionQueue(int reportId)
         {
             Queue<GRAReportOption> optionQueue = new Queue<GRAReportOption>();
             if (Session["Options"] == null)
@@ -380,15 +410,18 @@ namespace CubeReportingModule.Pages
                 return optionQueue;
             }
 
-            foreach (Control option in (ControlCollection)Session["Options"])
+            Control[] allOptions = (Control[])Session["Options"];
+            foreach (Control option in allOptions)
             {
                 GRAReportOption reportOption = new GRAReportOption();
+                reportOption.ReportId = reportId;
 
                 ControlCollection optionValues = option.Controls;
 
                 Label label = (Label)optionValues[0];
                 TextBox labelInput = (TextBox)optionValues[1];
                 reportOption.Label = labelInput.Text;
+                reportOption.DataTextField = labelInput.Text;
 
                 Label columns = (Label)optionValues[2];
                 DropDownList columnsList = (DropDownList)optionValues[3];
@@ -402,21 +435,9 @@ namespace CubeReportingModule.Pages
                 DropDownList conditionsList = (DropDownList)optionValues[7];
                 reportOption.Condition = conditionsList.SelectedValue.ToString();
 
-                //Label metric = (Label)optionValues[8];
-                //DropDownList metricsList = (DropDownList)optionValues[9];
-                //Label or = (Label)optionValues[10];
-                //TextBox metricInput = (TextBox)optionValues[11];
-
-                //string metricFromList = metricsList.SelectedValue.ToString();
-                //string metricFromInput = metricInput.Text;
-                //if (metricFromInput.Equals(""))
-                //{
-                //    reportOption.Metric = metricFromList;
-                //}
-                //else
-                //{
-                //    reportOption.Metric = metricFromInput;
-                //}
+                Label init = (Label)optionValues[8];
+                DropDownList initList = (DropDownList)optionValues[9];
+                reportOption.InitType = initList.SelectedValue.ToString();
 
                 optionQueue.Enqueue(reportOption);
             }
@@ -612,10 +633,16 @@ namespace CubeReportingModule.Pages
                 return;
             }
 
-            ControlCollection allOptions = (ControlCollection)Session["Options"];
+            Control[] allOptions = (Control[])Session["Options"];
             foreach (Control option in allOptions)
             {
                 Options.Controls.Add(option);
+            }
+
+            List<Button> allButtons = GetAllPageControlsOfType<Button>().Where(button => button.Text.Equals("Remove Option")).ToList();
+            foreach (Button button in allButtons)
+            {
+                button.Click += new EventHandler(RemoveOption_Click);
             }
         }
 
@@ -626,10 +653,16 @@ namespace CubeReportingModule.Pages
                 return;
             }
 
-            ControlCollection allRestrictions = (ControlCollection)Session["Restrictions"];
+            Control[] allRestrictions = (Control[])Session["Restrictions"];
             foreach (Control restriction in allRestrictions)
             {
                 Restrictions.Controls.Add(restriction);
+            }
+
+            List<Button> allButtons = GetAllPageControlsOfType<Button>().Where(button => button.Text.Equals("Remove Restriction")).ToList();
+            foreach (Button button in allButtons)
+            {
+                button.Click += new EventHandler(RemoveRestriction_Click);
             }
         }
 
@@ -716,52 +749,45 @@ namespace CubeReportingModule.Pages
             conditionsList.Items.Add("<=");
             option.Controls.Add(conditionsList);
 
-            //Label metric = new Label();
-            //metric.Text = "Value to compare against:";
-            //option.Controls.Add(metric);
-            //////RadioButtonList metricChoice = new RadioButtonList();
-            //////metricChoice.Text = "Metric:";
-            ////option.Controls.Add(metricChoice);
-            ////DropDownList metricsList = new DropDownList();
-            //option.Controls.Add(metricsList);
-            ////Label or = new Label();
-            ////or.Text = "Or";
-            //option.Controls.Add(or);
-            ////TextBox metricInput = new TextBox();
-            //option.Controls.Add(metricInput);
-            //metricChoice.Items.Add(metricsList);
-            //metricChoice.Items.Add(metricInput);
+            Label init = new Label();
+            init.Text = "Choose initial value";
+            option.Controls.Add(init);
+            DropDownList initList = new DropDownList();
+            initList.Items.Add("");
+            initList.Items.Add("Min");
+            initList.Items.Add("Mid");
+            initList.Items.Add("Max");
+            option.Controls.Add(initList);
 
             Button remove = new Button();
             //remove.ID = "Remove";
             //remove.ClientIDMode = ClientIDMode.Static;
             remove.Text = "Remove Option";
             remove.UseSubmitBehavior = false;
-            remove.Click += Remove_Click;
-            option.Controls.Add(remove);            
+            remove.Click += new EventHandler(this.RemoveOption_Click);
+            option.Controls.Add(remove);
 
             Options.Controls.Add(option);
 
-            ControlCollection allOptions = Options.Controls;
-            if (Session["Options"] == null)
-            {
-                Session["Options"] = allOptions;
-                return;
-            }
+            Control[] allOptions = new Control[Options.Controls.Count];
+            Options.Controls.CopyTo(allOptions, 0);
 
-            allOptions = (ControlCollection)Session["Options"];
-            allOptions.Add(option);
             Session["Options"] = allOptions;
         }
 
         protected void AddRestriction_Click(object sender, EventArgs e)
         {
             Panel restriction = new Panel();
-            
+
             Label columns = new Label();
             columns.Text = "Choose column:";
             restriction.Controls.Add(columns);
             DropDownList columnsList = new DropDownList();
+            ListItemCollection selectedColumnNames = (ListItemCollection)Session["ColumnNames"];
+            columnsList.DataSource = selectedColumnNames;
+            columnsList.DataTextField = "Text";
+            columnsList.DataValueField = "Value";
+            columnsList.DataBind();
             restriction.Controls.Add(columnsList);
 
             Label conditions = new Label();
@@ -779,61 +805,64 @@ namespace CubeReportingModule.Pages
             Label metric = new Label();
             metric.Text = "Value to compare against:";
             restriction.Controls.Add(metric);
-            DropDownList metricsList = new DropDownList();
-            restriction.Controls.Add(metricsList);
-            Label or = new Label();
-            or.Text = " Or ";
-            restriction.Controls.Add(or);
+            //DropDownList metricsList = new DropDownList();
+            //restriction.Controls.Add(metricsList);
+            //Label or = new Label();
+            //or.Text = " Or ";
+            //restriction.Controls.Add(or);
             TextBox metricInput = new TextBox();
             restriction.Controls.Add(metricInput);
 
             Button remove = new Button();
             //remove.ID = "Remove";
             //remove.ClientIDMode = ClientIDMode.Static;
-            remove.Text = "Remove Option";
+            remove.Text = "Remove Restriction";
             remove.UseSubmitBehavior = false;
-            remove.Click += Remove_Click;
+            remove.Click += new EventHandler(RemoveRestriction_Click);
             restriction.Controls.Add(remove);
 
             Restrictions.Controls.Add(restriction);
 
-            ControlCollection allRestrictions = Restrictions.Controls;
-            if (Session["Restrictions"] == null)
-            {
-                Session["Restrictions"] = allRestrictions;
-                return;
-            }
-
-            allRestrictions = (ControlCollection)Session["Restrictions"];
-            allRestrictions.Add(restriction);
+            Control[] allRestrictions = new Control[Restrictions.Controls.Count];
+            Restrictions.Controls.CopyTo(allRestrictions, 0);
             Session["Restrictions"] = allRestrictions;
         }
 
-        protected void Remove_Click(object sender, EventArgs e)
+        protected void RemoveOption_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
             Panel parent = (Panel)button.Parent;
 
-            //Page page = button.Page;
-            //page.Controls.Remove(parent);
-            Page.Controls.Remove(parent);
+            Options.Controls.Remove(parent);
+            Control[] allOptions = new Control[Options.Controls.Count];
+            Options.Controls.CopyTo(allOptions, 0);
+            Session["Options"] = allOptions;
+        }
+
+        protected void RemoveRestriction_Click(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            Panel parent = (Panel)button.Parent;
+
+            Restrictions.Controls.Remove(parent);
+            Control[] allRestrictions = new Control[Restrictions.Controls.Count];
+            Restrictions.Controls.CopyTo(allRestrictions, 0);
+            Session["Restrictions"] = allRestrictions;
         }
 
         protected void Done_Click(object sender, EventArgs e)
         {
             AppContext db = new AppContext();
 
-            GRAReport reportToAdd = (GRAReport) Session["FinishedReport"];
-            //db.GRAReports.Add(reportToAdd);
-            int reportId = db.GRAReports.Last().ReportId;
+            GRAReport reportToAdd = (GRAReport)Session["FinishedReport"];
+            db.GRAReports.Add(reportToAdd);
 
-            foreach (GRAReportOption option in (List<GRAReportOption>) Session["FinishedReportOptions"])
+            foreach (GRAReportOption option in (List<GRAReportOption>)Session["FinishedReportOptions"])
             {
-                option.ReportId = reportId;
-                //db.GRAReportOptions.Add(option);
+                db.GRAReportOptions.Add(option);
             }
 
-            //db.SaveChanges();
+            db.SaveChanges();
             Cancel_Click(sender, e);
         }
 
