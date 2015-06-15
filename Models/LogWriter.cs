@@ -8,10 +8,16 @@ namespace CubeReportingModule.Models
 {
     public static class LogWriter
     {
-        public static readonly string login = "logged in at";
-        public static readonly string logout = "logged out at";
-        public static readonly string manageUsersIn = "entered the Manage Users panel at";
-        public static readonly string manageUsersOut = "left the Manage Users panel at";
+        public static readonly string login = "logged in";
+        public static readonly string logout = "logged out";
+        public static readonly string manageUsersIn = "entered the Manage Users panel";
+        public static readonly string manageUsersOut = "left the Manage Users panel";
+        public static readonly string createReport = "created a new report";
+        public static readonly string modifyReport = "modified report";
+        public static readonly string deleteReport = "removed report";
+        public static readonly string createEvent = "created a new scheduled event";
+        public static readonly string modifyEvent = "modified scheduled event";
+        public static readonly string deleteEvent = "removed scheduled event";
 
         public static void createAccessLog(string description)
         {

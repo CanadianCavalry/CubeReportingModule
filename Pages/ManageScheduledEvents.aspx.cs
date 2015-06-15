@@ -26,19 +26,19 @@ namespace CubeReportingModule.Pages
 
         private void SetButtonHandlers()
         {
-            List<Button> allButtons = GetAllPageControlsOfType<Button>().Where(button => button.ID.Equals("AddRecipient")).ToList();
+            List<Button> allButtons = GetAllPageControlsOfType<Button>().Where(button => button.ClientID.Equals("AddRecipient")).ToList();
             foreach (Button button in allButtons)
             {
                 button.Click += new EventHandler(AddRecipient);
             }
 
-            allButtons = GetAllPageControlsOfType<Button>().Where(button => button.ID.Equals("DoneEvent")).ToList();
+            allButtons = GetAllPageControlsOfType<Button>().Where(button => button.ClientID.Equals("DoneEvent")).ToList();
             foreach (Button button in allButtons)
             {
                 button.Click += new EventHandler(AddScheduledEvent);
             }
 
-            allButtons = GetAllPageControlsOfType<Button>().Where(button => button.ID.Equals("Cancel")).ToList();
+            allButtons = GetAllPageControlsOfType<Button>().Where(button => button.ClientID.Equals("Cancel")).ToList();
             foreach (Button button in allButtons)
             {
                 button.Click += new EventHandler(RemoveOption);
@@ -183,6 +183,10 @@ namespace CubeReportingModule.Pages
             {
                 // Save changes here, e.g. MyDataLayer.SaveChanges();
                 db.SaveChanges();
+
+                int eventId = item.EventId;
+
+                LogWriter.createAccessLog(LogWriter.modifyEvent + " " + eventId.ToString());
             }
         }
 
@@ -197,8 +201,11 @@ namespace CubeReportingModule.Pages
             AppContext db = new AppContext();
             GRAScheduledEvent toDelete = db.GRAScheduledEvents.Where(schedEvent => schedEvent.EventId == id)
                 .FirstOrDefault();
+            int eventId = toDelete.EventId;
             db.GRAScheduledEvents.Remove(toDelete);
             db.SaveChanges();
+
+            LogWriter.createAccessLog(LogWriter.deleteEvent + " " + eventId.ToString());
         }
 
         protected void Display_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -350,11 +357,11 @@ namespace CubeReportingModule.Pages
         public void AddScheduledEvent(object sender, EventArgs e)
         {
             List<Panel> allPanels = GetAllPageControlsOfType<Panel>().ToList();
-            Panel intervalControls = allPanels.Where(panel => panel.ID.Equals("Interval")).FirstOrDefault();
-            List<TextBox> inputs = intervalControls.Controls.OfType<TextBox>().ToList();
-            TextBox dayInput = inputs.Where(textbox => textbox.ID.Equals("Days")).FirstOrDefault();
-            TextBox hourInput = inputs.Where(textbox => textbox.ID.Equals("Hours")).FirstOrDefault();
-            TextBox minInput = inputs.Where(textbox => textbox.ID.Equals("Minutes")).FirstOrDefault();
+            Panel intervalControls = allPanels.Where(panel => panel.ClientID.Equals("Interval") == true).FirstOrDefault();
+            List<TextBox> inputs = intervalControls.Controls.OfType<TextBox>().ToList();    
+            TextBox dayInput = inputs.Where(textbox => textbox.ClientID.Equals("Days")).FirstOrDefault();
+            TextBox hourInput = inputs.Where(textbox => textbox.ClientID.Equals("Hours")).FirstOrDefault();
+            TextBox minInput = inputs.Where(textbox => textbox.ClientID.Equals("Minutes")).FirstOrDefault();
 
             int days = Convert.ToInt32(Global.CleanInput(dayInput.Text));
             int hours = Convert.ToInt32(Global.CleanInput(hourInput.Text));
@@ -371,7 +378,8 @@ namespace CubeReportingModule.Pages
 
             GRAScheduledEvent toAdd = new GRAScheduledEvent();
 
-            string reportName = Global.CleanInput(Request.Form["ReportName"]);
+            DropDownList reportList = GetAllPageControlsOfType<DropDownList>().Where(list => list.ClientID.Equals("ReportName")).FirstOrDefault();
+            string reportName = Global.CleanInput(reportList.SelectedValue);
             int reportId = repo.GRAReports.Where(report => report.Name.Equals(reportName))
                 .FirstOrDefault().ReportId;
             toAdd.ReportId = reportId;
@@ -384,7 +392,18 @@ namespace CubeReportingModule.Pages
             toAdd.Creator = Membership.GetUser().UserName;
 
             List<string> allRecipients = new List<string>();
-            var entry = Request.Form["Recipients"];
+            List<Label> allEmails = GetAllPageControlsOfType<Label>().Where(label => label.CssClass.Equals("RecipientEmail")).ToList();
+            if (allEmails.Count == 0)
+            {
+                DisplayMessage("Event must have at least 1 recipient");
+                return;
+            }
+
+            foreach (Label email in allEmails)
+            {
+                string emailText = email.Text;
+                allRecipients.Add(emailText);
+            }
 
             toAdd.SetRecipientList(allRecipients);
 
@@ -392,15 +411,21 @@ namespace CubeReportingModule.Pages
             db.GRAScheduledEvents.Add(toAdd);
             db.SaveChanges();
 
-            Button button = (Button)sender;
-            Panel parent = (Panel)button.Parent;
-            //Page.Controls.Remove(parent);
+            LogWriter.createAccessLog(LogWriter.createEvent);
 
-            EventToAdd.Controls.Remove(parent);
+            Session.Remove("Events");
+            Session.Remove("Recipients");
 
-            Control[] allEvents = new Control[EventToAdd.Controls.Count];
-            EventToAdd.Controls.CopyTo(allEvents, 0);
-            Session["Events"] = allEvents;
+            //Button button = (Button)sender;
+            //Panel parent = (Panel)button.Parent;
+            ////Page.Controls.Remove(parent);
+
+            //EventToAdd.Controls.Remove(parent);
+
+            ////Control[] allEvents = new Control[EventToAdd.Controls.Count];
+            ////EventToAdd.Controls.CopyTo(allEvents, 0);
+            //Session["Events"] = null;
+            //Session["Recipients"] = null;
         }
 
         private void DisplayMessage(string text)
@@ -412,7 +437,7 @@ namespace CubeReportingModule.Pages
 
         public void AddRecipient(object sender, EventArgs e)
         {
-            TextBox recipientInput = GetAllPageControlsOfType<TextBox>().ToList().Where(textbox => textbox.ID.Equals("Email")).FirstOrDefault();
+            TextBox recipientInput = GetAllPageControlsOfType<TextBox>().ToList().Where(textbox => textbox.ClientID.Equals("Email")).FirstOrDefault();
             string emailToAdd = Global.CleanInput(recipientInput.Text);
             if(emailToAdd.Equals(String.Empty)) {
                 return;
@@ -421,6 +446,7 @@ namespace CubeReportingModule.Pages
             Panel entry = new Panel();
 
             Label email = new Label();
+            email.CssClass = "RecipientEmail";
             email.Text = emailToAdd;
             entry.Controls.Add(email);
 
@@ -439,6 +465,7 @@ namespace CubeReportingModule.Pages
             Session["Recipients"] = allRecipients;
 
             recipientInput.Text = String.Empty;
+            //SetButtonHandlers();
         }
 
         public void RemoveOption(object sender, EventArgs e)
@@ -452,6 +479,9 @@ namespace CubeReportingModule.Pages
             //Control[] allEvents = new Control[EventToAdd.Controls.Count];
             //EventToAdd.Controls.CopyTo(allEvents, 0);
             Session["Events"] = null;
+            Session["Recipients"] = null;
+
+            AddEvent.Visible = true;
         }
 
         public void RemoveRecipient(object sender, EventArgs e)
@@ -466,6 +496,7 @@ namespace CubeReportingModule.Pages
             Control[] allRecipients = new Control[recipientControls.Controls.Count];
             recipientControls.Controls.CopyTo(allRecipients, 0);
             Session["Recipients"] = allRecipients;
+            SetButtonHandlers();
         }
 
         private Panel GetRecipients()
