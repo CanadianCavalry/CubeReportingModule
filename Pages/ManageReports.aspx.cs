@@ -86,18 +86,30 @@ namespace CubeReportingModule.Pages
         }
 
         // The id parameter name should allMatches the DataKeyNames value set on the control
-        public void Display_UpdateItem(int? id)
+        public void Display_UpdateItem(int id)
         {
-            if (id == null)
+            GRAReport item = null;
+            // Load the item here, e.g. item = MyDataLayer.Find(id);
+            AppContext db = new AppContext();
+            item = db.GRAReports.Where(report => report.ReportId == id).FirstOrDefault();
+            if (item == null)
             {
+                // The item wasn't found
+                ModelState.AddModelError("", String.Format("Item with id {0} was not found", id));
                 return;
             }
+            TryUpdateModel(item);
+            if (ModelState.IsValid)
+            {
+                // Save changes here, e.g. MyDataLayer.SaveChanges();
+                db.SaveChanges();
 
-            AppContext db = new AppContext();
-            GRAReport toModify = db.GRAReports.Where(report => report.ReportId == id).FirstOrDefault();
-            IEnumerable<GRAReportOption> allOptions = db.GRAReportOptions.Where(option => option.ReportId == id);
+                int reportId = item.ReportId;
 
-            List<string> keywords = GetTablesInFromClause(toModify.FromClause);
+                LogWriter.createAccessLog(LogWriter.modifyReport + " " + reportId.ToString());
+            }
+
+            List<string> keywords = GetTablesInFromClause(item.FromClause);
 
             //debug
             string fakeFrom = @"Org_Company Join AccessLogs join Reports 1=1";
@@ -113,10 +125,6 @@ namespace CubeReportingModule.Pages
             //Session["Restrictions"];
 
             //Response.Redirect("CreateReport.aspx");
-
-            int reportId = toModify.ReportId;
-
-            LogWriter.createAccessLog(LogWriter.modifyReport + " " + reportId.ToString());
         }
 
         private List<string> GetColumnsInSelectClause(string selectClause)
