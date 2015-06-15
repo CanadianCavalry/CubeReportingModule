@@ -862,7 +862,12 @@ namespace CubeReportingModule.Pages
                 db.GRAReportOptions.Add(option);
             }
 
+            int reportId = reportToAdd.ReportId;
+
             db.SaveChanges();
+
+            LogWriter.createAccessLog(LogWriter.createReport);
+
             Cancel_Click(sender, e);
         }
 
