@@ -454,7 +454,7 @@ namespace CubeReportingModule.Pages
             removeEmail.CssClass = "RemoveEmail";
             removeEmail.Text = "Remove email recipient";
             removeEmail.UseSubmitBehavior = false;
-            removeEmail.Click += RemoveOption;
+            removeEmail.Click += new EventHandler(RemoveRecipient);
             entry.Controls.Add(removeEmail);
 
             Panel recipientControls = GetRecipients();
@@ -496,7 +496,7 @@ namespace CubeReportingModule.Pages
             Control[] allRecipients = new Control[recipientControls.Controls.Count];
             recipientControls.Controls.CopyTo(allRecipients, 0);
             Session["Recipients"] = allRecipients;
-            SetButtonHandlers();
+            //SetButtonHandlers();
         }
 
         private Panel GetRecipients()

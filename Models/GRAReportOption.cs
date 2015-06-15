@@ -21,7 +21,6 @@ namespace CubeReportingModule.Models
         public string Name { get; set; }
         public string Label { get; set; }
         public string Condition { get; set; }
-        public string Metric { get; set; }
         public string SelectCommand { get; set; }
         public string Id { get; set; }
         public string DataTextField { get; set; }

@@ -230,10 +230,6 @@ namespace CubeReportingModule.Pages
                 columnList.Enqueue(columnName);
             }
 
-            Queue<GRAReportOption> optionList = GetOptionQueue(reportId);
-
-            Queue<string> restrictionList = GetRestrictionQueue();
-
             //Build Select clause of Query
             string selectClause = "";
             if (columnList.Count() == 0)
@@ -269,6 +265,10 @@ namespace CubeReportingModule.Pages
 
                 fromClause += " 1=1";
             }
+
+            Queue<GRAReportOption> optionList = GetOptionQueue(reportId, fromClause);
+
+            Queue<string> restrictionList = GetRestrictionQueue();
 
             //Build Where clause of Query
             string whereClause = "";
@@ -402,7 +402,7 @@ namespace CubeReportingModule.Pages
             return restrictionQueue;
         }
 
-        private Queue<GRAReportOption> GetOptionQueue(int reportId)
+        private Queue<GRAReportOption> GetOptionQueue(int reportId, string fromClause)
         {
             Queue<GRAReportOption> optionQueue = new Queue<GRAReportOption>();
             if (Session["Options"] == null)
@@ -410,26 +410,35 @@ namespace CubeReportingModule.Pages
                 return optionQueue;
             }
 
+            AppContext db = new AppContext();
+            List<GRAReportOption> allDbOptions = db.GRAReportOptions.ToList();
+            //GRAReportOption lastOption = allDbOptions.Where(dbOption => dbOption.ReportId == reportId).Max();
+            GRAReportOption lastOption = allDbOptions.Where(dbOption => dbOption.ReportId == reportId).LastOrDefault();
+            int nextOptionId = lastOption != null ? lastOption.ReportOptionId++ : 0;
+
             Control[] allOptions = (Control[])Session["Options"];
             foreach (Control option in allOptions)
             {
                 GRAReportOption reportOption = new GRAReportOption();
                 reportOption.ReportId = reportId;
 
+                nextOptionId++;
+                reportOption.ReportOptionId = nextOptionId;
+
                 ControlCollection optionValues = option.Controls;
 
                 Label label = (Label)optionValues[0];
                 TextBox labelInput = (TextBox)optionValues[1];
-                reportOption.Label = labelInput.Text;
-                reportOption.DataTextField = labelInput.Text;
+                reportOption.Label = Global.CleanInput(labelInput.Text);
 
                 Label columns = (Label)optionValues[2];
                 DropDownList columnsList = (DropDownList)optionValues[3];
-                reportOption.Id = columnsList.SelectedValue.ToString();
+                string selectedColumn = columnsList.SelectedValue.ToString();
 
                 Label type = (Label)optionValues[4];
                 DropDownList typesList = (DropDownList)optionValues[5];
-                reportOption.ControlType = typesList.SelectedValue.ToString();
+                string controlType = typesList.SelectedValue.ToString();
+                reportOption.ControlType = controlType;
 
                 Label conditions = (Label)optionValues[6];
                 DropDownList conditionsList = (DropDownList)optionValues[7];
@@ -437,7 +446,27 @@ namespace CubeReportingModule.Pages
 
                 Label init = (Label)optionValues[8];
                 DropDownList initList = (DropDownList)optionValues[9];
-                reportOption.InitType = initList.SelectedValue.ToString();
+                string initType = initList.SelectedValue.ToString();
+                reportOption.InitType = initType;
+
+                string selectCommand = String.Format("Select {0} From {1};", selectedColumn, fromClause);
+
+                reportOption.Name = selectedColumn;
+                int nameLength = selectedColumn.Length; //debug
+
+                string id = selectedColumn + nextOptionId;
+                int idLength = id.Length;   //debug
+                reportOption.Id = id;
+
+                reportOption.SelectCommand = selectCommand;
+                int selectLength = selectCommand.Length;    //debug
+
+                reportOption.DataTextField = selectedColumn;
+                int textFieldLength = selectedColumn.Length;    //debug
+
+                string dataId = id + "Data";
+                reportOption.DataSourceId = dataId;
+                int dataSourceLength = dataId.Length;   //debug
 
                 optionQueue.Enqueue(reportOption);
             }
@@ -857,12 +886,15 @@ namespace CubeReportingModule.Pages
             GRAReport reportToAdd = (GRAReport)Session["FinishedReport"];
             db.GRAReports.Add(reportToAdd);
 
+            db.SaveChanges();
+
+            int reportId = reportToAdd.ReportId;
+            Debug.WriteLine("ReportId: " + reportId);   //debug
+
             foreach (GRAReportOption option in (List<GRAReportOption>)Session["FinishedReportOptions"])
             {
                 db.GRAReportOptions.Add(option);
             }
-
-            int reportId = reportToAdd.ReportId;
 
             db.SaveChanges();
 

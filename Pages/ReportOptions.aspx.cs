@@ -256,10 +256,10 @@ namespace CubeReportingModule.Pages
                     optionValue = Server.HtmlDecode(String.Format("{0}", Request.Form[option.Id]));
                 }
 
-                if (option.Metric != null && !option.Metric.Equals(""))
-                {
-                    optionValue = option.Metric;
-                }
+                //if (option.Metric != null && !option.Metric.Equals(""))
+                //{
+                //    optionValue = option.Metric;
+                //}
 
                 if (optionValue == null || optionValue.Equals(""))
                 {
