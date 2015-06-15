@@ -113,6 +113,10 @@ namespace CubeReportingModule.Pages
             //Session["Restrictions"];
 
             //Response.Redirect("CreateReport.aspx");
+
+            int reportId = toModify.ReportId;
+
+            LogWriter.createAccessLog(LogWriter.modifyReport + " " + reportId.ToString());
         }
 
         private List<string> GetColumnsInSelectClause(string selectClause)
@@ -146,6 +150,10 @@ namespace CubeReportingModule.Pages
             GRAReport toDelete = db.GRAReports.Where(report => report.ReportId == id).FirstOrDefault();
             db.GRAReports.Remove(toDelete);
             db.SaveChanges();
+
+            int reportId = toDelete.ReportId;
+
+            LogWriter.createAccessLog(LogWriter.deleteReport + " " + reportId.ToString());
         }
 
         protected void Modify_Click(object sender, EventArgs e)
