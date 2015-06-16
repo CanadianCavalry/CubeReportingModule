@@ -435,6 +435,7 @@ namespace CubeReportingModule.Pages
         {
             Label message = new Label();
             message.Text = text;
+            message.CssClass = "StatusMessage";
             Message.Controls.Add(message);
         }
 

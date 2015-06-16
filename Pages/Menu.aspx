@@ -7,7 +7,7 @@
         <%-- Static menu buttons --%>
         <asp:Button runat="server" ID="Adhoc" CssClass="MenuButton" Text="Create Report" OnClick="CreateReport_Click" />
         <br />
-        <asp:Button runat="server" ID="Templates" CssClass="MenuButton" Text="Manage Report Templates" />
+        <asp:Button runat="server" ID="Templates" CssClass="MenuButton" Text="Manage Report Templates" OnClick="Templates_Click" />
         <br />
         <asp:Button runat="server" ID="Events" CssClass="MenuButton" Text="Modify Scheduled Reports" OnClick="Events_Click" />
         <br />
