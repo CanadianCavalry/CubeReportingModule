@@ -14,7 +14,7 @@ namespace CubeReportingModule.Models
         [Key]
         public int EventId { get; set; }
         public int ReportId { get; set; }
-        public TimeSpan TimeInterval { get; set; }
+        public Int64 TimeInterval { get; set; }
         public DateTime NextDate { get; set; }
         public string Creator { get; set; }
         public string Recipients { get; set; }   //json string
@@ -72,9 +72,10 @@ namespace CubeReportingModule.Models
 
         private void SetNextDate()
         {
-            var days = TimeInterval.Days;
-            var hours = TimeInterval.Hours;
-            var minutes = TimeInterval.Minutes;
+            TimeSpan span = new TimeSpan(TimeInterval);
+            var days = span.Days;
+            var hours = span.Hours;
+            var minutes = span.Minutes;
 
             DateTime next = DateTime.Now.AddDays(days).AddHours(hours).AddMinutes(minutes);
             NextDate = next;

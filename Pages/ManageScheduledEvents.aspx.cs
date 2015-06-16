@@ -369,7 +369,7 @@ namespace CubeReportingModule.Pages
             TimeSpan interval = new TimeSpan(days, hours, mins, 0);
 
             TimeSpan timerInterval = Global.GetTimerInterval();
-            if (interval < timerInterval)
+            if (TimeSpan.Compare(interval, timerInterval) < 0)
             {
                 int intervalMins = (int) Global.GetTimerInterval().TotalMinutes;
                 DisplayMessage(String.Format("Refresh interval cannot be less than {0}min", intervalMins));
@@ -384,7 +384,7 @@ namespace CubeReportingModule.Pages
                 .FirstOrDefault().ReportId;
             toAdd.ReportId = reportId;
 
-            toAdd.TimeInterval = interval;
+            toAdd.TimeInterval = (int)interval.Ticks;
 
             DateTime next = DateTime.Now.AddDays(days).AddHours(hours).AddMinutes(mins);
             toAdd.NextDate = next;
