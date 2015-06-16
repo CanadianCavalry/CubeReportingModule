@@ -15,6 +15,7 @@ namespace CubeReportingModule.Models
         public int EventId { get; set; }
         public int ReportId { get; set; }
         public Int64 TimeInterval { get; set; }
+        public string RefreshInterval { get { return TimeSpan.FromMinutes(TimeInterval).ToString(); } }
         public DateTime NextDate { get; set; }
         public string Creator { get; set; }
         public string Recipients { get; set; }   //json string

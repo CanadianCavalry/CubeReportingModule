@@ -384,7 +384,7 @@ namespace CubeReportingModule.Pages
                 .FirstOrDefault().ReportId;
             toAdd.ReportId = reportId;
 
-            toAdd.TimeInterval = (int)interval.Ticks;
+            toAdd.TimeInterval = (int)interval.TotalMinutes;
 
             DateTime next = DateTime.Now.AddDays(days).AddHours(hours).AddMinutes(mins);
             toAdd.NextDate = next;
@@ -415,6 +415,9 @@ namespace CubeReportingModule.Pages
 
             Session.Remove("Events");
             Session.Remove("Recipients");
+
+            EventToAdd.Visible = false;
+            AddEvent.Visible = true;
 
             //Button button = (Button)sender;
             //Panel parent = (Panel)button.Parent;
