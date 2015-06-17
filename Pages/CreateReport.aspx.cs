@@ -354,6 +354,7 @@ namespace CubeReportingModule.Pages
         private Queue<string> GetRestrictionQueue()
         {
             Queue<string> restrictionQueue = new Queue<string>();
+
             if (Session["Restrictions"] == null)
             {
                 return restrictionQueue;
@@ -375,6 +376,7 @@ namespace CubeReportingModule.Pages
                 Label metric = (Label)restrictionValues[4];
                 TextBox metricInput = (TextBox)restrictionValues[5];
                 string metricValue = Global.CleanInput(metricInput.Text.ToString());
+
                 //DropDownList metricsList = (DropDownList)restrictionValues[5];
                 //Label or = (Label)restrictionValues[6];
                 //TextBox metricInput = (TextBox)restrictionValues[7];
@@ -394,9 +396,27 @@ namespace CubeReportingModule.Pages
                 //}
 
                 //restrictionString += "'";
-                string restrictionString = String.Format("{0} {1} {2}", columnName, condition, metricValue);
 
-                restrictionQueue.Enqueue(restrictionString);
+                CheckBox compare = (CheckBox)restrictionValues[6];
+                if (compare.Checked == true)
+                {
+                    string restrictionString = String.Format("{0} {1} {2}", columnName, condition, metricValue);
+                    restrictionQueue.Enqueue(restrictionString);
+                }
+
+                CheckBox allowNull = (CheckBox)restrictionValues[7];
+                if (allowNull.Checked != true)
+                {
+                    string removeNull = String.Format("{0} IS NOT NULL", columnName);
+                    restrictionQueue.Enqueue(removeNull);
+                }
+
+                CheckBox allowEmptyString = (CheckBox)restrictionValues[8];
+                if (allowEmptyString.Checked != true)
+                {
+                    string removeEmptyStrings = String.Format("{0} != ''", columnName);
+                    restrictionQueue.Enqueue(removeEmptyStrings);
+                }
             }
 
             return restrictionQueue;
@@ -841,6 +861,24 @@ namespace CubeReportingModule.Pages
             //restriction.Controls.Add(or);
             TextBox metricInput = new TextBox();
             restriction.Controls.Add(metricInput);
+
+            CheckBox compare = new CheckBox();
+            //compare.ID = "Compare";
+            //compare.ClientIDMode = ClientIDMode.Static;
+            compare.Text = "Do comparison:";
+            restriction.Controls.Add(compare);
+
+            CheckBox allowNull = new CheckBox();
+            //allowNull.ID = "AllowNull";
+            //allowNull.ClientIDMode = ClientIDMode.Static;
+            allowNull.Text = "Allow Nulls:";
+            restriction.Controls.Add(allowNull);
+
+            CheckBox allowEmptyString = new CheckBox();
+            //allowEmptyString.ID = "AllowEmptyString";
+            //allowEmptyString.ClientIDMode = ClientIDMode.Static;
+            allowEmptyString.Text = "Allow Empty Strings:";
+            restriction.Controls.Add(allowEmptyString);
 
             Button remove = new Button();
             //remove.ID = "Remove";
