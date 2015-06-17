@@ -129,21 +129,23 @@ namespace CubeReportingModule.Pages
 
         public bool SetModifyVisibility(string creator)
         {
-            if ((Roles.IsUserInRole("Admin")) || (Roles.IsUserInRole("SysAdmin")))
-            {
-                return true;
-            }
+            //if ((Roles.IsUserInRole("Admin")) || (Roles.IsUserInRole("SysAdmin")))
+            //{
+            //    return true;
+            //}
 
-            if (creator == null)
-            {
-                return false;
-            }
+            return false;
 
-            string currentUsername = Membership.GetUser().UserName;
+            //if (creator == null)
+            //{
+            //    return false;
+            //}
 
-            bool visible = creator.Equals(currentUsername);
+            //string currentUsername = Membership.GetUser().UserName;
 
-            return visible;
+            //bool visible = creator.Equals(currentUsername);
+
+            //return visible;
         }
 
         public bool SetDeleteVisibility(string creator)

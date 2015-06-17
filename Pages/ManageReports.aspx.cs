@@ -29,10 +29,10 @@ namespace CubeReportingModule.Pages
 
         public bool SetModifyVisibility(string creator)
         {
-            if ((Roles.IsUserInRole("Admin")) || (Roles.IsUserInRole("SysAdmin")))
-            {
-                return true;
-            }
+            //if ((Roles.IsUserInRole("Admin")) || (Roles.IsUserInRole("SysAdmin")))
+            //{
+            //    return true;
+            //}
 
             return false;
 
