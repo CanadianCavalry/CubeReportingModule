@@ -18,7 +18,7 @@ namespace CubeReportingModule
     {
         private const string timerKey = "timerKey";
         private const string timerPageUrl = @"http://localhost:5099/Admin/TimerRefresh.aspx";
-        public const int timerInterval = 5;
+        private static TimeSpan timerInterval = new TimeSpan(0, 5, 0);
 
         protected void Application_Start(object sender, EventArgs e)
         {
@@ -46,6 +46,11 @@ namespace CubeReportingModule
             StartCacheTimer();
         }
 
+        public static TimeSpan GetTimerInterval()
+        {
+            return timerInterval;
+        }
+
         private bool StartCacheTimer()
         {
             if (HttpContext.Current.Cache[timerKey] != null)
@@ -55,16 +60,16 @@ namespace CubeReportingModule
 
             CheckScheduledEvents();
 
-            int timerExpirey = timerInterval;
-            if (timerExpirey < 2)
+            TimeSpan timerExpirey = timerInterval;
+            if (timerExpirey < new TimeSpan(0, 2, 0))
             {
-                timerExpirey = 2;
+                timerExpirey = new TimeSpan(0, 2, 0);
             }
 
             Debug.WriteLine("Cache Timer started: " + DateTime.Now.ToString());
 
             HttpContext.Current.Cache.Add(timerKey, "Test", null,
-                DateTime.MaxValue, TimeSpan.FromMinutes(timerExpirey),
+                DateTime.MaxValue, timerExpirey,
                 CacheItemPriority.Normal,
                 new CacheItemRemovedCallback(CacheTimerExpiredCallback));
 

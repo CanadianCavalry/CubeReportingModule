@@ -21,7 +21,7 @@
         AutoGenerateColumns="False">
         <Columns>
             <asp:DynamicField DataField="ReportName" HeaderText="Associated report" />
-            <asp:DynamicField DataField="TimeInterval" HeaderText="Refresh interval" />
+            <asp:DynamicField DataField="RefreshInterval" HeaderText="Refresh interval" />
             <asp:DynamicField DataField="Creator" HeaderText="Creator" />
             <asp:DynamicField DataField="Recipients" HeaderText="Email recipients" />
             <asp:TemplateField>
@@ -46,8 +46,10 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
+    <br />
+    <asp:PlaceHolder runat="server" ID="Message" ClientIDMode="Static" />
     <asp:Button runat="server" ID="AddEvent" ClientIDMode="Static" UseSubmitBehavior="False" Text="Add Event" OnClick="AddEvent_Click" />
-    <asp:Panel runat="server" ID="NewEvent" ClientIDMode="Static" />
+    <asp:Panel runat="server" ID="EventToAdd" ClientIDMode="Static" />
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="BottomPane" runat="server">
 </asp:Content>

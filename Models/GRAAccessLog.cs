@@ -21,7 +21,7 @@ namespace CubeReportingModule.Models
 
         public override string ToString()
         {
-            string output = String.Format("{0} {1} {2}.", Username, Description, LogDate.ToString());
+            string output = String.Format("{0} {1} at {2}.", Username, Description, LogDate.ToString());
             return output;
         }
     }

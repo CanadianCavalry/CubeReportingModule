@@ -40,7 +40,7 @@ namespace CubeReportingModule.Pages {
         protected global::System.Web.UI.WebControls.Panel NameControls;
         
         /// <summary>
-        /// GetReportName control.
+        /// ReportName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

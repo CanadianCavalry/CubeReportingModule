@@ -15,9 +15,107 @@ namespace CubeReportingModule.Pages
     {
         Repository repo = new Repository();
 
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            SetEvents();
+
+            SetRecipients();
+
+            SetButtonHandlers();
+        }
+
+        private void SetButtonHandlers()
+        {
+            List<Button> allButtons = GetAllPageControlsOfType<Button>().Where(button => button.ClientID.Equals("AddRecipient")).ToList();
+            foreach (Button button in allButtons)
+            {
+                button.Click += new EventHandler(AddRecipient);
+            }
+
+            allButtons = GetAllPageControlsOfType<Button>().Where(button => button.ClientID.Equals("DoneEvent")).ToList();
+            foreach (Button button in allButtons)
+            {
+                button.Click += new EventHandler(AddScheduledEvent);
+            }
+
+            allButtons = GetAllPageControlsOfType<Button>().Where(button => button.ClientID.Equals("Cancel")).ToList();
+            foreach (Button button in allButtons)
+            {
+                button.Click += new EventHandler(RemoveOption);
+            }
+
+            allButtons = GetAllPageControlsOfType<Button>().Where(button => button.CssClass.Equals("RemoveEmail")).ToList();
+            foreach (Button button in allButtons)
+            {
+                button.Click += new EventHandler(RemoveRecipient);
+            }
+        }
+
+        private void SetEvents()
+        {
+            if (Session["Events"] == null)
+            {
+                return;
+            }
+
+            AddEvent.Visible = false;
+
+            Control[] allEvents = (Control[])Session["Events"];
+            foreach (Control option in allEvents)
+            {
+                EventToAdd.Controls.Add(option);
+            }
+        }
+
+        private void SetRecipients()
+        {
+            if (Session["Recipients"] == null)
+            {
+                return;
+            }
+
+            Panel recipientControls = GetRecipients();
+
+            Control[] allRecipients = (Control[])Session["Recipients"];
+            foreach (Control option in allRecipients)
+            {
+                recipientControls.Controls.Add(option);
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected List<Control> GetAllPageControls()
+        {
+            return GetAllPageControlsOfType<Control>();
+        }
+
+        protected List<T> GetAllPageControlsOfType<T>()
+            where T : Control
+        {
+            List<T> allControlsOfType = new List<T>();
+            AddControlsToList<T>(Page.Controls, allControlsOfType);
+            return allControlsOfType;
+        }
+
+        private void AddControlsToList<T>(ControlCollection controls, List<T> list)
+            where T : Control
+        {
+            foreach (Control control in controls)
+            {
+                if (control is T)
+                {
+                    list.Add((T)control);
+                }
+
+                if (control.HasControls())
+                {
+                    AddControlsToList(control.Controls, list);
+                }
+            }
         }
 
         public IQueryable<GRAScheduledEvent> GetEventsAsQuery()
@@ -31,21 +129,23 @@ namespace CubeReportingModule.Pages
 
         public bool SetModifyVisibility(string creator)
         {
-            if ((Roles.IsUserInRole("Admin")) || (Roles.IsUserInRole("SysAdmin")))
-            {
-                return true;
-            }
+            //if ((Roles.IsUserInRole("Admin")) || (Roles.IsUserInRole("SysAdmin")))
+            //{
+            //    return true;
+            //}
 
-            if (creator == null)
-            {
-                return false;
-            }
+            return false;
 
-            string currentUsername = Membership.GetUser().UserName;
+            //if (creator == null)
+            //{
+            //    return false;
+            //}
 
-            bool visible = creator.Equals(currentUsername);
+            //string currentUsername = Membership.GetUser().UserName;
 
-            return visible;
+            //bool visible = creator.Equals(currentUsername);
+
+            //return visible;
         }
 
         public bool SetDeleteVisibility(string creator)
@@ -85,6 +185,10 @@ namespace CubeReportingModule.Pages
             {
                 // Save changes here, e.g. MyDataLayer.SaveChanges();
                 db.SaveChanges();
+
+                int eventId = item.EventId;
+
+                LogWriter.createAccessLog(LogWriter.modifyEvent + " " + eventId.ToString());
             }
         }
 
@@ -99,8 +203,11 @@ namespace CubeReportingModule.Pages
             AppContext db = new AppContext();
             GRAScheduledEvent toDelete = db.GRAScheduledEvents.Where(schedEvent => schedEvent.EventId == id)
                 .FirstOrDefault();
+            int eventId = toDelete.EventId;
             db.GRAScheduledEvents.Remove(toDelete);
             db.SaveChanges();
+
+            LogWriter.createAccessLog(LogWriter.deleteEvent + " " + eventId.ToString());
         }
 
         protected void Display_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -151,6 +258,15 @@ namespace CubeReportingModule.Pages
             intervalLabel.Text = "Refresh interval:";
             interval.Controls.Add(intervalLabel);
 
+            interval.Controls.Add(new LiteralControl("<br />"));
+
+            Label intervalNote = new Label();
+            int mins = (int) Global.GetTimerInterval().TotalMinutes;
+            intervalNote.Text = String.Format("Interval must be greater than {0}mins", mins);
+            interval.Controls.Add(intervalNote);
+
+            interval.Controls.Add(new LiteralControl("<br />"));
+
             Label daysLabel = new Label();
             daysLabel.Text = "Days";
             interval.Controls.Add(daysLabel);
@@ -193,6 +309,7 @@ namespace CubeReportingModule.Pages
             allControls.Controls.Add(interval);
 
             Panel recipientControls = new Panel();
+            recipientControls.CssClass = "Recipients";
             
             Panel recipients = new Panel();
             recipients.ID = "Recipients";
@@ -231,30 +348,45 @@ namespace CubeReportingModule.Pages
             cancel.Click += RemoveOption;
             allControls.Controls.Add(cancel);
 
-            NewEvent.Controls.Add(allControls);
+            EventToAdd.Controls.Add(allControls);
+
+            Control[] allEvents = new Control[EventToAdd.Controls.Count];
+            EventToAdd.Controls.CopyTo(allEvents, 0);
+
+            Session["Events"] = allEvents;
         }
 
         public void AddScheduledEvent(object sender, EventArgs e)
         {
-            int days = Convert.ToInt32(Global.CleanInput(Request.Form["Days"]));
-            int hours = Convert.ToInt32(Global.CleanInput(Request.Form["Hours"]));
-            int mins = Convert.ToInt32(Global.CleanInput(Request.Form["Minutes"]));
+            List<Panel> allPanels = GetAllPageControlsOfType<Panel>().ToList();
+            Panel intervalControls = allPanels.Where(panel => panel.ClientID.Equals("Interval") == true).FirstOrDefault();
+            List<TextBox> inputs = intervalControls.Controls.OfType<TextBox>().ToList();    
+            TextBox dayInput = inputs.Where(textbox => textbox.ClientID.Equals("Days")).FirstOrDefault();
+            TextBox hourInput = inputs.Where(textbox => textbox.ClientID.Equals("Hours")).FirstOrDefault();
+            TextBox minInput = inputs.Where(textbox => textbox.ClientID.Equals("Minutes")).FirstOrDefault();
+
+            int days = Convert.ToInt32(Global.CleanInput(dayInput.Text));
+            int hours = Convert.ToInt32(Global.CleanInput(hourInput.Text));
+            int mins = Convert.ToInt32(Global.CleanInput(minInput.Text));
             TimeSpan interval = new TimeSpan(days, hours, mins, 0);
 
-            int timerInterval = Global.timerInterval;
-            if (interval < new TimeSpan(0, 0, timerInterval, 0))
+            TimeSpan timerInterval = Global.GetTimerInterval();
+            if (TimeSpan.Compare(interval, timerInterval) < 0)
             {
+                int intervalMins = (int) Global.GetTimerInterval().TotalMinutes;
+                DisplayMessage(String.Format("Refresh interval cannot be less than {0}min", intervalMins));
                 return;
             }
 
             GRAScheduledEvent toAdd = new GRAScheduledEvent();
 
-            string reportName = Global.CleanInput(Request.Form["ReportName"]);
+            DropDownList reportList = GetAllPageControlsOfType<DropDownList>().Where(list => list.ClientID.Equals("ReportName")).FirstOrDefault();
+            string reportName = Global.CleanInput(reportList.SelectedValue);
             int reportId = repo.GRAReports.Where(report => report.Name.Equals(reportName))
                 .FirstOrDefault().ReportId;
             toAdd.ReportId = reportId;
 
-            toAdd.TimeInterval = interval;
+            toAdd.TimeInterval = (int)interval.TotalMinutes;
 
             DateTime next = DateTime.Now.AddDays(days).AddHours(hours).AddMinutes(mins);
             toAdd.NextDate = next;
@@ -262,8 +394,18 @@ namespace CubeReportingModule.Pages
             toAdd.Creator = Membership.GetUser().UserName;
 
             List<string> allRecipients = new List<string>();
-            var entry = Request.Form["Recipients"];
+            List<Label> allEmails = GetAllPageControlsOfType<Label>().Where(label => label.CssClass.Equals("RecipientEmail")).ToList();
+            if (allEmails.Count == 0)
+            {
+                DisplayMessage("Event must have at least 1 recipient");
+                return;
+            }
 
+            foreach (Label email in allEmails)
+            {
+                string emailText = email.Text;
+                allRecipients.Add(emailText);
+            }
 
             toAdd.SetRecipientList(allRecipients);
 
@@ -271,30 +413,102 @@ namespace CubeReportingModule.Pages
             db.GRAScheduledEvents.Add(toAdd);
             db.SaveChanges();
 
-            Button button = (Button)sender;
-            Panel parent = (Panel)button.Parent;
-            Page.Controls.Remove(parent);
+            LogWriter.createAccessLog(LogWriter.createEvent);
+
+            Session.Remove("Events");
+            Session.Remove("Recipients");
+
+            EventToAdd.Visible = false;
+            AddEvent.Visible = true;
+
+            //Button button = (Button)sender;
+            //Panel parent = (Panel)button.Parent;
+            ////Page.Controls.Remove(parent);
+
+            //EventToAdd.Controls.Remove(parent);
+
+            ////Control[] allEvents = new Control[EventToAdd.Controls.Count];
+            ////EventToAdd.Controls.CopyTo(allEvents, 0);
+            //Session["Events"] = null;
+            //Session["Recipients"] = null;
+        }
+
+        private void DisplayMessage(string text)
+        {
+            Label message = new Label();
+            message.Text = text;
+            message.CssClass = "StatusMessage";
+            Message.Controls.Add(message);
         }
 
         public void AddRecipient(object sender, EventArgs e)
         {
+            TextBox recipientInput = GetAllPageControlsOfType<TextBox>().ToList().Where(textbox => textbox.ClientID.Equals("Email")).FirstOrDefault();
+            string emailToAdd = Global.CleanInput(recipientInput.Text);
+            if(emailToAdd.Equals(String.Empty)) {
+                return;
+            }
+
             Panel entry = new Panel();
 
             Label email = new Label();
+            email.CssClass = "RecipientEmail";
+            email.Text = emailToAdd;
             entry.Controls.Add(email);
 
             Button removeEmail = new Button();
+            removeEmail.CssClass = "RemoveEmail";
             removeEmail.Text = "Remove email recipient";
             removeEmail.UseSubmitBehavior = false;
-            removeEmail.Click += RemoveOption;
+            removeEmail.Click += new EventHandler(RemoveRecipient);
             entry.Controls.Add(removeEmail);
+
+            Panel recipientControls = GetRecipients();
+            recipientControls.Controls.Add(entry);
+
+            Control[] allRecipients = new Control[recipientControls.Controls.Count];
+            recipientControls.Controls.CopyTo(allRecipients, 0);
+            Session["Recipients"] = allRecipients;
+
+            recipientInput.Text = String.Empty;
+            //SetButtonHandlers();
         }
 
         public void RemoveOption(object sender, EventArgs e)
         {
             Button button = (Button)sender;
             Panel parent = (Panel)button.Parent;
-            Page.Controls.Remove(parent);
+            //Page.Controls.Remove(parent);
+
+            EventToAdd.Controls.Remove(parent);
+
+            //Control[] allEvents = new Control[EventToAdd.Controls.Count];
+            //EventToAdd.Controls.CopyTo(allEvents, 0);
+            Session["Events"] = null;
+            Session["Recipients"] = null;
+
+            AddEvent.Visible = true;
+        }
+
+        public void RemoveRecipient(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            Panel parent = (Panel)button.Parent;
+            //Page.Controls.Remove(parent);
+
+            Panel recipientControls = GetRecipients();
+            recipientControls.Controls.Remove(parent);
+
+            Control[] allRecipients = new Control[recipientControls.Controls.Count];
+            recipientControls.Controls.CopyTo(allRecipients, 0);
+            Session["Recipients"] = allRecipients;
+            //SetButtonHandlers();
+        }
+
+        private Panel GetRecipients()
+        {
+            Panel recipientControls = GetAllPageControlsOfType<Panel>().ToList().Where(panel => panel.CssClass.Equals("Recipients")).FirstOrDefault();
+            return recipientControls;
         }
     }
 }
