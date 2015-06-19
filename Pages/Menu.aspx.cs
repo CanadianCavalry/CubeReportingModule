@@ -19,6 +19,11 @@ namespace CubeReportingModule.Pages
         {
             AdminPane.Visible = false;
 
+            if ((Roles.IsUserInRole("Admin")) || (Roles.IsUserInRole("SysAdmin")))
+            {
+                AdminPane.Visible = true;
+            }
+
             if (IsPostBack)
             {
                 if (Request.Form["Report"] != null)
@@ -29,11 +34,6 @@ namespace CubeReportingModule.Pages
                     return;
                 }
             }
-
-            if ((Roles.IsUserInRole("Admin")) || (Roles.IsUserInRole("SysAdmin"))){
-                AdminPane.Visible = true;
-            }
-            
         }
 
         public IEnumerable<GRAReport> GetReports()

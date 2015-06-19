@@ -21,15 +21,6 @@ namespace CubeReportingModule.Pages
         {
             pageReport = getPageReport();
             BuildSelectOptions();
-
-            if (IsPostBack)
-            {
-                string query = BuildQuery();
-                Debug.Write(query); //debug
-                Session["Query"] = query;
-                Response.Redirect("ReportDisplayHTML.aspx");
-                return;
-            }
         }
 
         private GRAReport getPageReport()
@@ -290,6 +281,15 @@ namespace CubeReportingModule.Pages
             int reportId = pageReport.ReportId;
             IEnumerable<GRAReportOption> allReportOptions = repo.GRAReportOptions.Where(option => option.ReportId == reportId).OrderBy(option => option.ReportOptionId);
             return allReportOptions;
+        }
+
+        protected void SubmitReportButton_Click(object sender, EventArgs e)
+        {
+            string query = BuildQuery();
+            Debug.Write(query); //debug
+            Session["Query"] = query;
+            Response.Redirect("ReportDisplayHTML.aspx");
+            return;
         }
     }
 }
