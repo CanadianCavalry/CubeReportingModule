@@ -13,6 +13,7 @@ namespace CubeReportingModule.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             UpdateUserDisplay();
+            UpdateUserData();
         }
 
         protected void UpdateUserDisplay()
@@ -26,10 +27,10 @@ namespace CubeReportingModule.Pages
         {
             MembershipProvider adminProvider = Membership.Providers["AdminMembershipProvider"];
             MembershipUser selectedUser = Membership.GetUser();
-            string newUserEmail = EmailUpdate.Text;
-            string newPassword = NewPasswordText.Text;
-            string passwordConfirm = ConfirmNewPasswordText.Text;
-            string currentPassword = CurrentPasswordText.Text;
+            string newUserEmail = HttpUtility.HtmlEncode(EmailUpdate.Text);
+            string newPassword = HttpUtility.HtmlEncode(NewPasswordText.Text);
+            string passwordConfirm = HttpUtility.HtmlEncode(ConfirmNewPasswordText.Text);
+            string currentPassword = HttpUtility.HtmlEncode(CurrentPasswordText.Text);
 
             if (newUserEmail != "")
             {
@@ -38,12 +39,6 @@ namespace CubeReportingModule.Pages
 
             if (newPassword != "")
             {
-                if (!newPassword.Equals(passwordConfirm))
-                {
-                    ActionStatus.Text = "Password confirmation does not match new password";
-                    return;
-                }
-
                 if (!Membership.ValidateUser(selectedUser.UserName, currentPassword))
                 {
                     ActionStatus.Text = "Incorrect password";

@@ -19,8 +19,8 @@
         <div class="RoleSelect">
             <b>Select the user's new role:</b>
             <br />
-            <asp:RadioButtonList runat="server" ID="RoleList" RepeatDirection="Vertical" AutoPostBack="true" OnSelectedIndexChanged="RoleList_SelectedIndexChanged">
-                <asp:ListItem Text="Client" Value="0" />
+            <asp:RadioButtonList runat="server" ID="RoleList" RepeatDirection="Vertical" AutoPostBack="true" CssClass="RoleRadioButton" OnSelectedIndexChanged="RoleList_SelectedIndexChanged">
+                <asp:ListItem Text="Client"  Value="0" />
                 <asp:ListItem Text="BasicUser" Value="1" />
                 <asp:ListItem Text="Admin" Value="2" Enabled="false" />
             </asp:RadioButtonList>
