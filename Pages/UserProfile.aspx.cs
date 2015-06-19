@@ -12,8 +12,12 @@ namespace CubeReportingModule.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (IsPostBack)
+            {
+                UpdateUserData();
+            }
+
             UpdateUserDisplay();
-            UpdateUserData();
         }
 
         protected void UpdateUserDisplay()
@@ -34,20 +38,32 @@ namespace CubeReportingModule.Pages
 
             if (newUserEmail != "")
             {
-                selectedUser.Email = newUserEmail;
-            }
-
-            if (newPassword != "")
-            {
                 if (!Membership.ValidateUser(selectedUser.UserName, currentPassword))
                 {
                     ActionStatus.Text = "Incorrect password";
                     return;
                 }
 
+                selectedUser.Email = newUserEmail;
+            }
+
+            if (newPassword != "")
+            {
                 if (!newPassword.Equals(passwordConfirm))
                 {
                     ActionStatus.Text = "Password confirmation does not match new password";
+                    return;
+                }
+
+                if (newPassword.Length < 8)
+                {
+                    ActionStatus.Text = "Password must be at least 8 characters long.";
+                    return;
+                }
+
+                if (!Membership.ValidateUser(selectedUser.UserName, currentPassword))
+                {
+                    ActionStatus.Text = "Incorrect password";
                     return;
                 }
 
