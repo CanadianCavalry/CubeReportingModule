@@ -984,24 +984,32 @@ namespace CubeReportingModule.Pages
         {
             AppContext db = new AppContext();
 
-            GRAReport reportToAdd = (GRAReport)Session["FinishedReport"];
-            db.GRAReports.Add(reportToAdd);
-
-            db.SaveChanges();
-
-            int reportId = reportToAdd.ReportId;
-            Debug.WriteLine("ReportId: " + reportId);   //debug
-
-            foreach (GRAReportOption option in (List<GRAReportOption>)Session["FinishedReportOptions"])
+            try
             {
-                db.GRAReportOptions.Add(option);
+                GRAReport reportToAdd = (GRAReport)Session["FinishedReport"];
+                db.GRAReports.Add(reportToAdd);
+
+                db.SaveChanges();
+
+                int reportId = reportToAdd.ReportId;
+                Debug.WriteLine("ReportId: " + reportId);   //debug
+
+                foreach (GRAReportOption option in (List<GRAReportOption>)Session["FinishedReportOptions"])
+                {
+                    db.GRAReportOptions.Add(option);
+                }
+
+                db.SaveChanges();
+
+                LogWriter.createAccessLog(LogWriter.createReport);
+
+                Cancel_Click(sender, e);
             }
-
-            db.SaveChanges();
-
-            LogWriter.createAccessLog(LogWriter.createReport);
-
-            Cancel_Click(sender, e);
+            catch (Exception ex)
+            {
+                Message.Text = "Failed to create Report.\n" + ex.Message;
+                return;
+            }
         }
 
         protected void Cancel_Click(object sender, EventArgs e)

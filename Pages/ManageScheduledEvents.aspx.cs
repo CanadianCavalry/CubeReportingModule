@@ -410,27 +410,24 @@ namespace CubeReportingModule.Pages
             toAdd.SetRecipientList(allRecipients);
 
             AppContext db = new AppContext();
-            db.GRAScheduledEvents.Add(toAdd);
-            db.SaveChanges();
+            try
+            {
+                db.GRAScheduledEvents.Add(toAdd);
+                db.SaveChanges();
 
-            LogWriter.createAccessLog(LogWriter.createEvent);
+                LogWriter.createAccessLog(LogWriter.createEvent);
 
-            Session.Remove("Events");
-            Session.Remove("Recipients");
+                Session.Remove("Events");
+                Session.Remove("Recipients");
 
-            EventToAdd.Visible = false;
-            AddEvent.Visible = true;
-
-            //Button button = (Button)sender;
-            //Panel parent = (Panel)button.Parent;
-            ////Page.Controls.Remove(parent);
-
-            //EventToAdd.Controls.Remove(parent);
-
-            ////Control[] allEvents = new Control[EventToAdd.Controls.Count];
-            ////EventToAdd.Controls.CopyTo(allEvents, 0);
-            //Session["Events"] = null;
-            //Session["Recipients"] = null;
+                EventToAdd.Visible = false;
+                AddEvent.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                Message.Text = "Failed to create Scheduled Event.\n" + ex.Message;
+                return;
+            }
         }
 
         private void DisplayMessage(string text)
