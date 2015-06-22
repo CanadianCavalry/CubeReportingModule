@@ -14,6 +14,9 @@
         <br />
         <asp:Label runat="server" ID="ProfileUserEmail">
         </asp:Label>
+        <br />
+        <asp:Label runat="server" ID="ProfileActivity">
+        </asp:Label>
     </div>
     <div class="UserProfilePanel">
         <br />

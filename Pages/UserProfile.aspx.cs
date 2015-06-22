@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using CubeReportingModule.Models;
 
 namespace CubeReportingModule.Pages
 {
@@ -25,6 +26,7 @@ namespace CubeReportingModule.Pages
             MembershipUser selectedUser = Membership.GetUser();
             ProfileUserName.Text = "UserName: " + selectedUser.UserName;
             ProfileUserEmail.Text = "Email: " + selectedUser.Email;
+            ProfileActivity.Text = "Last Login: " + selectedUser.LastLoginDate;
         }
 
         protected void UpdateUserData()
@@ -45,6 +47,8 @@ namespace CubeReportingModule.Pages
                 }
 
                 selectedUser.Email = newUserEmail;
+                ActionStatus.Text = "Email address successfully changed\n";
+                LogWriter.createAccessLog(LogWriter.changeEmail);
             }
 
             if (newPassword != "")
@@ -57,7 +61,7 @@ namespace CubeReportingModule.Pages
 
                 if (newPassword.Length < 8)
                 {
-                    ActionStatus.Text = "Password must be at least 8 characters long.";
+                    ActionStatus.Text = "Password must be at least 8 characters long";
                     return;
                 }
 
@@ -68,6 +72,8 @@ namespace CubeReportingModule.Pages
                 }
 
                 adminProvider.ChangePassword(selectedUser.UserName, currentPassword, newPassword);
+                ActionStatus.Text += "Password successfully changed";
+                LogWriter.createAccessLog(LogWriter.changePassword);
             }
 
             Membership.UpdateUser(selectedUser);

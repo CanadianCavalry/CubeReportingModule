@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using CubeReportingModule.Models;
 
 namespace CubeReportingModule.Admin
 {
@@ -73,6 +74,7 @@ namespace CubeReportingModule.Admin
             // Add them to the selected role and display a success message
             Roles.AddUserToRole(userName, RoleList.SelectedItem.Text);
             ActionStatus.Text = string.Format("User {0} was changed to role {1}.", userName, RoleList.SelectedItem.Text);
+            LogWriter.createAccessLog(LogWriter.changeRole + userName + " from " + userRoles[0] + " to " + RoleList.SelectedItem.Text);
         }
 
         protected void UserList_SelectedIndexChanged(object sender, EventArgs e)

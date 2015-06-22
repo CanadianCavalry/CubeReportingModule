@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using CubeReportingModule.Models;
 
 namespace CubeReportingModule.Admin
 {
@@ -38,6 +39,12 @@ namespace CubeReportingModule.Admin
         protected void RemoveUser_Click(object sender, EventArgs e)
         {
             Membership.DeleteUser(DeleteUserList.SelectedItem.Text);
+            LogWriter.createAccessLog(LogWriter.deleteUser + DeleteUserList.SelectedItem.Text);
+        }
+
+        protected void CreateUserWizard1_CreatedUser(object sender, EventArgs e)
+        {
+            LogWriter.createAccessLog(LogWriter.createUser + CreateUserWizard1.UserName);
         }
     }
 }

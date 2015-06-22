@@ -4,7 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
-    <asp:Panel runat="server" ID="Logs">
+    <asp:Panel runat="server" ID="Logs" CssClass="DisplayLogPanel">
         <h1>Access Logs</h1>
         <asp:ObjectDataSource runat="server" 
             ID="LogData" 

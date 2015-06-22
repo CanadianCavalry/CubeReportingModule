@@ -5,7 +5,7 @@
     <div class="AddUserPanel">
         <%-- Create new user wizard --%>
         <span class="BoldTitle">Fill out the fields below to create a new user:</span>
-        <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" 
+        <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" OnCreatedUser="CreateUserWizard1_CreatedUser"
             HorizontalAlign="Center">
             <WizardSteps>
                 <asp:CreateUserWizardStep ID="CreateUserWizardStep1" runat="server" Title="">
