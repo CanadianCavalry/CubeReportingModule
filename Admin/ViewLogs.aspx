@@ -19,11 +19,12 @@
             DataSourceID="LogData" 
             OnPageIndexChanging="Display_PageIndexChanging" 
             AutoGenerateColumns="false" 
-            PageSize="10"
+            PageSize="20"
             PagerSettings-PageButtonCount="5"
             PagerSettings-Mode="NumericFirstLast" 
             PagerSettings-FirstPageText="First" 
-            PagerSettings-LastPageText="Last">
+            PagerSettings-LastPageText="Last"
+            Width="100%">
             <Columns>
                 <asp:BoundField DataField="Username" HeaderText="User" SortExpression="Username" />
                 <asp:BoundField DataField="Description" HeaderText="Action" SortExpression="Description" />

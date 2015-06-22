@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
-    <h3><b>User Security:</b></h3>
+    <h3 class="CenterOnly"><b>User Security:</b></h3>
     <p>
         <asp:Label ID="ActionStatus" runat="server" CssClass="StatusMessage"></asp:Label> 
     </p>

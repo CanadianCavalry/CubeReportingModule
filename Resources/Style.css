@@ -119,7 +119,7 @@ body {
 .MenuButton {
     height: 3.5em;
     width: 30em;
-    min-width: 15em;
+    min-width: 10em;
     font-size:18px;
     margin-top: 5px;
 }
@@ -172,13 +172,14 @@ body {
     margin-right: 30%;
 }
 .AdminRightPane {
-    width:auto;
+    width:50%;
     float: right;
-    text-align:center;
+    text-align: center;
+    margin-left: 0px;
 }
 
 .AdminLeftPane {
-    width:auto;
+    width:50%;
     float: left;
     text-align:center;
 }
@@ -191,10 +192,11 @@ body {
 
 .DisplayLogPanel
 {
-    width: 50%;
+    width: 500px;
     text-align: center;
     margin: auto;
 }
+
 
 /*General*/
 
@@ -206,4 +208,8 @@ body {
 .CenterOnly {
     margin:auto;
     text-align: center;
+}
+
+.ThinBorder {
+    border: 2px solid black;
 }

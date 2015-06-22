@@ -27,16 +27,6 @@
             <asp:DynamicField DataField="WhereClause" HeaderText="Where" />
             <asp:TemplateField>
                 <ItemTemplate>
-                    <asp:Button runat="server" ID="Modify" 
-                        Visible="<%# SetModifyVisibility(Item.Creator) %>" Text="Modify" 
-                        UseSubmitBehavior="False"
-                        CommandName="Modify"
-                        CommandArgument="<%# Item.ReportId %>" 
-                        OnClick="Modify_Click" />
-                </ItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField>
-                <ItemTemplate>
                     <asp:Button runat="server" ID="Delete" 
                         Visible="<%# SetDeleteVisibility(Item.Creator) %>" Text="Delete" 
                         UseSubmitBehavior="False" 
