@@ -27,6 +27,7 @@ namespace CubeReportingModule.Pages
                 string query = BuildQuery();
                 Debug.Write(query); //debug
                 Session["Query"] = query;
+                Session["ReportName"] = pageReport.Name;
                 Response.Redirect("ReportDisplayHTML.aspx");
                 return;
             }

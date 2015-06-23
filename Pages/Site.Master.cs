@@ -19,6 +19,23 @@ namespace CubeReportingModule.Pages
 
         protected void Menu_Click(object sender, EventArgs e)
         {
+            //Create Report page
+            Session.Remove("Step");
+            Session.Remove("ReportName");
+            Session.Remove("TableNames");
+            Session.Remove("ColumnNames");
+            Session.Remove("Options");
+            Session.Remove("Restrictions");
+            Session.Remove("FinishedReport");
+            Session.Remove("FinishedReportOptions");
+            //Manage Scheduled Events page
+            Session.Remove("Events");
+            Session.Remove("Recipients");
+            //Report page
+            Session.Remove("ReportId");
+            Session.Remove("ReportName");
+            Session.Remove("Query");
+
             Response.Redirect("~/Pages/Menu.aspx");
         }
 
