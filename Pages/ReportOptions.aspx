@@ -6,7 +6,7 @@
     <div id="SelectOptions" class="selectOptions" runat="server">
         <h1 id="OptionsHeader" runat="server"></h1>
         <div id="OptionControls" runat="server" />
-        <button type="submit">Generate Report</button>
+        <asp:button runat="server" ID="SubmitReportButton" OnClick="SubmitReportButton_Click" Text="Generate Report"></asp:button>
         <button type="reset">Reset</button>
     </div>
 </asp:Content>

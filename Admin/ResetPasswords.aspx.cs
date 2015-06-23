@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using CubeReportingModule.Models;
 
 namespace CubeReportingModule.Admin
 {
@@ -75,7 +76,7 @@ namespace CubeReportingModule.Admin
         {
             MembershipUser selectedUser = Membership.GetUser(UserResetList.SelectedItem.Text);
             MembershipProvider adminProvider = Membership.Providers["AdminMembershipProvider"];
-            if (!selectedUser.IsApproved)
+            if (!selectedUser.IsApproved | selectedUser.IsLockedOut)
             {
                 ActionStatus.Text = string.Format("The account belonging to user {0} is already suspended.", selectedUser);
             }
@@ -84,6 +85,7 @@ namespace CubeReportingModule.Admin
                 selectedUser.IsApproved = false;
                 Membership.UpdateUser(selectedUser);
                 ActionStatus.Text = string.Format("The account belonging to user {0} has been suspended.\nThey will be unable to log in until the suspension is lifted.", selectedUser);
+                LogWriter.createAccessLog(LogWriter.lockAccount + selectedUser.UserName);
             }
             updateLockControls();
             updateUserDisplay();
@@ -93,15 +95,17 @@ namespace CubeReportingModule.Admin
         {
             MembershipUser selectedUser = Membership.GetUser(UserResetList.SelectedItem.Text);
             MembershipProvider adminProvider = Membership.Providers["AdminMembershipProvider"];
-            if (selectedUser.IsApproved)
+            if (selectedUser.IsApproved && !selectedUser.IsLockedOut)
             {
                 ActionStatus.Text = string.Format("The account belonging to user {0} is already unlocked.", selectedUser);
             }
             else
             {
                 selectedUser.IsApproved = true;
+                selectedUser.UnlockUser();
                 Membership.UpdateUser(selectedUser);
                 ActionStatus.Text = string.Format("The account belonging to user {0} has been unlocked.\nThey can now log in normally.", selectedUser);
+                LogWriter.createAccessLog(LogWriter.unlockAccount + selectedUser.UserName);
             }
             updateLockControls();
             updateUserDisplay();
@@ -110,7 +114,7 @@ namespace CubeReportingModule.Admin
         private void updateLockControls()
         {
             MembershipUser selectedUser = Membership.GetUser(UserResetList.SelectedItem.Text);
-            if (selectedUser.IsApproved)
+            if (selectedUser.IsApproved && !selectedUser.IsLockedOut)
             {
                 LockAccountButton.Enabled = true;
                 UnlockAccountButton.Enabled = false;
@@ -127,7 +131,7 @@ namespace CubeReportingModule.Admin
             MembershipUser selectedUser = Membership.GetUser(UserResetList.SelectedItem.Text);
             UserName.Text = "UserName: " + selectedUser.UserName;
             UserEmail.Text = "Email: " + selectedUser.Email;
-            if (selectedUser.IsApproved) 
+            if (selectedUser.IsApproved && !selectedUser.IsLockedOut)
             {
                 UserSuspended.Text = "Suspended: No";
             }      

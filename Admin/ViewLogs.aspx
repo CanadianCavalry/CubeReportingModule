@@ -4,7 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainPane" runat="server">
-    <asp:Panel runat="server" ID="Logs">
+    <asp:Panel runat="server" ID="Logs" CssClass="DisplayLogPanel">
         <h1>Access Logs</h1>
         <asp:ObjectDataSource runat="server" 
             ID="LogData" 
@@ -19,11 +19,12 @@
             DataSourceID="LogData" 
             OnPageIndexChanging="Display_PageIndexChanging" 
             AutoGenerateColumns="false" 
-            PageSize="10"
+            PageSize="20"
             PagerSettings-PageButtonCount="5"
             PagerSettings-Mode="NumericFirstLast" 
             PagerSettings-FirstPageText="First" 
-            PagerSettings-LastPageText="Last">
+            PagerSettings-LastPageText="Last"
+            Width="100%">
             <Columns>
                 <asp:BoundField DataField="Username" HeaderText="User" SortExpression="Username" />
                 <asp:BoundField DataField="Description" HeaderText="Action" SortExpression="Description" />

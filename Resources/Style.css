@@ -54,7 +54,29 @@ body {
     height: auto;
     width: inherit;
     margin-top: 5px;
+    margin-bottom: 5px;
     background-color: #9e9e9e;
+}
+
+/*User Profile Page*/
+
+.BoldTitle {
+    font-weight: bold;
+    font-size: large;
+}
+
+.UserDataDisplay {
+    border: 2px solid black;
+    padding: 6px;
+    width:300px;
+    margin:auto;
+    text-align:center;
+}
+
+.UserProfilePanel {
+    width: 400px;
+    text-align: center;
+    margin: auto;
 }
 
 /*Log-In Page*/
@@ -97,7 +119,7 @@ body {
 .MenuButton {
     height: 3.5em;
     width: 30em;
-    min-width: 15em;
+    min-width: 10em;
     font-size:18px;
     margin-top: 5px;
 }
@@ -146,20 +168,35 @@ body {
 
 .RoleSelect {
     float: right;
-    text-align:center;
+    text-align:left;
     margin-right: 30%;
 }
 .AdminRightPane {
-    width:auto;
+    width:50%;
     float: right;
-    text-align:center;
+    text-align: center;
+    margin-left: 0px;
 }
 
 .AdminLeftPane {
-    width:auto;
+    width:50%;
     float: left;
     text-align:center;
 }
+
+.AddUserPanel {
+    width: 500px;
+    text-align: center;
+    margin: auto;
+}
+
+.DisplayLogPanel
+{
+    width: 500px;
+    text-align: center;
+    margin: auto;
+}
+
 
 /*General*/
 
@@ -171,4 +208,8 @@ body {
 .CenterOnly {
     margin:auto;
     text-align: center;
+}
+
+.ThinBorder {
+    border: 2px solid black;
 }

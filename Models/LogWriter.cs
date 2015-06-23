@@ -18,6 +18,13 @@ namespace CubeReportingModule.Models
         public static readonly string createEvent = "created a new scheduled event";
         public static readonly string modifyEvent = "modified scheduled event";
         public static readonly string deleteEvent = "removed scheduled event";
+        public static readonly string lockAccount = "locked the account of ";
+        public static readonly string unlockAccount = "unlocked the account of ";
+        public static readonly string createUser = "created the new user account ";
+        public static readonly string deleteUser = "deleted the user account ";
+        public static readonly string changeRole = "changed the role of user ";
+        public static readonly string changePassword = "changed their password";
+        public static readonly string changeEmail = "changed their email address";
 
         public static void createAccessLog(string description)
         {
