@@ -15,7 +15,7 @@ namespace CubeReportingModule.Pages
         protected void Page_Init(object sender, EventArgs e)
         {
             SetReportOptions();
-            SetColumnAttributes();
+            //SetColumnAttributes();
             SetReportRestrictions();
         }
 
@@ -92,7 +92,6 @@ namespace CubeReportingModule.Pages
         {
             int step = Convert.ToInt32(Session["Step"] ?? "0");
             SetControlValues(step);
-            AddColumnAttributesToPage();
         }
 
         private void SetControlVisibilities(int step)
@@ -189,6 +188,9 @@ namespace CubeReportingModule.Pages
                     ColumnQuery.SelectCommand = queryString;
 
                     SetSelectedColumnNames();
+
+                    SetColumnAttributes();
+                    //AddColumnAttributesToPage();
                     break;
 
                 case 3:
@@ -609,6 +611,7 @@ namespace CubeReportingModule.Pages
 
             step--;
             Session["Step"] = step.ToString();
+            Session["ColumnAttributes"] = null;
         }
 
         protected List<Control> GetAllPageControls()
@@ -745,14 +748,20 @@ namespace CubeReportingModule.Pages
                 return;
             }
 
-            if (Session["ColumnAttributes"] == null)
-            {
-                return;
-            }
+            AddColumnAttributesToPage();
+            //if (Session["ColumnAttributes"] == null)
+            //{
+            //    return;
+            //}
 
             Control[] allAttributes = (Control[])Session["ColumnAttributes"];
             foreach (Control attributes in allAttributes)
             {
+                CheckBox allowNull = (CheckBox)attributes.Controls[1];
+                allowNull.CheckedChanged += new EventHandler(ColumnAttributesChanged);
+                CheckBox allowEmptyString = (CheckBox)attributes.Controls[2];
+                allowEmptyString.CheckedChanged += new EventHandler(ColumnAttributesChanged);
+
                 Allows.Controls.Add(attributes);
             }
         }
@@ -780,11 +789,15 @@ namespace CubeReportingModule.Pages
                 columnAttributes.Controls.Add(columnLabel);
 
                 CheckBox allowNull = new CheckBox();
-                allowNull.Text = "Allow Nulls:";
+                allowNull.Text = "Allow Nulls";
+                allowNull.CheckedChanged += new EventHandler(ColumnAttributesChanged);
+                allowNull.AutoPostBack = true;
                 columnAttributes.Controls.Add(allowNull);
 
                 CheckBox allowEmptyString = new CheckBox();
-                allowEmptyString.Text = "Allow Empty Strings:";
+                allowEmptyString.Text = "Allow Empty Strings";
+                allowEmptyString.CheckedChanged += new EventHandler(ColumnAttributesChanged);
+                allowEmptyString.AutoPostBack = true;
                 columnAttributes.Controls.Add(allowEmptyString);
 
                 Allows.Controls.Add(columnAttributes);
@@ -956,6 +969,13 @@ namespace CubeReportingModule.Pages
             Control[] allRestrictions = new Control[Restrictions.Controls.Count];
             Restrictions.Controls.CopyTo(allRestrictions, 0);
             Session["Restrictions"] = allRestrictions;
+        }
+
+        protected void ColumnAttributesChanged(object sender, EventArgs e)
+        {
+            Control[] allAttributes = new Control[Allows.Controls.Count];
+            Allows.Controls.CopyTo(allAttributes, 0);
+            Session["ColumnAttributes"] = allAttributes;
         }
 
         protected void RemoveOption_Click(object sender, EventArgs e)
