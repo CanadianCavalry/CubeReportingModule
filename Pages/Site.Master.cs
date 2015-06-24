@@ -25,6 +25,8 @@ namespace CubeReportingModule.Pages
             Session.Remove("TableNames");
             Session.Remove("ColumnNames");
             Session.Remove("Options");
+            Session.Remove("CheckedAttributes");
+            Session.Remove("ColumnAttributes");
             Session.Remove("Restrictions");
             Session.Remove("FinishedReport");
             Session.Remove("FinishedReportOptions");
