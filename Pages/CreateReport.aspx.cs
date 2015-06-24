@@ -83,6 +83,8 @@ namespace CubeReportingModule.Pages
                     step = 2;
                     Session["Step"] = step;
                 }
+
+                SaveColumnAttributes();
             }
 
             SetControlVisibilities(step);
@@ -190,10 +192,10 @@ namespace CubeReportingModule.Pages
                     SetSelectedColumnNames();
 
                     SetColumnAttributes();
-                    //AddColumnAttributesToPage();
                     break;
 
                 case 3:
+                    SetColumnAttributes();
                     BuildSummary();
                     break;
 
@@ -614,6 +616,37 @@ namespace CubeReportingModule.Pages
             Session["ColumnAttributes"] = null;
         }
 
+        protected void SaveColumnAttributes()
+        {
+            //Get Column attributes
+            List<string> allCheckedAttributes = new List<string>();
+            //debug
+            //foreach (string key in Request.Form.AllKeys)
+            //{
+            //    string value = Request.Form[key];
+            //    Debug.WriteLine(String.Format("Key: {0} Value: {1}", key, value));
+            //}
+            //end debug
+            IEnumerable<string> attributeKeys = Request.Form.AllKeys.Where(key => key.Contains("Attribute") == true);
+            if (attributeKeys.Count() == 0)
+            {
+                return;
+            }
+
+            foreach (string key in attributeKeys)
+            {
+                string value = Global.CleanInput(Request.Form[key]);
+                if (!value.Equals("on"))
+                {
+                    continue;
+                }
+
+                allCheckedAttributes.Add(key);
+            }
+
+            Session["CheckedAttributes"] = allCheckedAttributes;
+        }
+
         protected List<Control> GetAllPageControls()
         {
             return GetAllPageControlsOfType<Control>();
@@ -749,21 +782,41 @@ namespace CubeReportingModule.Pages
             }
 
             AddColumnAttributesToPage();
+
+            if (Session["CheckedAttributes"] == null)
+            {
+                return;
+            }
+            List<string> allCheckedAttributes = (List<string>)Session["CheckedAttributes"];
+            foreach (string key in allCheckedAttributes)
+            {
+                CheckBox toFind = (CheckBox) FindControl(key);
+                if (toFind == null)
+                {
+                    continue;
+                }
+
+                toFind.Checked = true;
+            }
+
+            //Save Attributes into session variable
+            Control[] allAttributes = new Control[Allows.Controls.Count];
+            Allows.Controls.CopyTo(allAttributes, 0);
+
+            Session["ColumnAttributes"] = allAttributes;
+
             //if (Session["ColumnAttributes"] == null)
             //{
             //    return;
             //}
+            //Control[] allAttributes = (Control[])Session["ColumnAttributes"];
+            //foreach (Control attributes in allAttributes)
+            //{
+            //    CheckBox allowNull = (CheckBox)attributes.Controls[1];
+            //    CheckBox allowEmptyString = (CheckBox)attributes.Controls[2];
 
-            Control[] allAttributes = (Control[])Session["ColumnAttributes"];
-            foreach (Control attributes in allAttributes)
-            {
-                CheckBox allowNull = (CheckBox)attributes.Controls[1];
-                allowNull.CheckedChanged += new EventHandler(ColumnAttributesChanged);
-                CheckBox allowEmptyString = (CheckBox)attributes.Controls[2];
-                allowEmptyString.CheckedChanged += new EventHandler(ColumnAttributesChanged);
-
-                Allows.Controls.Add(attributes);
-            }
+            //    Allows.Controls.Add(attributes);
+            //}
         }
 
         private void AddColumnAttributesToPage()
@@ -772,11 +825,8 @@ namespace CubeReportingModule.Pages
             {
                 return;
             }
-            if (Session["ColumnAttributes"] != null)
-            {
-                return;
-            }
 
+            int i = 0;
             ListItemCollection allColumnNames = (ListItemCollection)Session["ColumnNames"];
             foreach (ListItem column in allColumnNames)
             {
@@ -789,20 +839,26 @@ namespace CubeReportingModule.Pages
                 columnAttributes.Controls.Add(columnLabel);
 
                 CheckBox allowNull = new CheckBox();
+                allowNull.ID = "AttributeNull" + i;
+                allowNull.ClientIDMode = ClientIDMode.Static;
                 allowNull.Text = "Allow Nulls";
                 allowNull.CheckedChanged += new EventHandler(ColumnAttributesChanged);
-                allowNull.AutoPostBack = true;
+                //allowNull.AutoPostBack = true;
                 columnAttributes.Controls.Add(allowNull);
 
                 CheckBox allowEmptyString = new CheckBox();
+                allowEmptyString.ID = "AttributeEmptyString" + i;
+                allowEmptyString.ClientIDMode = ClientIDMode.Static;
                 allowEmptyString.Text = "Allow Empty Strings";
                 allowEmptyString.CheckedChanged += new EventHandler(ColumnAttributesChanged);
-                allowEmptyString.AutoPostBack = true;
+                //allowEmptyString.AutoPostBack = true;
                 columnAttributes.Controls.Add(allowEmptyString);
 
                 Allows.Controls.Add(columnAttributes);
+                i++;
             }
 
+            //Save Attributes into session variable
             Control[] allAttributes = new Control[Allows.Controls.Count];
             Allows.Controls.CopyTo(allAttributes, 0);
 
