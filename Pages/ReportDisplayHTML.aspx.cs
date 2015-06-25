@@ -25,7 +25,7 @@ namespace CubeReportingModule.Pages
                 string statusText = Session["StatusMessage"].ToString();
                 ActionStatus.Text = statusText;
             }
-            Session["StatusMessage"] = null;
+            Session.Remove("StatusMessage");
         }
 
         public string GetSelectCommand()
@@ -103,7 +103,6 @@ namespace CubeReportingModule.Pages
 
             //// End the HTTP response and stop the current page processing
             //Response.End();
-
         }
     }
 }

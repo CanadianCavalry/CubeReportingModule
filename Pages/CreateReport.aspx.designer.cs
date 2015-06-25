@@ -22,6 +22,15 @@ namespace CubeReportingModule.Pages {
         protected global::System.Web.UI.WebControls.Panel CreateTemplate;
         
         /// <summary>
+        /// Message control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Message;
+        
+        /// <summary>
         /// Controls control.
         /// </summary>
         /// <remarks>
@@ -128,6 +137,24 @@ namespace CubeReportingModule.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button AddOption;
+        
+        /// <summary>
+        /// AllowControls control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel AllowControls;
+        
+        /// <summary>
+        /// Allows control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Allows;
         
         /// <summary>
         /// RestrictionsControls control.

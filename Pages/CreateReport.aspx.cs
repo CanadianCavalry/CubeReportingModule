@@ -15,6 +15,7 @@ namespace CubeReportingModule.Pages
         protected void Page_Init(object sender, EventArgs e)
         {
             SetReportOptions();
+            //SetColumnAttributes();
             SetReportRestrictions();
         }
 
@@ -82,6 +83,8 @@ namespace CubeReportingModule.Pages
                     step = 2;
                     Session["Step"] = step;
                 }
+
+                SaveColumnAttributes();
             }
 
             SetControlVisibilities(step);
@@ -103,6 +106,7 @@ namespace CubeReportingModule.Pages
                     ColumnControls.Visible = false;
 
                     OptionsControls.Visible = false;
+                    AllowControls.Visible = false;
                     RestrictionsControls.Visible = false;
 
                     Previous.Visible = false;
@@ -116,6 +120,7 @@ namespace CubeReportingModule.Pages
                     TableControls.Enabled = false;
 
                     OptionsControls.Visible = false;
+                    AllowControls.Visible = false;
                     RestrictionsControls.Visible = false;
 
                     Summary.Visible = false;
@@ -145,6 +150,7 @@ namespace CubeReportingModule.Pages
                     ColumnControls.Visible = false;
 
                     OptionsControls.Visible = false;
+                    AllowControls.Visible = false;
                     RestrictionsControls.Visible = false;
 
                     Next.Visible = false;
@@ -166,15 +172,8 @@ namespace CubeReportingModule.Pages
                     break;
 
                 case 1:
-                    if (Session["TableNames"] == null)
-                    {
-                        Session["Step"] = "0";
-                        //Page_Load(this, new EventArgs());
-                        Response.Redirect("CreateReport.aspx");
-                        break;
-                    }
-
                     ListItemCollection selectedTableNames = (ListItemCollection)Session["TableNames"];
+
                     SetSelectedTableNames();
 
                     string queryString = BuildColumnQueryString(selectedTableNames);
@@ -184,14 +183,6 @@ namespace CubeReportingModule.Pages
                     break;
 
                 case 2:
-                    if (Session["ColumnNames"] == null)
-                    {
-                        Session["Step"] = "1";
-                        //Page_Load(this, new EventArgs());
-                        Response.Redirect("CreateReport.aspx");
-                        break;
-                    }
-
                     selectedTableNames = (ListItemCollection)Session["TableNames"];
                     SetSelectedTableNames();
 
@@ -199,9 +190,12 @@ namespace CubeReportingModule.Pages
                     ColumnQuery.SelectCommand = queryString;
 
                     SetSelectedColumnNames();
+
+                    SetColumnAttributes();
                     break;
 
                 case 3:
+                    SetColumnAttributes();
                     BuildSummary();
                     break;
 
@@ -356,9 +350,49 @@ namespace CubeReportingModule.Pages
         {
             Queue<string> restrictionQueue = new Queue<string>();
 
+            AddConditionsToRestrictions(restrictionQueue);
+
+            AddAttributesToRestrictions(restrictionQueue);
+
+            return restrictionQueue;
+        }
+
+        private void AddAttributesToRestrictions(Queue<string> restrictionQueue)
+        {
+            if (Session["ColumnAttributes"] == null)
+            {
+                return;
+            }
+
+            Control[] allColumnAttributes = (Control[])Session["ColumnAttributes"];
+            foreach (Control allows in allColumnAttributes)
+            {
+                ControlCollection allowValues = allows.Controls;
+
+                Label column = (Label)allowValues[0];
+                string columnName = column.Text;
+
+                CheckBox allowNull = (CheckBox)allowValues[1];
+                if (allowNull.Checked != true)
+                {
+                    string removeNull = String.Format("{0} IS NOT NULL", columnName);
+                    restrictionQueue.Enqueue(removeNull);
+                }
+
+                CheckBox allowEmptyString = (CheckBox)allowValues[2];
+                if (allowEmptyString.Checked != true)
+                {
+                    string removeEmptyStrings = String.Format("{0} != ''", columnName);
+                    restrictionQueue.Enqueue(removeEmptyStrings);
+                }
+            }
+        }
+
+        private void AddConditionsToRestrictions(Queue<string> restrictionQueue)
+        {
             if (Session["Restrictions"] == null)
             {
-                return restrictionQueue;
+                return;
             }
 
             Control[] allRestrictions = (Control[])Session["Restrictions"];
@@ -398,29 +432,9 @@ namespace CubeReportingModule.Pages
 
                 //restrictionString += "'";
 
-                CheckBox compare = (CheckBox)restrictionValues[6];
-                if (compare.Checked == true)
-                {
-                    string restrictionString = String.Format("{0} {1} {2}", columnName, condition, metricValue);
-                    restrictionQueue.Enqueue(restrictionString);
-                }
-
-                CheckBox allowNull = (CheckBox)restrictionValues[7];
-                if (allowNull.Checked != true)
-                {
-                    string removeNull = String.Format("{0} IS NOT NULL", columnName);
-                    restrictionQueue.Enqueue(removeNull);
-                }
-
-                CheckBox allowEmptyString = (CheckBox)restrictionValues[8];
-                if (allowEmptyString.Checked != true)
-                {
-                    string removeEmptyStrings = String.Format("{0} != ''", columnName);
-                    restrictionQueue.Enqueue(removeEmptyStrings);
-                }
+                string restrictionString = String.Format("{0} {1} {2}", columnName, condition, metricValue);
+                restrictionQueue.Enqueue(restrictionString);
             }
-
-            return restrictionQueue;
         }
 
         private Queue<GRAReportOption> GetOptionQueue(int reportId, string fromClause)
@@ -536,6 +550,12 @@ namespace CubeReportingModule.Pages
                         allTableNames.Add(toAdd);
                     }
 
+                    if (allTableNames.Count == 0)
+                    {
+                        Message.Text = "You must select at least one table.";
+                        return;
+                    }
+
                     Session["TableNames"] = allTableNames;
                     break;
 
@@ -557,6 +577,12 @@ namespace CubeReportingModule.Pages
                         toAdd.Value = value;
                         toAdd.Selected = true;
                         allColumnNames.Add(toAdd);
+                    }
+
+                    if (allColumnNames.Count == 0)
+                    {
+                        Message.Text = "You must select at least one column.";
+                        return;
                     }
 
                     Session["ColumnNames"] = allColumnNames;
@@ -587,6 +613,38 @@ namespace CubeReportingModule.Pages
 
             step--;
             Session["Step"] = step.ToString();
+            Session["ColumnAttributes"] = null;
+        }
+
+        protected void SaveColumnAttributes()
+        {
+            //Get Column attributes
+            List<string> allCheckedAttributes = new List<string>();
+            //debug
+            //foreach (string key in Request.Form.AllKeys)
+            //{
+            //    string value = Request.Form[key];
+            //    Debug.WriteLine(String.Format("Key: {0} Value: {1}", key, value));
+            //}
+            //end debug
+            IEnumerable<string> attributeKeys = Request.Form.AllKeys.Where(key => key.Contains("Attribute") == true);
+            if (attributeKeys.Count() == 0)
+            {
+                return;
+            }
+
+            foreach (string key in attributeKeys)
+            {
+                string value = Global.CleanInput(Request.Form[key]);
+                if (!value.Equals("on"))
+                {
+                    continue;
+                }
+
+                allCheckedAttributes.Add(key);
+            }
+
+            Session["CheckedAttributes"] = allCheckedAttributes;
         }
 
         protected List<Control> GetAllPageControls()
@@ -714,6 +772,97 @@ namespace CubeReportingModule.Pages
             {
                 button.Click += new EventHandler(RemoveRestriction_Click);
             }
+        }
+
+        protected void SetColumnAttributes()
+        {
+            if (Session["ColumnNames"] == null)
+            {
+                return;
+            }
+
+            AddColumnAttributesToPage();
+
+            if (Session["CheckedAttributes"] == null)
+            {
+                return;
+            }
+            List<string> allCheckedAttributes = (List<string>)Session["CheckedAttributes"];
+            foreach (string key in allCheckedAttributes)
+            {
+                CheckBox toFind = (CheckBox) FindControl(key);
+                if (toFind == null)
+                {
+                    continue;
+                }
+
+                toFind.Checked = true;
+            }
+
+            //Save Attributes into session variable
+            Control[] allAttributes = new Control[Allows.Controls.Count];
+            Allows.Controls.CopyTo(allAttributes, 0);
+
+            Session["ColumnAttributes"] = allAttributes;
+
+            //if (Session["ColumnAttributes"] == null)
+            //{
+            //    return;
+            //}
+            //Control[] allAttributes = (Control[])Session["ColumnAttributes"];
+            //foreach (Control attributes in allAttributes)
+            //{
+            //    CheckBox allowNull = (CheckBox)attributes.Controls[1];
+            //    CheckBox allowEmptyString = (CheckBox)attributes.Controls[2];
+
+            //    Allows.Controls.Add(attributes);
+            //}
+        }
+
+        private void AddColumnAttributesToPage()
+        {
+            if (Session["ColumnNames"] == null)
+            {
+                return;
+            }
+
+            int i = 0;
+            ListItemCollection allColumnNames = (ListItemCollection)Session["ColumnNames"];
+            foreach (ListItem column in allColumnNames)
+            {
+                String columnName = column.Value;
+
+                Panel columnAttributes = new Panel();
+
+                Label columnLabel = new Label();
+                columnLabel.Text = columnName;
+                columnAttributes.Controls.Add(columnLabel);
+
+                CheckBox allowNull = new CheckBox();
+                allowNull.ID = "AttributeNull" + i;
+                allowNull.ClientIDMode = ClientIDMode.Static;
+                allowNull.Text = "Allow Nulls";
+                allowNull.CheckedChanged += new EventHandler(ColumnAttributesChanged);
+                //allowNull.AutoPostBack = true;
+                columnAttributes.Controls.Add(allowNull);
+
+                CheckBox allowEmptyString = new CheckBox();
+                allowEmptyString.ID = "AttributeEmptyString" + i;
+                allowEmptyString.ClientIDMode = ClientIDMode.Static;
+                allowEmptyString.Text = "Allow Empty Strings";
+                allowEmptyString.CheckedChanged += new EventHandler(ColumnAttributesChanged);
+                //allowEmptyString.AutoPostBack = true;
+                columnAttributes.Controls.Add(allowEmptyString);
+
+                Allows.Controls.Add(columnAttributes);
+                i++;
+            }
+
+            //Save Attributes into session variable
+            Control[] allAttributes = new Control[Allows.Controls.Count];
+            Allows.Controls.CopyTo(allAttributes, 0);
+
+            Session["ColumnAttributes"] = allAttributes;
         }
 
         protected string BuildColumnQueryString(ListItemCollection selectedTableNames)
@@ -863,24 +1012,6 @@ namespace CubeReportingModule.Pages
             TextBox metricInput = new TextBox();
             restriction.Controls.Add(metricInput);
 
-            CheckBox compare = new CheckBox();
-            //compare.ID = "Compare";
-            //compare.ClientIDMode = ClientIDMode.Static;
-            compare.Text = "Do comparison:";
-            restriction.Controls.Add(compare);
-
-            CheckBox allowNull = new CheckBox();
-            //allowNull.ID = "AllowNull";
-            //allowNull.ClientIDMode = ClientIDMode.Static;
-            allowNull.Text = "Allow Nulls:";
-            restriction.Controls.Add(allowNull);
-
-            CheckBox allowEmptyString = new CheckBox();
-            //allowEmptyString.ID = "AllowEmptyString";
-            //allowEmptyString.ClientIDMode = ClientIDMode.Static;
-            allowEmptyString.Text = "Allow Empty Strings:";
-            restriction.Controls.Add(allowEmptyString);
-
             Button remove = new Button();
             //remove.ID = "Remove";
             //remove.ClientIDMode = ClientIDMode.Static;
@@ -894,6 +1025,13 @@ namespace CubeReportingModule.Pages
             Control[] allRestrictions = new Control[Restrictions.Controls.Count];
             Restrictions.Controls.CopyTo(allRestrictions, 0);
             Session["Restrictions"] = allRestrictions;
+        }
+
+        protected void ColumnAttributesChanged(object sender, EventArgs e)
+        {
+            Control[] allAttributes = new Control[Allows.Controls.Count];
+            Allows.Controls.CopyTo(allAttributes, 0);
+            Session["ColumnAttributes"] = allAttributes;
         }
 
         protected void RemoveOption_Click(object sender, EventArgs e)
@@ -922,24 +1060,32 @@ namespace CubeReportingModule.Pages
         {
             AppContext db = new AppContext();
 
-            GRAReport reportToAdd = (GRAReport)Session["FinishedReport"];
-            db.GRAReports.Add(reportToAdd);
-
-            db.SaveChanges();
-
-            int reportId = reportToAdd.ReportId;
-            Debug.WriteLine("ReportId: " + reportId);   //debug
-
-            foreach (GRAReportOption option in (List<GRAReportOption>)Session["FinishedReportOptions"])
+            try
             {
-                db.GRAReportOptions.Add(option);
+                GRAReport reportToAdd = (GRAReport)Session["FinishedReport"];
+                db.GRAReports.Add(reportToAdd);
+
+                db.SaveChanges();
+
+                int reportId = reportToAdd.ReportId;
+                Debug.WriteLine("ReportId: " + reportId);   //debug
+
+                foreach (GRAReportOption option in (List<GRAReportOption>)Session["FinishedReportOptions"])
+                {
+                    db.GRAReportOptions.Add(option);
+                }
+
+                db.SaveChanges();
+
+                LogWriter.createAccessLog(LogWriter.createReport);
+
+                Cancel_Click(sender, e);
             }
-
-            db.SaveChanges();
-
-            LogWriter.createAccessLog(LogWriter.createReport);
-
-            Cancel_Click(sender, e);
+            catch (Exception ex)
+            {
+                Message.Text = "Failed to create Report.\n" + ex.Message;
+                return;
+            }
         }
 
         protected void Cancel_Click(object sender, EventArgs e)
@@ -949,6 +1095,7 @@ namespace CubeReportingModule.Pages
             Session.Remove("TableNames");
             Session.Remove("ColumnNames");
             Session.Remove("Options");
+            Session.Remove("ColumnAttributes");
             Session.Remove("Restrictions");
             Session.Remove("FinishedReport");
             Session.Remove("FinishedReportOptions");
