@@ -47,6 +47,7 @@
         </Columns>
     </asp:GridView>
     <br />
+    <br />
     <asp:PlaceHolder runat="server" ID="Message" ClientIDMode="Static" />
     <asp:Button runat="server" ID="AddEvent" ClientIDMode="Static" UseSubmitBehavior="False" Text="Add Event" OnClick="AddEvent_Click" />
     <asp:Panel runat="server" ID="EventToAdd" ClientIDMode="Static" />

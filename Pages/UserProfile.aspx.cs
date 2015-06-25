@@ -47,7 +47,7 @@ namespace CubeReportingModule.Pages
                 }
 
                 selectedUser.Email = newUserEmail;
-                ActionStatus.Text = "Email address successfully changed\n";
+                ActionStatus.Text = "Email address successfully changed<br />";
                 LogWriter.createAccessLog(LogWriter.changeEmail);
             }
 

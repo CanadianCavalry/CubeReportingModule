@@ -14,7 +14,7 @@ namespace CubeReportingModule.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             CreateDefaultSysAdmin();
-            //CreateTestUsers();
+            CreateTestUsers();
         }
 
         protected void CreateDefaultSysAdmin()
@@ -47,56 +47,56 @@ namespace CubeReportingModule.Pages
             MembershipCreateStatus status;      //tracks the success of the CreateUser method
 
             //create the user account, if it does not exist
-            //Membership.CreateUser("alice", "alice", "alice@email.com", "Really?", "yes really", true, out status);
-            //Membership.CreateUser("dave", "dave", "dave@email.com", "Really?", "yes really", true, out status);
-            //Membership.CreateUser("fred", "fred", "fred@email.com", "Really?", "yes really", true, out status);
+            Membership.CreateUser("alice", "aliceiscool", "alice@email.com", "Really?", "yes really", true, out status);
+            Membership.CreateUser("dave", "daveiscool", "dave@email.com", "Really?", "yes really", true, out status);
+            Membership.CreateUser("fred", "frediscool", "fred@email.com", "Really?", "yes really", true, out status);
 
-            // Find the user "alice"
-            //MembershipUserCollection matchingUsers = Membership.FindUsersByName("dave");
-            //foreach (MembershipUser i in matchingUsers)
-            //{
-            //    if (i.ToString() == "alice")
-            //    {
-            //        MembershipUser userAlice = i;
-            //    }
-            //}
+             //Find the user "alice"
+            MembershipUserCollection matchingUsers = Membership.FindUsersByName("dave");
+            foreach (MembershipUser i in matchingUsers)
+            {
+                if (i.ToString() == "alice")
+                {
+                    MembershipUser userAlice = i;
+                }
+            }
 
-            ////Add the user "alice" to the BasicUser role, if neccessary
-            //if (!Roles.IsUserInRole("alice", "BasicUser"))
-            //{
-            //    Roles.AddUserToRole("alice", "BasicUser");
-            //}
-            //// Find the user "dave"
-            //matchingUsers = Membership.FindUsersByName("dave");
-            //foreach (MembershipUser i in matchingUsers)
-            //{
-            //    if (i.ToString() == "dave")
-            //    {
-            //        MembershipUser userDave = i;
-            //    }
-            //}
+            //Add the user "alice" to the BasicUser role, if neccessary
+            if (!Roles.IsUserInRole("alice", "BasicUser"))
+            {
+                Roles.AddUserToRole("alice", "BasicUser");
+            }
+            // Find the user "dave"
+            matchingUsers = Membership.FindUsersByName("dave");
+            foreach (MembershipUser i in matchingUsers)
+            {
+                if (i.ToString() == "dave")
+                {
+                    MembershipUser userDave = i;
+                }
+            }
 
-            ////Add the user "dave" to the BasicUser role, if neccessary
-            //if (!Roles.IsUserInRole("dave", "BasicUser"))
-            //{
-            //    Roles.AddUserToRole("dave", "BasicUser");
-            //}
+            //Add the user "dave" to the BasicUser role, if neccessary
+            if (!Roles.IsUserInRole("dave", "BasicUser"))
+            {
+                Roles.AddUserToRole("dave", "BasicUser");
+            }
 
-            //// Find the user "fred"
-            //matchingUsers = Membership.FindUsersByName("fred");
-            //foreach (MembershipUser i in matchingUsers)
-            //{
-            //    if (i.ToString() == "fred")
-            //    {
-            //        MembershipUser userFred = i;
-            //    }
-            //}
+            // Find the user "fred"
+            matchingUsers = Membership.FindUsersByName("fred");
+            foreach (MembershipUser i in matchingUsers)
+            {
+                if (i.ToString() == "fred")
+                {
+                    MembershipUser userFred = i;
+                }
+            }
 
-            ////Add the user "fred" to the BasicUser role, if neccessary
-            //if (!Roles.IsUserInRole("fred", "BasicUser"))
-            //{
-            //    Roles.AddUserToRole("fred", "BasicUser");
-            //}
+            //Add the user "fred" to the BasicUser role, if neccessary
+            if (!Roles.IsUserInRole("fred", "BasicUser"))
+            {
+                Roles.AddUserToRole("fred", "BasicUser");
+            }
         }
     }
 }

@@ -163,13 +163,13 @@ body {
 .UserSelect {
     float: left;
     text-align:center;
-    margin-left: 30%;
+    margin-left: 25%;
 }
 
 .RoleSelect {
     float: right;
     text-align:left;
-    margin-right: 30%;
+    margin-right: 25%;
 }
 .AdminRightPane {
     width:50%;
@@ -192,11 +192,10 @@ body {
 
 .DisplayLogPanel
 {
-    width: 500px;
+    width: 600px;
     text-align: center;
     margin: auto;
 }
-
 
 /*General*/
 
