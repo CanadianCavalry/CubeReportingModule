@@ -155,11 +155,24 @@ namespace CubeReportingModule.Pages
             }
 
             AppContext db = new AppContext();
-            GRAReport toDelete = db.GRAReports.Where(report => report.ReportId == id).FirstOrDefault();
-            db.GRAReports.Remove(toDelete);
-            db.SaveChanges();
+            GRAReport reportToRemove = db.GRAReports.Where(report => report.ReportId == id).FirstOrDefault();
 
-            int reportId = toDelete.ReportId;
+            int reportId = reportToRemove.ReportId;
+
+            List<GRAScheduledEvent> allAssocEvents = db.GRAScheduledEvents.Where(schedEvent => schedEvent.ReportId == reportId).ToList();
+            foreach (GRAScheduledEvent eventToRemove in allAssocEvents)
+            {
+                db.GRAScheduledEvents.Remove(eventToRemove);
+            }
+
+            List<GRAReportOption> allAssocOptions = db.GRAReportOptions.Where(option => option.ReportId == reportId).ToList();
+            foreach (GRAReportOption optionToRemove in allAssocOptions)
+            {
+                db.GRAReportOptions.Remove(optionToRemove);
+            }
+
+            db.GRAReports.Remove(reportToRemove);
+            db.SaveChanges();
 
             LogWriter.createAccessLog(LogWriter.deleteReport + " " + reportId.ToString());
         }
