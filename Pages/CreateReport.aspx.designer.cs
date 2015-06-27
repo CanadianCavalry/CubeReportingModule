@@ -82,7 +82,7 @@ namespace CubeReportingModule.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList TableNames;
+        protected global::System.Web.UI.WebControls.RadioButtonList TableNames;
         
         /// <summary>
         /// ColumnControls control.

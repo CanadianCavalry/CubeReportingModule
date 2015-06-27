@@ -258,7 +258,7 @@ namespace CubeReportingModule.Pages
                     tableSummary += ", " + toAdd;
                 }
 
-                fromClause += " 1=1";
+                //fromClause += " 1=1";
             }
 
             Queue<GRAReportOption> optionList = GetOptionQueue(reportId, fromClause);
@@ -432,7 +432,7 @@ namespace CubeReportingModule.Pages
 
                 //restrictionString += "'";
 
-                string restrictionString = String.Format("{0} {1} {2}", columnName, condition, metricValue);
+                string restrictionString = String.Format("{0} {1} '{2}'", columnName, condition, metricValue);
                 restrictionQueue.Enqueue(restrictionString);
             }
         }
