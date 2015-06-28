@@ -130,7 +130,7 @@ namespace CubeReportingModule
         {
             List<string> keywords = new List<string>();
             keywords.Add(", ");
-            keywords.Add(" from");
+            keywords.Add(",");
 
             List<string> allTableNames = BreakStringOnKeywords(selectClause, keywords);
             return allTableNames;
@@ -167,9 +167,12 @@ namespace CubeReportingModule
             keywords.Add(" self join ");
             keywords.Add(" using");
             keywords.Add(" on ");
-            keywords.Add(" 1=1");
+            keywords.Add(@",\s?");
+            //keywords.Add(" 1=1");
 
-            List<string> allTableNames = BreakStringOnKeywords(fromClause, keywords);
+            string regexPrefix = @"(?<=\s|,|^)";
+
+            List<string> allTableNames = BreakStringOnKeywords(fromClause, keywords, regexPrefix);
             return allTableNames;
         }
 
@@ -186,11 +189,16 @@ namespace CubeReportingModule
 
         public static List<string> BreakStringOnKeywords(string input, List<string> allKeywordsToIgnoreList)
         {
+            return BreakStringOnKeywords(input, allKeywordsToIgnoreList, String.Empty);
+        }
+
+        public static List<string> BreakStringOnKeywords(string input, List<string> allKeywordsToIgnoreList, string regexPrefix)
+        {
             Queue<string> allKeywordsToIgnoreQueue = new Queue<string>(allKeywordsToIgnoreList);
-            string regex = GetRegex(allKeywordsToIgnoreQueue);
+            string regexSuffix = GetRegex(allKeywordsToIgnoreQueue);
+            string regex = regexPrefix + regexSuffix;
             Debug.WriteLine("Regex: " + regex);
 
-            //string regex = @"([\w\-]+)(?: join | 1=1|$)";
             MatchCollection allMatches = Regex.Matches(input, regex, RegexOptions.IgnoreCase);
 
             if (allMatches.Count == 0)
@@ -204,6 +212,10 @@ namespace CubeReportingModule
             foreach (Match match in allMatches)
             {
                 string value = match.Groups[1].Value;
+                if (value.Equals(String.Empty) == true)
+                {
+                    continue;
+                }
                 Debug.WriteLine("Table {0}: ({1})", tableNumber, value);
                 tableNumber++;
                 fragments.Add(value);
@@ -214,7 +226,7 @@ namespace CubeReportingModule
 
         private static string GetRegex(Queue<string> allKeywordsToIgnore)
         {
-            string regex = @"([\w\-]+)(?:";
+            string regex = @"([\w\-]*)(?=";
             if (allKeywordsToIgnore.Count == 0)
             {
                 regex += @"$)";
