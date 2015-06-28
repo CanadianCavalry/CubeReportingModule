@@ -109,12 +109,12 @@ namespace CubeReportingModule.Pages
                 LogWriter.createAccessLog(LogWriter.modifyReport + " " + reportId.ToString());
             }
 
-            List<string> keywords = GetTablesInFromClause(item.FromClause);
+            List<string> keywords = Global.GetTablesInFromClause(item.FromClause);
 
             //debug
             string fakeFrom = @"Org_Company Join AccessLogs join Reports 1=1";
             Debug.WriteLine("From: " + fakeFrom);
-            BreakStringOnKeywords(fakeFrom, keywords);
+            Global.BreakStringOnKeywords(fakeFrom, keywords);
             //end debug
 
             //Session["Step"] = 2;
@@ -125,25 +125,6 @@ namespace CubeReportingModule.Pages
             //Session["Restrictions"];
 
             //Response.Redirect("CreateReport.aspx");
-        }
-
-        private List<string> GetColumnsInSelectClause(string selectClause)
-        {
-            List<string> keywords = new List<string>();
-            keywords.Add(", ");
-
-            List<string> allTableNames = BreakStringOnKeywords(selectClause, keywords);
-            return allTableNames;
-        }
-
-        private List<string> GetTablesInFromClause(string fromClause)
-        {
-            List<string> keywords = new List<string>();
-            keywords.Add(" join ");
-            keywords.Add(" 1=1");
-
-            List<string> allTableNames = BreakStringOnKeywords(fromClause, keywords);
-            return allTableNames;
         }
 
         // The id parameter name should allMatches the DataKeyNames value set on the control
@@ -189,55 +170,6 @@ namespace CubeReportingModule.Pages
             Button button = (Button)sender;
             int reportId = Convert.ToInt32(Global.CleanInput(button.CommandArgument));
             Display_DeleteItem(reportId);
-        }
-
-        protected List<string> BreakStringOnKeywords(string input, List<string> allKeywordsToIgnoreList)
-        {
-            Queue<string> allKeywordsToIgnoreQueue = new Queue<string>(allKeywordsToIgnoreList);
-            string regex = GetRegex(allKeywordsToIgnoreQueue);
-            Debug.WriteLine("Regex: " + regex);
-
-            //string regex = @"([\w\-]+)(?: join | 1=1|$)";
-            MatchCollection allMatches = Regex.Matches(input, regex, RegexOptions.IgnoreCase);
-
-            if (allMatches.Count == 0)
-            {
-                return null;
-            }
-
-            List<string> fragments = new List<string>();
-            int tableNumber = 1;
-
-            foreach (Match match in allMatches)
-            {
-                string value = match.Groups[1].Value;
-                Debug.WriteLine("Table {0}: ({1})", tableNumber, value);
-                tableNumber++;
-                fragments.Add(value);
-            }
-
-            return fragments;
-        }
-
-        private static string GetRegex(Queue<string> allKeywordsToIgnore)
-        {
-            string regex = @"([\w\-]+)(?:";
-            if (allKeywordsToIgnore.Count == 0)
-            {
-                regex += @"$)";
-                return regex;
-            }
-
-            string keyword = allKeywordsToIgnore.Dequeue();
-            regex += keyword;
-
-            while (allKeywordsToIgnore.Count > 0)
-            {
-                keyword = allKeywordsToIgnore.Dequeue();
-                regex += @"|" + keyword;
-            }
-            regex += @"|$)";
-            return regex;
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Diagnostics;
 using CubeReportingModule.Models;
 using System.Web.UI.HtmlControls;
+using System.Web.Security;
 
 namespace CubeReportingModule.Pages
 {
@@ -15,7 +16,6 @@ namespace CubeReportingModule.Pages
         protected void Page_Init(object sender, EventArgs e)
         {
             SetReportOptions();
-            //SetColumnAttributes();
             SetReportRestrictions();
         }
 
@@ -84,6 +84,17 @@ namespace CubeReportingModule.Pages
                     Session["Step"] = step;
                 }
 
+                if (triggerId.Equals(AdminNext.ClientID))
+                {
+                    NextAdminStep(ref step);
+                }
+
+                if (triggerId.Equals(AdminPrevious.ClientID))
+                {
+                    step = 0;
+                    Session["Step"] = step;
+                }
+
                 SaveColumnAttributes();
             }
 
@@ -109,6 +120,13 @@ namespace CubeReportingModule.Pages
                     AllowControls.Visible = false;
                     RestrictionsControls.Visible = false;
 
+                    AdminPanel.Visible = false;
+                    if ((Roles.IsUserInRole("Admin")) || (Roles.IsUserInRole("SysAdmin")))
+                    {
+                        AdminPanel.Visible = true;
+                    }
+                    AdminPrevious.Visible = false;
+
                     Previous.Visible = false;
                     Summary.Visible = false;
 
@@ -123,6 +141,8 @@ namespace CubeReportingModule.Pages
                     AllowControls.Visible = false;
                     RestrictionsControls.Visible = false;
 
+                    AdminPanel.Visible = false;
+
                     Summary.Visible = false;
 
                     ReportSummary.Visible = false;
@@ -134,13 +154,39 @@ namespace CubeReportingModule.Pages
 
                     ColumnControls.Enabled = false;
 
+                    AdminPanel.Visible = false;
+
                     Next.Visible = false;
 
                     ReportSummary.Visible = false;
                     break;
 
                 case 3:
+                    AdminPanel.Visible = false;
+
                     CreateTemplate.Visible = false;
+                    break;
+
+                case 4:
+                    NameControls.Enabled = false;
+                    TableControls.Visible = false;
+                    ColumnControls.Visible = false;
+
+                    AllowControls.Visible = false;
+                    RestrictionsControls.Visible = false;
+
+                    AdminPanel.Visible = false;
+                    if ((Roles.IsUserInRole("Admin")) || (Roles.IsUserInRole("SysAdmin")))
+                    {
+                        AdminPanel.Visible = true;
+                    }
+                    AdminInput.Visible = false;
+                    AdminNext.Visible = false;
+
+                    Next.Visible = false;
+                    Previous.Visible = false;
+
+                    ReportSummary.Visible = false;
                     break;
 
                 default:
@@ -152,6 +198,8 @@ namespace CubeReportingModule.Pages
                     OptionsControls.Visible = false;
                     AllowControls.Visible = false;
                     RestrictionsControls.Visible = false;
+
+                    AdminPanel.Visible = false;
 
                     Next.Visible = false;
                     Summary.Visible = false;
@@ -195,6 +243,12 @@ namespace CubeReportingModule.Pages
                     break;
 
                 case 3:
+                    if (Session["AdminQuery"] != null)
+                    {
+                        BuildAdminSummary();
+                        break;
+                    }
+
                     SetColumnAttributes();
                     BuildSummary();
                     break;
@@ -204,6 +258,77 @@ namespace CubeReportingModule.Pages
             }
         }
 
+        private void BuildAdminSummary()
+        {
+            //Get next reportId
+            AppContext db = new AppContext();
+            int reportId = db.GRAReports.ToList().LastOrDefault().ReportId;
+            reportId++;
+
+            string adminQuery = (string)Session["AdminQuery"];
+
+            //Build Select clause of Query
+            string selectClause = Global.GetSelectClause(adminQuery);
+
+            //Build From clause of Query
+            string fromClause = Global.GetFromClause(adminQuery);
+
+            Queue<GRAReportOption> optionList = GetOptionQueue(reportId, fromClause);
+
+            //Build Where clause of Query
+            string whereClause = Global.GetWhereClause(adminQuery);
+
+            //Build Option summary
+            List<GRAReportOption> allOptions = new List<GRAReportOption>();
+            string optionSummary = "";
+            if (optionList.Count != 0)
+            {
+                GRAReportOption option = optionList.Dequeue();
+                allOptions.Add(option);
+                string toAdd = option.ToString();
+                optionSummary += toAdd;
+
+                while (optionList.Count > 0)
+                {
+                    option = optionList.Dequeue();
+                    allOptions.Add(option);
+                    toAdd = option.ToString();
+                    optionSummary += "<br/>" + toAdd;
+                }
+            }
+
+            //Display summary
+            string reportName = Global.CleanInput(Session["ReportName"].ToString());
+            HtmlGenericControl title = new HtmlGenericControl("h1");
+            title.InnerHtml = reportName;
+            SummaryDisplay.Controls.Add(title);
+
+            Label summary = new Label();
+            summary.Text = String.Format("Options:<br/>{0}", optionSummary);
+            SummaryDisplay.Controls.Add(summary);
+            SummaryDisplay.Controls.Add(new LiteralControl("<br />"));
+
+            //Display Query
+            Label querySummary = new Label();
+            querySummary.Text = "Query:";
+            TextBox queryDisplay = new TextBox();
+            queryDisplay.Text = adminQuery;
+            queryDisplay.ReadOnly = true;
+            SummaryDisplay.Controls.Add(querySummary);
+            SummaryDisplay.Controls.Add(queryDisplay);
+
+            //Save Report and ReportOptions
+            GRAReport report = new GRAReport();
+            //report.ReportId = reportId;
+            report.Name = reportName;
+            report.SelectClause = selectClause;
+            report.FromClause = fromClause;
+            report.WhereClause = whereClause;
+
+            Session["FinishedReport"] = report;
+            Session["FinishedReportOptions"] = allOptions;
+        }
+
         private void BuildSummary()
         {
             //Get next reportId
@@ -211,19 +336,9 @@ namespace CubeReportingModule.Pages
             int reportId = db.GRAReports.ToList().LastOrDefault().ReportId;
             reportId++;
 
-            Queue<string> tableList = new Queue<string>();
-            foreach (ListItem item in (ListItemCollection)Session["TableNames"])
-            {
-                string tableName = Global.CleanInput(item.ToString());
-                tableList.Enqueue(tableName);
-            }
+            Queue<string> tableList = GetTableQueue();
 
-            Queue<string> columnList = new Queue<string>();
-            foreach (ListItem item in (ListItemCollection)Session["ColumnNames"])
-            {
-                string columnName = Global.CleanInput(item.ToString());
-                columnList.Enqueue(columnName);
-            }
+            Queue<string> columnList = GetColumnQueue();
 
             //Build Select clause of Query
             string selectClause = "";
@@ -344,6 +459,52 @@ namespace CubeReportingModule.Pages
 
             Session["FinishedReport"] = report;
             Session["FinishedReportOptions"] = allOptions;
+        }
+
+        private Queue<string> GetColumnQueue()
+        {
+            Queue<string> columnList = new Queue<string>();
+
+            if (Session["AdminQuery"] != null)
+            {
+                string adminQuery = (string)Session["AdminQuery"];
+
+                string selectClause = Global.GetSelectClause(adminQuery);
+                List<string> allColumnNames = Global.GetColumnsInSelectClause(selectClause);
+                columnList = new Queue<string>(allColumnNames);
+
+                return columnList;
+            }
+
+            foreach (ListItem item in (ListItemCollection)Session["ColumnNames"])
+            {
+                string columnName = Global.CleanInput(item.ToString());
+                columnList.Enqueue(columnName);
+            }
+            return columnList;
+        }
+
+        private Queue<string> GetTableQueue()
+        {
+            Queue<string> tableList = new Queue<string>();
+
+            if (Session["AdminQuery"] != null)
+            {
+                string adminQuery = (string)Session["AdminQuery"];
+
+                string fromClause = Global.GetFromClause(adminQuery);
+                List<string> allTableNames = Global.GetTablesInFromClause(fromClause);
+                tableList = new Queue<string>(allTableNames);
+
+                return tableList;
+            }
+
+            foreach (ListItem item in (ListItemCollection)Session["TableNames"])
+            {
+                string tableName = Global.CleanInput(item.ToString());
+                tableList.Enqueue(tableName);
+            }
+            return tableList;
         }
 
         private Queue<string> GetRestrictionQueue()
@@ -509,22 +670,92 @@ namespace CubeReportingModule.Pages
             return optionQueue;
         }
 
+        protected void NextAdminStep(ref int step)
+        {
+            switch (step)
+            {
+                case 0:
+                    string reportName = Global.CleanInput((string)Request.Form[ReportName.UniqueID]);
+                    //Session["GetReportName"] = GetReportName.Text;
+                    Session["ReportName"] = reportName;
+
+                    bool isAdmin = Roles.IsUserInRole("Admin");
+                    bool isSysAdmin = Roles.IsUserInRole("SysAdmin");
+                    if (!(isAdmin || isSysAdmin))
+                    {
+                        Message.Text = "You do not have permission to perform this action.";
+                        break;
+                    }
+
+                    string adminQuery = Global.CleanInput((string)Request.Form[QueryInput.UniqueID]);
+                    if (adminQuery.Equals(String.Empty))
+                    {
+                        Message.Text = "You must enter a valid query.";
+                        break;
+                    }
+
+                    string selectClause = Global.GetSelectClause(adminQuery);
+                    if (selectClause.Equals(String.Empty))
+                    {
+                        Message.Text = "You must enter a valid query.";
+                        break;
+                    }
+
+                    Session["AdminQuery"] = adminQuery;
+
+                    List<string> allColumnNames = Global.GetColumnsInSelectClause(selectClause);
+                    ListItemCollection columnNameList = new ListItemCollection();
+                    foreach (string column in allColumnNames)
+                    {
+                        ListItem toAdd = new ListItem();
+                        toAdd.Value = column;
+                        toAdd.Selected = true;
+                        columnNameList.Add(toAdd);
+                    }
+                    Session["ColumnNames"] = columnNameList;
+
+                    //string fromClause = Global.GetFromClause(adminQuery);
+                    //if (fromClause.Equals(String.Empty))
+                    //{
+                    //    return;
+                    //}
+
+                    //List<string> allTableNames = Global.GetTablesInFromClause(fromClause);
+                    //ListItemCollection tableNameList = new ListItemCollection();
+                    //foreach (string table in allTableNames)
+                    //{
+                    //    ListItem toAdd = new ListItem();
+                    //    toAdd.Value = table;
+                    //    toAdd.Selected = true;
+                    //    tableNameList.Add(toAdd);
+                    //}
+                    //Session["TableNames"] = tableNameList;
+
+                    step = 4;
+                    Session["Step"] = step;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
         protected void NextStep(ref int step)
         {
             //debug
-            foreach (string key in Request.Form.AllKeys)
-            {
-                Control control = FindControl(key);
-                if (control == null)
-                {
-                    continue;
-                }
+            //foreach (string key in Request.Form.AllKeys)
+            //{
+            //    Control control = FindControl(key);
+            //    if (control == null)
+            //    {
+            //        continue;
+            //    }
 
-                string id = control.UniqueID;
-                string name = control.ClientID;
-                string value = Global.CleanInput(Request.Form[key]);
-                Debug.WriteLine(String.Format("{0} : {1} : {2}", id, name, value));   //debug
-            }
+            //    string id = control.UniqueID;
+            //    string name = control.ClientID;
+            //    string value = Global.CleanInput(Request.Form[key]);
+            //    Debug.WriteLine(String.Format("{0} : {1} : {2}", id, name, value));   //debug
+            //}
             //end debug
 
             switch (step)
@@ -592,6 +823,9 @@ namespace CubeReportingModule.Pages
                     break;
 
                 case 3:
+                    break;
+
+                case 4:
                     break;
             }
 
@@ -790,7 +1024,7 @@ namespace CubeReportingModule.Pages
             List<string> allCheckedAttributes = (List<string>)Session["CheckedAttributes"];
             foreach (string key in allCheckedAttributes)
             {
-                CheckBox toFind = (CheckBox) FindControl(key);
+                CheckBox toFind = (CheckBox)FindControl(key);
                 if (toFind == null)
                 {
                     continue;

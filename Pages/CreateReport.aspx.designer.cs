@@ -211,6 +211,51 @@ namespace CubeReportingModule.Pages {
         protected global::System.Web.UI.WebControls.Button Summary;
         
         /// <summary>
+        /// AdminPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel AdminPanel;
+        
+        /// <summary>
+        /// AdminInput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel AdminInput;
+        
+        /// <summary>
+        /// QueryInput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox QueryInput;
+        
+        /// <summary>
+        /// AdminNext control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AdminNext;
+        
+        /// <summary>
+        /// AdminPrevious control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AdminPrevious;
+        
+        /// <summary>
         /// ReportSummary control.
         /// </summary>
         /// <remarks>

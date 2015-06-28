@@ -16,14 +16,14 @@
                 Choose tables:
                 <asp:SqlDataSource runat="server" ID="TableQuery" DataSourceMode="DataSet" SelectCommand="SELECT TABLE_NAME FROM information_schema.tables Where TABLE_NAME not like 'GRA%' And TABLE_NAME not like '%aspnet%' Order By TABLE_NAME Asc" ConnectionString="<%$ ConnectionStrings:AppContext %>" />
                 <asp:RadioButtonList runat="server" ID="TableNames" ClientIDMode="Static" DataSourceID="TableQuery" DataTextField="TABLE_NAME" DataValueField="TABLE_NAME" />
-<%--                <asp:CheckBoxList runat="server" ID="TableNames" ClientIDMode="Static" DataSourceID="TableQuery" DataTextField="TABLE_NAME" DataValueField="TABLE_NAME" />--%>
-<%--                <asp:RequiredFieldValidator runat="server" ControlToValidate="TableNames" CssClass="StatusMessage" ErrorMessage="You must pick at least one table." />--%>
+                <%--                <asp:CheckBoxList runat="server" ID="TableNames" ClientIDMode="Static" DataSourceID="TableQuery" DataTextField="TABLE_NAME" DataValueField="TABLE_NAME" />--%>
+                <%--                <asp:RequiredFieldValidator runat="server" ControlToValidate="TableNames" CssClass="StatusMessage" ErrorMessage="You must pick at least one table." />--%>
             </asp:Panel>
             <asp:Panel runat="server" ID="ColumnControls" ClientIDMode="Static" ScrollBars="Vertical">
                 Choose columns:
                 <asp:SqlDataSource runat="server" ID="ColumnQuery" DataSourceMode="DataSet" ConnectionString="<%$ ConnectionStrings:AppContext %>" />
                 <asp:CheckBoxList runat="server" ID="ColumnNames" ClientIDMode="Static" DataSourceID="ColumnQuery" DataTextField="column_name" DataValueField="column_name" />
-<%--                <asp:RequiredFieldValidator runat="server" ControlToValidate="ColumnNames" CssClass="StatusMessage" ErrorMessage="You must pick at least one column." />--%>
+                <%--                <asp:RequiredFieldValidator runat="server" ControlToValidate="ColumnNames" CssClass="StatusMessage" ErrorMessage="You must pick at least one column." />--%>
             </asp:Panel>
             <asp:Panel runat="server" ID="OptionsControls" ClientIDMode="Static">
                 Report Options:
@@ -43,6 +43,15 @@
         <asp:Button runat="server" ID="Next" ClientIDMode="Static" Text="Next" UseSubmitBehavior="false" />
         <asp:Button runat="server" ID="Previous" ClientIDMode="Static" Text="Previous" UseSubmitBehavior="false" />
         <asp:Button runat="server" ID="Summary" ClientIDMode="Static" Text="View Summary" UseSubmitBehavior="false" />
+        <asp:Panel runat="server" ID="AdminPanel">
+            <asp:Panel runat="server" ID="AdminInput">
+                <h3>Admin Query Input</h3>
+                Enter a query:
+                <asp:TextBox runat="server" ID="QueryInput" />
+            </asp:Panel>
+            <asp:Button runat="server" ID="AdminNext" ClientIDMode="Static" Text="Next" UseSubmitBehavior="false" />
+            <asp:Button runat="server" ID="AdminPrevious" ClientIDMode="Static" Text="Previous" UseSubmitBehavior="false" />
+        </asp:Panel>
     </asp:Panel>
     <asp:Panel runat="server" ID="ReportSummary">
         <h1>Report Summary</h1>
