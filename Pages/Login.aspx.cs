@@ -13,8 +13,9 @@ namespace CubeReportingModule.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            CreateDefaultSysAdmin();
             CreateRoles();
+            CreateDefaultSysAdmin();
+            //CreateUsers();
             //CreateTestUsers();
         }
 
@@ -47,7 +48,7 @@ namespace CubeReportingModule.Pages
             MembershipUser sysAdmin;            //used to track the default sysadmin account
 
             //create the Sysadmin account, if it does not exist
-            Membership.CreateUser("deus", "exmachina!", "email@email.com", "Really?", "yes really", true, out status);
+            Membership.CreateUser("deus", "glenfiddich", "cubereporting@cubeglobalstorage.com", "Really?", "yes really", true, out status);
 
             //Find the Sysadmin account
             MembershipUserCollection matchingUsers = Membership.FindUsersByName("deus");
@@ -64,6 +65,23 @@ namespace CubeReportingModule.Pages
             {
                 Roles.AddUserToRole("deus", "SysAdmin");
             }
+        }
+
+        public void CreateUsers()
+        {
+            MembershipCreateStatus status;
+
+            Membership.CreateUser("Simon", "simonspencer", "simon.spencer@cubeglobalstorage.com", "Really?", "yes really", true, out status);
+
+            //MembershipUserCollection matchingUsers = Membership.FindUsersByName("Simon");
+            //MembershipUser simon = matchingUsers["Simon"];
+
+            if (Roles.IsUserInRole("Simon", "Admin"))
+            {
+                return;
+            }
+
+            Roles.AddUserToRole("Simon", "Admin");
         }
 
         //private void CreateTestUsers()

@@ -9,7 +9,7 @@
         runat="server" 
         DestinationPageUrl="Menu.aspx"
         PasswordRecoveryText="Forgotten your password?"
-        PasswordRecoveryUrl="~/Pages/RecoverPassword.aspx"
+        PasswordRecoveryUrl="RecoverPassword.aspx"
         Align="Center">
         </asp:Login>
     </div>

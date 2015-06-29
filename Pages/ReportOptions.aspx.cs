@@ -21,16 +21,6 @@ namespace CubeReportingModule.Pages
         {
             pageReport = getPageReport();
             BuildSelectOptions();
-
-            if (IsPostBack)
-            {
-                string query = BuildQuery();
-                Debug.Write(query); //debug
-                Session["Query"] = query;
-                Session["ReportName"] = pageReport.Name;
-                Response.Redirect("ReportDisplayHTML.aspx");
-                return;
-            }
         }
 
         private GRAReport getPageReport()

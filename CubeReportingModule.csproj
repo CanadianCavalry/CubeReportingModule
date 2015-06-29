@@ -278,6 +278,7 @@
     <Content Include="Admin\Web.config" />
     <Content Include="Pages\Web.config" />
     <None Include="Properties\PublishProfiles\Core.pubxml" />
+    <None Include="Properties\PublishProfiles\Cube.pubxml" />
     <None Include="Properties\PublishProfiles\CubeHome.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
