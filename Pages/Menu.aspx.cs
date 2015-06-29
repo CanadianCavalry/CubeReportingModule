@@ -77,5 +77,10 @@ namespace CubeReportingModule.Pages
         {
             Response.Redirect("ManageScheduledEvents.aspx");
         }
+
+        protected void Help_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Help.aspx");
+        }
     }
 }

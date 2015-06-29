@@ -11,7 +11,7 @@
         <br />
         <asp:Button runat="server" ID="Events" CssClass="MenuButton" Text="Modify Scheduled Reports" OnClick="Events_Click" />
         <br />
-        <asp:Button runat="server" ID="Help" CssClass="MenuButton" Text="Help" />
+        <asp:Button runat="server" ID="Help" CssClass="MenuButton" Text="Help" OnClick="Help_Click" />
         <br />
     </div>
     <asp:Panel runat="server" ID="Reports" Cssclass="RightPane" ScrollBars="Vertical">

@@ -98,6 +98,7 @@
     <Content Include="Global.asax" />
     <Content Include="Pages\Admin.aspx" />
     <Content Include="Pages\CreateReport.aspx" />
+    <Content Include="Pages\Help.aspx" />
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\ManageReports.aspx" />
     <Content Include="Pages\Menu.aspx" />
@@ -166,6 +167,13 @@
     </Compile>
     <Compile Include="Pages\CreateReport.aspx.designer.cs">
       <DependentUpon>CreateReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Help.aspx.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Help.aspx.designer.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
