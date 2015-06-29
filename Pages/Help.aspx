@@ -74,7 +74,7 @@
 
     <h3>Step 2:</h3>
     <p>Enter your provided username and password into the appropriate boxes, and press ‘enter’ or click the ‘Log In’ button. This will bring you to the menu screen. </p>
-    <p><i>Note: It is strongly recommended that you change your password after logging in for the first time, to protect your account. See Chapter 2, page 9 for steps on how to change your password.</i></p>
+    <p><i>Note: It is strongly recommended that you change your password after logging in for the first time, to protect your account. See <a href="#Password">Chapter 2</a>, for steps on how to change your password.</i></p>
 
     <a href="#Top"><h3>Back to top</h3></a>
     <br />
@@ -128,7 +128,7 @@
     <h3>Step 1:</h3>
     <p>Enter the new email address in the “New Email Address” box. Ensure it is correct, as this is the only way for you to reset your password.</p>
     <h3>Step 2:</h3>
-    <p>Enter your password in the “Current Password” box, and click “Save Changes. You should see a status message appear at the top of the page indicating the change was successful. You should also see the new email address reflected in the User Profile box. If the update was not successful, check the status message for details as to why and try again. Refer to figure 2.3 on the next page for assistance.</p>
+    <p>Enter your password in the “Current Password” box, and click “Save Changes. You should see a status message appear at the top of the page indicating the change was successful. You should also see the new email address reflected in the User Profile box. If the update was not successful, check the status message for details as to why and try again. Refer to <a href="#Figure2.3">figure 2.3</a> for assistance.</p>
 
     <a href="#Top"><h3>Back to top</h3></a>
     <br />
@@ -138,10 +138,11 @@
 
     <h3>Step 1:</h3>
     <p>Enter your new password in the “New Password” box. Enter the same password into the “Re-Type Password” box.</p>
-    <p>Note: Make sure you remember your new password! If you forget it, you will need to reset it using the Password Reset tool. Refer to page 5 for details.</p>
+    <p>Note: Make sure you remember your new password! If you forget it, you will need to reset it using the Password Reset tool. Refer to <a href="#ResetPassword">resetting your password</a> for details.</p>
 
     <h3>Step 2:</h3>
-    <p>Enter your password in the “Current Password” box, and click “Save Changes. You should see a status message appear at the top of the page indicating the change was successful. If the update was not successful, check the status message for details as to why and try again. Refer to figure 2.3 for assistance.</p>
+    <p>Enter your password in the “Current Password” box, and click “Save Changes. You should see a status message appear at the top of the page indicating the change was successful. If the update was not successful, check the status message for details as to why and try again. Refer to <a href="#Figure2.3">figure 2.3</a> for assistance.</p>
+    <a name="Figure2.3"></a>
     <img />
     <p>Figure 2.3 - Updating a user profile</p>
     <p><i>Note: It is possible to change both your password and email address at the same time. Simply fill out all boxes on the page and click “Save Changes”. Be careful though, if one of the changes fail, the other can still succeed. Always read the status message carefully to make sure all changes were successful.</i></p>
@@ -194,11 +195,11 @@
     <p>Choose a name for your new report template, and enter it in the “Report Name” box.</p>
 
     <h3>Step 3:</h3>
-    <p>Select the tables you wish to run the report on, and click “Next”. If you select more than one table, the application will automatically join the tables on the first shared column.</p>
-    <p><i>Note: Creating report templates requires some knowledge of the GAIN database and its structure. Selecting tables with no shared column will result in an empty report. If you are having trouble, contact your Administrator.</i></p>
+    <p>Select the table you wish to run the report on, and click “Next”.</p>
+    <p><i>Note: Creating report templates requires some knowledge of the GAIN database and its structure. If you are having trouble, contact your Administrator.</i></p>
 
     <h3>Step 4:</h3>
-    <p>Select the columns you wish to include in the report from the chosen table(s), and click “Next”.</p>
+    <p>Select the columns you wish to include in the report from the chosen table, and click “Next”.</p>
 
     <h3>Step 5:</h3>
     <p>Now you may add options. An option is something that users can choose to use when they run the report. Each option limits what data appears in the report. To add an option, first name it something descriptive by typing the name into the “Label” box. Next, select which column the option will relate to. Next, choose the “Option Type”. This is what kind of control will be used to change the option. Finally select the comparator to use and the default value. For help with options, see the note below.</p>
@@ -206,7 +207,7 @@
 
     <h3>Step 6:</h3>
     <p>A restriction is similar to an option, but is always included when the report is run. It is not chosen by the user when they run the report, this also applies to column attributes. To add a restriction first choose a column to use for comparison. Then choose a comparator to use and enter a value to be used for comparison.</p>
-    <p>Note: All blank values will be automatically removed from each column when the report is displayed. If you don’t want this to happen simply change the attributes of the column in question and check either the “Allow Nulls” or “Allow Empty Strings” checkboxes.</p>
+    <p><i>Note: All blank values will be automatically removed from each column when the report is displayed. If you don’t want this to happen simply change the attributes of the column in question and check either the “Allow Nulls” or “Allow Empty Strings” checkboxes.</i></p>
 
     <a href="#Top"><h3>Back to top</h3></a>
     <br />
@@ -253,7 +254,7 @@
     <p>Basic User - A standard user account. Typically most employees will have this Role.</p>
     <p>Admin - Admin accounts can create new users, reset user passwords and lock user accounts. They can access the Role management page, but cannot assign Admin status.</p>
     <p>SysAdmin - There is only a single SysAdmin account, named “deus”. This account cannot be deleted. The SysAdmin Role cannot be granted or revoked. It has full access to the application, including being able to create and delete any user, assign and revoke Admin status, and lock any user account, including Admins.</p>
-    <p>Customer- This Role is not currently used by the application. It is included to allow Cube Global Storage to expand the application for client use. It currently has the same privileges as a Basic User.</p>
+    <p>Customer - This Role is not currently used by the application. It is included to allow Cube Global Storage to expand the application for client use. It currently has the same privileges as a Basic User.</p>
 
     <a href="#Top"><h3>Back to top</h3></a>
     <br />
@@ -311,7 +312,7 @@
 
     <h3>Step 3:</h3>
     <p>Click either the “Unlock Account” or the “Lock Account” button.</p>
-    <p><i>Note: If the button is disabled, that means the user account is already in that state. You can see the user’s current state by selecting them from the drop down and looking at the “Suspended entry in the user details pane.</i></p>
+    <p><i>Note: If the button is disabled, that means the user account is already in that state. You can see the user’s current state by selecting them from the drop down and looking at the “Suspended" entry in the user details pane.</i></p>
 
     <a href="#Top"><h3>Back to top</h3></a>
     <br />
@@ -381,7 +382,7 @@
     <p>Return to the aspnet_Users table. Delete the entry for “deus”. Save all changes.</p>
 
     <h3>Step 6:</h3>
-    <p>Restart the application. Log in using the username “deus” and the default password. If you do not know the default password, contact the system administrator. Immediately follow the steps for changing your password located in chapter 2, page 8.</p>
+    <p>Restart the application. Log in using the username “deus” and the default password. If you do not know the default password, contact the system administrator. Immediately follow the steps for changing your password located in <a href="#Password">Chapter 2</a>.</p>
 
     <a href="#Top"><h3>Back to top</h3></a>
 </asp:Content>
