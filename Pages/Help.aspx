@@ -68,7 +68,7 @@
     <p>Open your web browser and enter the following URL into the address bar:</p>
     <p>http://XXXX/Pages/Login.aspx</p>
     <p>After the page loads, you should see the login screen.</p>
-    <img />
+    <img src="../Resources/manual/Login.png" />
     <p>Figure 1.0 - Login Screen</p>
     <p><i>Note: This application is only accessible from within Cube. If your browser does not load the login page ensure you are connected to the local private network. If the problem persists, contact your Admin.</i></p>
 
@@ -85,7 +85,7 @@
     <p>If you have forgotten your password you can reset it from the login page.</p>
     <h3>Step 1:</h3>
     <p>Click the “Forgotten Your Password?” link below the ‘Log In’ button.</p>
-    <img />
+    <img src="../Resources/manual/ForgottenPassword.png"/>
     <p>Figure 1.1 - Link to reset your password</p>
 
     <h3>Step 2:</h3>
@@ -93,7 +93,7 @@
 
     <h3>Step 3:</h3>
     <p>On the next screen you are presented with your chosen security question. Enter your answer into the textbox and click “Submit”. Your password will now be mailed to the email address associated with your account. Check your inbox within the next 10 minutes for your new password.</p>
-    <img />
+    <img src="../Resources/manual/ForgottenPassword2.png"/>
     <p>Figure 1.3 - Security question page</p>
     <p><i>Note: You should always change your password after you reset it. Application generated passwords are designed to be complex for security reasons, but this makes them very hard to remember. If you must write your password down, never leave it near your work station, such as in a drawer or attached to the screen.</i></p>
 
@@ -113,10 +113,10 @@
 
     <p>You can access your user profile from any screen other than the Login page. Be aware that if you leave a page such as the Create Report page, you will lose any data you have already entered.</p>
     <p>To access your profile, click the “Profile” button located in the upper right corner of the screen.</p>
-    <img />
+    <img src="../Resources/manual/ProfileButton.png" />
     <p>Figure 2.1 - Button to access your user profile</p>
     <p>This will bring you to the Profile page.</p>
-    <img />
+    <img src="../Resources/manual/ProfileScreen.png" />
     <p>Figure 2.2 - User Profile page</p>
 
     <a href="#Top"><h3>Back to top</h3></a>
@@ -143,7 +143,7 @@
     <h3>Step 2:</h3>
     <p>Enter your password in the “Current Password” box, and click “Save Changes. You should see a status message appear at the top of the page indicating the change was successful. If the update was not successful, check the status message for details as to why and try again. Refer to <a href="#Figure2.3">figure 2.3</a> for assistance.</p>
     <a name="Figure2.3"></a>
-    <img />
+    <img src="../Resources/manual/ProfileUpdate.png" />
     <p>Figure 2.3 - Updating a user profile</p>
     <p><i>Note: It is possible to change both your password and email address at the same time. Simply fill out all boxes on the page and click “Save Changes”. Be careful though, if one of the changes fail, the other can still succeed. Always read the status message carefully to make sure all changes were successful.</i></p>
 
@@ -168,7 +168,7 @@
 
     <h3>Step 2:</h3>
     <p>Set any restrictions you wish to use by modifying the appropriate controls. If you do not wish to use any restrictions, leave everything as it is. Click “Generate Report”. </p>
-    <img />
+    <img src="../Resources/manual/ReportOptions.png" />
     <p>Figure 3.1 - A report options page with all default values</p>
     <p><i>Note: Each report option represents a restriction on the data you wish to be included in the report. By default, there are no restrictions in place. So for example, in the “Generate Empty Spaces” report, if you wish to only see locations with at least 5 empty spots, you would set the “Available Space” counters to 4 and 9999.</i></p>
 
@@ -177,7 +177,7 @@
 
     <h3>Step 4:</h3>
     <p>To save the report as an Excel file, click the “Save to File” button. This saves to your default downloads folder. If you wish to email the report to a user, click on the “Email to User” button. You will be prompted for the email address to send it to. After both of these actions you should see a status message appear at the top of the page confirming that they were successful.</p>
-    <img />
+    <img src="../Resources/manual/ReportDisplay.png" />
     <p>Figure 3.2 - An example report preview </p>
 
     <a href="#Top"><h3>Back to top</h3></a>
@@ -217,7 +217,7 @@
 
     <h3>Step 1:</h3>
     <p>From the main menu, click “Modify Scheduled Events”. This will bring you to the Scheduled Events page. Here you will see all currently scheduled reports.</p>
-    <img />
+    <img src="../Resources/manual/ScheduledEventsMain.png" />
     <p>Figure 3.3 - Current scheduled reports</p>
 
     <h3>Step 2:</h3>
@@ -225,7 +225,7 @@
 
     <h3>Step 3:</h3>
     <p>First select which report to run from the dropdown menu. Next choose how often to run the report. So for a weekly report you would choose 7 days. Finally add one or more recipients to the list of people who will receive the report.Simply enter their email address in the appropriate box and click “Add Email Recipient”.</p>
-    <img />
+    <img src="../Resources/manual/ScheduledEventsAdd.png" />
     <p>Figure 3.4 - Adding a new scheduled report</p>
 
     <h3>Step 5:</h3>
@@ -266,7 +266,7 @@
 
     <h3>Step 1:</h3>
     <p>From the main menu, click the “Add/Remove Users” button located on the admin panel. This will bring you to the Add User page.</p>
-    <img />
+    <img src="../Resources/manual/CreateUser.png" />
     <p>Figure 4.1 - Creating a new user</p>
 
     <h3>Step 2:</h3>
@@ -285,7 +285,7 @@
 
     <h3>Step 1:</h3>
     <p>From the main menu, click the “Manage Roles” button located on the admin panel. This will bring you to the Manage Roles page.</p>
-    <img />
+    <img src="../Resources/manual/ManageRoles.png" />
     <p>Figure 4.2 - Manage Roles page</p>
 
     <h3>Step 2:</h3>
@@ -304,7 +304,7 @@
 
     <h3>Step 1:</h3>
     <p>From the main menu, click the “User Security” button located on the admin panel. This will bring you to the Security page.</p>
-    <img />
+    <img src="../Resources/manual/UserSecurity.png" />
     <p>Figure 4.3 - User Security page</p>
 
     <h3>Step 2:</h3>
@@ -348,7 +348,7 @@
     <p>User - Which user performed the action.</p>
     <p>Action - What the user did.</p>
     <p>Date - The timestamp of when the action was performed.</p>
-    <img />
+    <img src="../Resources/manual/AccessLogs.png" />
     <p>Figure 4.4 - Viewing the access logs</p>
     <p><i>Note: Admins should review the logs regularly to catch any intrusions as soon as possible. Things to watch for include users accessing pages they do not have access to, users performing actions after closing hours, and users performing actions without logging in first.</i></p>
 
@@ -367,12 +367,12 @@
 
     <h3>Step 2: </h3>
     <p>Locate the table named aspnet_Users, and view the Data in the table. Find the user named “deus” and write down the first 6-8 characters of their “UserId”.</p>
-    <img />
+    <img src="../Resources/manual/Recovery1.png" />
     <p>Figure 4.5 - Finding the UserId of “deus”</p>
 
     <h3>Step 3:</h3>
     <p>Now find the table named aspnet_Membership. Locate the entry whose UserId matches that of the “deus” account. Delete that entry.</p>
-    <img />
+    <img src="../Resources/manual/Recovery2.png" />
     <p>Figure 4.5 - Deleting the “deus” user from aspnet_Membership</p>
 
     <h3>Step 4:</h3>
